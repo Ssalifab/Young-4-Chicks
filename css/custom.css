@@ -1,0 +1,36 @@
+/*Add margin to the login card*/
+#welcomeText{
+    margin-top: 140px;
+    text-align: center;
+}
+#welcomeLogo{
+    margin-top: 180px;
+}
+body{
+    background-color: rgb(243, 236, 228);
+    margin-top: 15px;
+}
+.mylistDecor{
+    background-color: rgb(243, 236, 228);
+    text-decoration-color: white;
+    
+}
+.white-link,
+.white-link:link,
+.white-link:visited,
+.white-link:hover,
+.white-link:active {
+  color: white;
+  text-decoration: none; /* Optional: removes underline */
+}
+
+.text-white {
+  color: white;
+}
+
+.table-h6-font {
+  font-size: 0.67em; 
+  font-weight: 600;
+  margin: 1.33em 0; 
+  text-align: left;
+}
