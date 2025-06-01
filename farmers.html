@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young4Chicks_Farmers</title>
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12">
+                <div w3-include-html="/includes/sidebar.html"></div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Farmers</h5>
+                        <div>
+                            <button class="btn btn-secondary me-2" data-bs-toggle="modal"
+                                data-bs-target="#addFarmerModal">
+                                Add Farmer
+                            </button>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editFarmerModal">
+                                Edit Farmer
+                            </button>
+                            <button class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#deleteFarmerModal">
+                                Delete Farmer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-h6-font">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name </th>
+                                    <th>Date of Birth</th>
+                                    <th>Gender</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Farmer NIN</th>
+                                    <th>Farmer Type</th>
+                                    <th>Recommender Name</th>
+                                    <th>Recomender NIN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Atim</td>
+                                    <td>Nancy</td>
+                                    <td>10-5-2003</td>
+                                    <td>Female</td>
+                                    <td>0765-444098</td>
+                                    <td>natim03@gmail.com</td>
+                                    <td>CM98087407YW3W</td>
+                                    <td>Starter</td>
+                                    <td>Akullo Justin</td>
+                                    <td>CM87565798YG5L</td>
+                                </tr>
+                                <tr>
+                                    <td>Nampewo</td>
+                                    <td>Betty</td>
+                                    <td>3-3-2003</td>
+                                    <td>Female</td>
+                                    <td>0765-747098</td>
+                                    <td>bnampewo@gmail.com</td>
+                                    <td>CM98087707YW3E</td>
+                                    <td>Starter</td>
+                                    <td>Akullo Justin</td>
+                                    <td>CM87565798YG5L</td>
+                                </tr>
+                                <tr>
+                                    <td>Ddambya</td>
+                                    <td>Megan</td>
+                                    <td>27-7-2005</td>
+                                    <td>Female</td>
+                                    <td>0775-409098</td>
+                                    <td>dmaggy@gmail.com</td>
+                                    <td>CM98087407YW3W</td>
+                                    <td>Starter</td>
+                                    <td>Akullo Justin</td>
+                                    <td>CM87565798YG5L</td>
+                                </tr>
+                                <tr>
+                                    <td>Mugisha</td>
+                                    <td>Herbert</td>
+                                    <td>17-2-2000</td>
+                                    <td>Male</td>
+                                    <td>0765-546098</td>
+                                    <td>mugishah05@gmail.com</td>
+                                    <td>CM98087407YW3W</td>
+                                    <td>Returning</td>
+                                    <td>Ankunda Patience</td>
+                                    <td>CM77568798YG5U</td>
+                                </tr>
+                                <tr>
+                                    <td>Nakaayi</td>
+                                    <td>Agnes</td>
+                                    <td>20-12-2004</td>
+                                    <td>Female</td>
+                                    <td>0785-343298</td>
+                                    <td>naggie@gmail.com</td>
+                                    <td>CM97087409YW3T</td>
+                                    <td>Starter</td>
+                                    <td>Baseke Fred</td>
+                                    <td>CM87565798YG5L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Add Farmer Modal -->
+            <div class="modal fade" id="addFarmerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="addFarmerModal">Add Farmer</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dob">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control" id="gender">
+                                        <option value="">Select gender</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                        placeholder="Enter Phone Number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="farmerNIN">Farmer NIN</label>
+                                    <input type="text" class="form-control" id="farmerNIN"
+                                        placeholder="Enter farmer's NIN">
+                                </div>
+                                <div class="form-group">
+                                    <label for="farmerType">Farmer Type</label>
+                                    <select class="form-control" id="farmerType">
+                                        <option value="">Select farmer type</option>
+                                        <option value="Starter">Starter</option>
+                                        <option value="Returning">Returning</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recommenderName">Recommender Name</label>
+                                    <input type="text" class="form-control" id="recommenderName"
+                                        placeholder="Enter recommender name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recommenderNIN">Recommender NIN</label>
+                                    <input type="text" class="form-control" id="recommenderNIN"
+                                        placeholder="Enter recommender's NIN">
+                                </div>
+
+                                <a href="/farmers.html" class="btn btn-dark">Add Farmer</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit User Modal -->
+
+            <div class="modal fade" id="editFarmerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editFarmerModal">Edit Farmer</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="farmerNIN">Farmer's NIN</label>
+                                    <select class="form-control" id="farmerNIN">
+                                        <option value="">Select farmer's NIN</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                        <option value="CM98087707YW3E">CM98087707YW3E</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dob">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control" id="gender">
+                                        <option value="">Select gender</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                        placeholder="Enter Phone Number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="farmerType">Farmer Type</label>
+                                    <select class="form-control" id="farmerType">
+                                        <option value="">Select farmer type</option>
+                                        <option value="Starter">Starter</option>
+                                        <option value="Returning">Returning</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recommenderName">Recommender Name</label>
+                                    <input type="text" class="form-control" id="recommenderName"
+                                        placeholder="Enter recommender name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recommenderNIN">Recommender NIN</label>
+                                    <input type="text" class="form-control" id="recommenderNIN"
+                                        placeholder="Enter recommender's NIN">
+                                </div>
+
+                                <a href="/farmers.html" class="btn btn-dark">Edit Farmer</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete User Modal -->
+            <div class="modal fade" id="deleteFarmerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteFarmerModal">Delete Farmer</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="farmerNIN">Farmer's NIN</label>
+                                    <select class="form-control" id="farmerNIN">
+                                        <option value="">Select farmer's NIN</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                        <option value="CM98087707YW3E">CM98087707YW3E</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                        <option value="CM98087407YW3W">CM98087407YW3W</option>
+                                    </select>
+                                </div>
+                                <a href="/farmers.html" class="btn btn-dark">Delete Farmer</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
+            <script src="/js/include.js"></script>
+
+</body>
+
+</html>
