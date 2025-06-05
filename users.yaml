@@ -1,0 +1,34 @@
+**users**
+Blooder Manager
+  SignUp (Since he has an account)
+    -Signup form
+  -login
+    -login form
+
+  -dashboard/reports
+    -pie charts/graphs
+
+  -Stock management
+      -record stock
+      -View Stock
+      -Form to add stock
+      -approve/decline pending sales requests(Dispatch)
+
+  -Manage Sales Reps
+    -Form to register sales reps
+    -suspending sales reps
+    -edit sales rep details
+    -view all sales rep
+    -delete sales rep
+    -view details of one sales rep
+    -make payments
+    -view payments
+  -Receives and approves requests 
+
+
+
+Sales Agent
+
+
+
+Customer/Farmer
