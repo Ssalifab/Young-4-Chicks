@@ -15,6 +15,11 @@ body{
     text-decoration-color: white;
     
 }
+
+.custom-navbar {
+  margin-left: 10px !important; /* Override Bootstrap's default */
+}
+
 .white-link,
 .white-link:link,
 .white-link:visited,
