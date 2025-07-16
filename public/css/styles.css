@@ -1,0 +1,111 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.login-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    background-color: rgb(34, 139, 34);
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(0, 100, 0);
+}
+
+.btn-login {
+    background-color: rgb(34, 139, 34);
+    ;
+    border: none;
+    padding: 10px;
+}
+
+.btn-login:hover {
+    background-color: rgb(144, 238, 144);
+}
+
+.input-group-text {
+    background-color: #e9ecef;
+}
+
+.dashboard-top-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 1px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-button {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.h5-dashboard-1 {
+    color: rgb(0, 5, 0);
+}
+.h5-dashboard-2 {
+    color: rgb(241, 10, 10);
+}
+.h5-dashboard-3 {
+    color: rgb(8, 44, 247);
+}
+.h5-dashboard-4 {
+    color: rgb(34, 139, 34);
+}
+
+.dashboard-box {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.signup-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(34, 139, 34);
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    color: rgb(34, 139, 34);
+}
+
+
+button {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
