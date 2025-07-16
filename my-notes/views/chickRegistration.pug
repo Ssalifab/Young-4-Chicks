@@ -1,0 +1,46 @@
+extends layout 
+block content
+  h2 Welcome farmer 
+  p Manage your chick requests and track your farming journey
+  .container
+    .row
+      .col-6
+        h2 Make request here
+        form#chickForm(action='/addChicks' method ='post')
+          .form-row
+            .form-group.col-md-6
+              label(for='chickType') Chick Type
+              select#chickType.form-control(name='chickType')
+                option(value='') Select chick type
+                option(value='Layer') Layer
+                option(value='Broiler') Broiler
+            .form-group.col-md-6
+              label(for='chickBreed') Chick Breed
+              select#chickBreed.form-control(name='chickBreed')
+                option(value='') Select chick breed
+                option(value='Local') Local
+                option(value='Exotic') Exotic
+            .form-group.col-md-6
+              label(for='quantity') Quantity
+              input#chickQuantity.form-control(name='quantity' type='number' placeholder='Enter number of chicks')
+            .form-group.col-md-6
+              label(for='age') Age (Days)
+              input#chickAge.form-control(name = 'age' type='number')
+            .form-group.col-md-6
+              label(for='dateRequested') Request Date
+              input#dateRequested.form-control(name = 'dateRequested' type='date') 
+          button.btn.btn-primary(type='submit' style='margin-top: 70px;') Submit
+          p#errorMsgChicks.text-danger
+      .col-6
+        h2 My requests
+        table#chicksTable.table.table-muted.table-striped
+          thead
+            tr
+              th Type
+              th Breed
+              th Quantity
+              th Age (Days)
+              th Date
+          tbody#chicksTableBody
+  script(src='/js/chickScript.js')
+  script(src='/css/bootstrap/js/bootstrap.bundle.js')

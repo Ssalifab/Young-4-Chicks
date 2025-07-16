@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.css">
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Sales Dashboard</h5>
+                        <div>
+                            <button class="btn btn-primary me-2" data-bs-toggle="modal"
+                                data-bs-target="#newRequestModal">
+                                New Request
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-h6-font" id="salesTable">
+                            <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Chick Type</th>
+                                    <th>Breed</th>
+                                    <th>Farmer Type</th>
+                                    <th>Quantity</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- New Request Modal -->
+            <div class="modal fade" id="newRequestModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="newRequestModal">New Chick Request </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="salesForm">
+                                <div class="form-group">
+                                    <label for="farmerName">Customer Name</label>
+                                    <input type="text" class="form-control" id="farmerNameS">
+                                </div>
+                                <div class="form-group">
+                                    <label for="chickTypeS">Chick Type</label>
+                                    <select class="form-control" id="chickTypeS">
+                                        <option value="">Select chick type</option>
+                                        <option value="layer">Layer</option>
+                                        <option value="broiler">Broiler</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="breed">Breed</label>
+                                    <select class="form-control" id="breedS">
+                                        <option value="">Select breed</option>
+                                        <option value="local">Local</option>
+                                        <option value="exotic">Exotic</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="farmerTypeS">Farmer Type</label>
+                                    <select class="form-control" id="farmerTypeS">
+                                        <option value="">Select farmer type</option>
+                                        <option value="starter">Starter(Max 100 chicks)</option>
+                                        <option value="returning">Returning (Max 500 chicks)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantityS">Quantity</label>
+                                    <input type="number" class="form-control" id="quantityS">
+                                </div>
+
+
+                                <button class="btn btn-primary me-2">Submit Request</button>
+                                <p id="errorMsgSales" class="text-danger"></p>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="/js/salesScript.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
+            
+
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+extends layout 
+block content 
+  header 
+    link(rel='stylesheet' href='/css/styles.css')
+    link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+  h1 Customer: Farmer Registration
+  .container
+    .row
+      .col-8
+        h2 Farmer Registration Form
+        form#farmerForm(action = '/signup' method ='post')
+          .form-row
+            .form-group.col-md-6
+              label(for='farmerName') Farmer Name *
+              input#farmerName.form-control(name = 'farmerName' type='text' placeholder='Enter farmer full name')
+            .form-group.col-md-6
+              label(for='farmerEmail') Email Address *
+              input#farmerEmail.form-control(name = 'farmerEmail' type='email' placeholder="Enter farmer's email address")
+            .form-group.col-md-6
+              label(for='password') Password *
+              input#password.form-control(name = 'farmerPassword' type='password' placeholder='Enter password')
+            .form-group.col-md-6
+              label(for='farmerPasswordConfirm') Confirm Password *
+              input#farmerPasswordConfirm.form-control(name = 'farmerPasswordConfirm' type='password' placeholder='Confirm password')
+            .form-group.col-md-6
+              label(for='farmerAge') Age (18-30)
+              input#farmerAge.form-control(name = 'farmerAge' type='number' placeholder='Enter farmer age')
+            .form-group.col-md-6
+              label(for='farmerGender') Gender *
+              select#farmerGender.form-control(name='farmerGender')
+                option(value='') Select gender
+                option(value='male') Male
+                option(value='female') Female
+            .form-group.col-md-6
+              label(for='farmerNin') National ID Number *
+              input#farmerNin.form-control(name = 'farmerNin' type='text' placeholder='Enter farmer NIN')
+            .form-group.col-md-6
+              label(for='farmerContactNumber') Contact Number *
+              input#farmerContactNumber.form-control(name = 'farmerContactNumber' type='text' placeholder='Enter farmer phone number')
+            .form-group.col-md-6
+              label(for='role') Role *
+              select#role.form-control(name='role')
+                option(value='') Select role
+                option(value='farmer') Farmer
+                option(value='salesRep') sales Rep
+            .form-group.col-md-6
+              label(for='farmerRecommender') Recommender name *
+              input#farmerRecommender.form-control(name = 'farmerRecommender' type='text' placeholder="Enter farmer recommender's name")
+            .form-group.col-md-6
+              label(for='farmerRecommenderNin') Recommender NIN *
+              input#farmerRecommenderNin.form-control(name = 'farmerRecommenderNin' type='text' placeholder="Enter recommender's NIN")
+            .form-group.col-md-6
+              label(for='farmerRecommenderContact') Recommender Contact *
+              input#farmerRecommenderContact.form-control(name = 'farmerRecommenderContact' type='text' placeholder="Enter farmer recommender's phone number")
+          button.btn.btn-primary(type='submit' style='margin-top: 20px;') Sign up
+          p#errorMsgFarmer.text-danger
+      .col-9
+        h2 Registered Farmers
+        table#farmerTable.table.table-muted.table-striped
+          thead
+            tr
+              th Farmer Name
+              th Email Address
+              th Password
+              th Confirm Password
+              th Age
+              th Gender
+              th National ID Number
+              th Contact Number
+              th Recommender Name
+              th Recommender NIN
+              th Recommender Contact
+              th Date
+          tbody
+  script(src='/js/farmerScript.js')
+  script(src='/css/bootstrap/js/bootstrap.bundle.js')

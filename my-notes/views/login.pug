@@ -1,0 +1,32 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Welcome to Young4Chicks
+  link(rel='stylesheet' href='/css/styles.css')
+  link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+  link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+h1(style='color: rgb(247, 6, 6);') Welcome Back
+.container(style='display: flex; width: 100%; max-width: 440px; margin: 0 auto; padding: 20px; box-sizing: border-box; overflow: hidden;')
+  .row(style='width: 100%; margin: 0; padding: 0;')
+    .col-12(style='text-align: left; width: 100%; padding: 0; margin: 0;')
+      h2(style='margin-top: 0;') Sign in to your Young4Chicks account
+      form#loginForm(action = '/login' method ='post' style='display: flex; flex-direction: column; gap: 1rem; width: 100%; margin: 0; padding: 0;')
+        .mb-3(style='display: flex; flex-direction: column; width: 100%;')
+          label.form-label(for='exampleInputEmail1') Email address
+          input#email.form-control(type='email' aria-describedby='emailHelp' name='farmerEmail' style='width: 100%;')
+          #emailHelp.form-text(style='font-size: x-small;')
+            | We&apos;ll never share your email
+            | with anyone else.
+        .mb-3(style='display: flex; flex-direction: column; width: 100%;')
+          label.form-label(for='exampleInputPassword1') Password
+          input#password.form-control(type='password' name='farmerPassword' style='width: 100%;')
+        .mb-3.form-check(style='display: flex; align-items: center; gap: 0.5rem; width: 100%;')
+          input#exampleCheck1.form-check-input(type='checkbox')
+          label.form-check-label(for='exampleCheck1') Check me out
+        button.btn.btn-primary(type='submit' style='align-self: flex-start;')
+          i.fa-solid.fa-right-to-bracket
+          |  Login
+
+script(src='/js/loginScript.js')
+script(src='/css/bootstrap/js/bootstrap.bundle.js')

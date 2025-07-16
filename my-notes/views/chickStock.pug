@@ -1,0 +1,45 @@
+extends layout 
+block content
+  h1 Add Chick Stock
+  .container
+    .row
+      .col-6
+        h2 Chicks Form
+        form#stockForm(action='/addStock' method ='post')
+          .form-row
+            .form-group.col-md-6
+              label(for='category') Category 
+              select#category.form-control(name='category' type='text')
+                option(value='') Select Category
+                option(value='local') Local
+                option(value='exotic') Exotic
+            .form-group.col-md-6
+              label(for='type') Type
+              select#type.form-control(name='chickBreed')
+                option(value='') Select chick breed
+                option(value='layer') Layer
+                option(value='broiler') broiler
+            .form-group.col-md-6
+              label(for='quantity') Quantity
+              input#chickQuantity.form-control(name='quantity' type='number' placeholder='Enter number of chicks')
+            .form-group.col-md-6
+              label(for='age') Age (Days)
+              input#age.form-control(name = 'age' type='number')
+            .form-group.col-md-6
+              label(for='date') Date of request (Days)
+              input#date.form-control(name = 'date' type='date')
+          button.btn.btn-primary(type='submit' style='margin-top: 70px;') Submit
+          p#errorMsgChicks.text-danger
+      .col-6
+        h2 Chick Stock
+        table#chicksTable.table.table-muted.table-striped
+          thead
+            tr
+              th Type
+              th Breed
+              th Quantity
+              th Age (Days)
+              th Date
+          tbody#chicksTableBody
+  script(src='/js/chickScript.js')
+  script(src='/css/bootstrap/js/bootstrap.bundle.js')

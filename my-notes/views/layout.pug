@@ -1,0 +1,23 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Stock: Registration of chicks
+  link(rel='stylesheet' href='/css/styles.css')
+  link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+  link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary
+  .container-fluid
+    a.navbar-brand(href='#') Young4Chicks
+    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link.active(aria-current='page' href='#') Home
+        li.nav-item
+          a.nav-link(href='#') Features
+        li.nav-item
+          a.btn.btn-primary(href='/logout') Logout
+block content 

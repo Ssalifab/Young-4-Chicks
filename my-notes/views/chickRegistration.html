@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock: Registration of chicks</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Young4Chicks</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h1>Registration of chicks</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Chicks Form</h2>
+                <form id="chickForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="chickType">Chick Type</label>
+                            <select name="chickType" class="form-control" id="chickType">
+                                <option value="">Select chick type</option>
+                                <option value="Layer">Layer</option>
+                                <option value="Broiler">Broiler</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="chickBreed">Chick Breed</label>
+                            <select name="chickBreed" class="form-control" id="chickBreed">
+                                <option value="">Select chick breed</option>
+                                <option value="Local">Local</option>
+                                <option value="Exotic">Exotic</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="chickQuantity"
+                                placeholder="Enter number of chicks">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="age">Age (Days)</label>
+                            <input type="number" class="form-control" id="chickAge">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top: 70px;">Submit</button>
+                    <p id="errorMsgChicks" class="text-danger"></p>
+                </form>
+            </div>
+            <div class="col-6">
+                <h2>Chick Stock</h2>
+                <table class="table table-muted table-striped" id="chicksTable">
+                    <thead>
+                        <tr>
+
+                            <th>Type</th>
+                            <th>Breed</th>
+                            <th>Quantity</th>
+                            <th>Age (Days)</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="chicksTableBody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/chickScript.js"></script>
+    <script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

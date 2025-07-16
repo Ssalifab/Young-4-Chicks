@@ -1,0 +1,32 @@
+doctype html
+head
+  style.
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+h2 Users List
+table
+    thead       
+        tr
+            th Full name
+            th Contact
+            th Email 
+            th Role
+    tbody     
+        if users.length 
+            each user in users
+                tr
+        td #{user.farmerName}
+        td #{user.farmerEmail}
+        td #{user.farmerAge}
+        td #{user.farmerGender}
