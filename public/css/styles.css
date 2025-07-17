@@ -14,6 +14,10 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+.login-fg-pw {
+    color: rgb(34, 139, 34);
+}
+
 .login-header {
     background-color: rgb(34, 139, 34);
     color: white;
@@ -54,17 +58,52 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+.sales-status-container {
+    padding: 10px;
+}
+
 .h5-dashboard-1 {
     color: rgb(0, 5, 0);
 }
+
 .h5-dashboard-2 {
     color: rgb(241, 10, 10);
 }
+
 .h5-dashboard-3 {
     color: rgb(8, 44, 247);
 }
+
 .h5-dashboard-4 {
     color: rgb(34, 139, 34);
+}
+
+.h5-dashboard-5 {
+    color: rgb(150, 6, 233);
+}
+
+.approved {
+    background-color: rgb(50, 205, 50);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.pending {
+    background-color: rgb(255, 204, 0);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.rejected {
+    background-color: rgb(220, 53, 69);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.completed {
+    background-color: rgb(91, 192, 255);
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .dashboard-box {
@@ -93,6 +132,11 @@ h2 {
     color: rgb(34, 139, 34);
 }
 
+.Welcome-h5 {
+    color: rgb(34, 139, 34);
+}
+
+
 
 button {
     padding: 12px 20px;
@@ -108,4 +152,8 @@ button {
 
 button:hover {
     background-color: var(--secondary-color);
+}
+
+.signup-nav-tabs {
+    color: rgb(34, 139, 34);
 }
