@@ -135,8 +135,20 @@ h2 {
 .Welcome-h5 {
     color: rgb(34, 139, 34);
 }
+.Welcome-h5Sales {
+    color: rgb(8, 44, 247);
+}
 
-
+.chicken-pic {
+    padding: 1px;
+    border-radius: 10px;
+    height: 90px
+}
+.chicken-pic-dashboard{
+    padding: 1px;
+    border-radius: 10px;
+    height: 55px
+}
 
 button {
     padding: 12px 20px;

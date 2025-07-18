@@ -20,13 +20,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-sm-12 dashboard-top-container mt-2 d-flex justify-content-left">
-        <img src="/public/img/chicken.jpg" alt="Logo" style="height: 55px;">
+        <img src="/public/img/chicken.jpg" class="chicken-pic-dashboard" alt="Logo">
         <h3 class="mt-2">Young4ChickS</h3>
       </div>
       <div class="col-lg-4 col-md-12 col-sm-12 dashboard-top-container mt-2 d-flex justify-content-between">
-        <p class="mt-3 Welcome-h5"><i><b>Welcome</b></i></p>
+        <p class="mt-3 Welcome-h5Sales"><i><b>Welcome</b></i></p>
         <p class="mt-3"><i class="fa-regular fa-user"></i> Namuli Ariella</p>
-        <p class="mt-3 Welcome-h5"><b>Sales Rep</b></p>
+        <p class="mt-3 Welcome-h5Sales"><b>Sales Rep</b></p>
         <a href="/views/login.html"><button class="btn btn-light mt-2">Logout <i
               class="fa-solid fa-right-from-bracket"></i></button></a>
       </div>
@@ -35,7 +35,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 dashboard-button mt-2 d-flex justify-content-between">
-        <h2 class="mt-2">Sales Dashboard</h2>
+        <h2 class="Welcome-h5Sales mt-2">Sales Dashboard</h2>
         <button class="btn btn-primary dashboard-button mt-1" data-bs-toggle="modal"
           data-bs-target="#newRequestModal"><i class="fa-solid fa-phone"></i> New Request</button>
       </div>
@@ -168,7 +168,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- New Request Modal -->
   <div class="modal fade" id="newRequestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -180,14 +180,12 @@
         <div class="modal-body">
           <form id="newRequestForm">
             <div class="form-group">
-              <label for="nin">National ID Number (NIN)</label>
-              <input name="nin" type="text" class="form-control" id="nin"
-                placeholder="--Select Farmer National ID Number--">
+              <label for="farmerName">Farmer Name</label>
+              <input name="farmerName" type="text" class="form-control" id="farmerName">
             </div>
             <div class="form-group">
-              <label for="farmerName">Farmer Name</label>
-              <input name="farmerName" type="text" class="form-control" id="farmerName"
-                placeholder="--Select Farmer Name--">
+              <label for="nin">National ID Number (NIN)</label>
+              <input name="nin" type="text" class="form-control" id="nin">
             </div>
             <div class="form-group">
               <label for="type">Type</label>
@@ -222,10 +220,10 @@
               <label for="dateUpdated">Date Updated</label>
               <input name="dateUpdated" type="date" class="form-control" id="dateUpdated">
             </div>
-            <a href="/views/managerDashboard.html"><button type="button" class="btn btn-light" style="width: 200px;"><i
+            <a href="/views/salesDashboard.html"><button type="button" class="btn btn-light" style="width: 200px;"><i
                   class="fa-solid fa-ban"></i>
                 Cancel</button></a>
-            <button class="btn btn-success me-2" type="submit"><i class="fa-solid fa-plus"></i> Add Stock</button>
+            <button class="btn btn-success me-2" type="submit"><i class="fa-solid fa-plus"></i> Submit Request</button>
             <p id="errorMsg" class="text-danger"></p>
           </form>
         </div>
@@ -240,7 +238,7 @@
   <script src="/public/css/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="/public/js/include.js"></script>
   <!-- Custom JavaScript -->
-  <script src="/public/scripts/managerDashboard.js"></script>
+  <script src="/public/scripts/salesDashboard.js"></script>
 
 </body>
 

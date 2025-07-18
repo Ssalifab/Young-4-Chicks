@@ -15,185 +15,205 @@
 <body>
     <div class="container mt-2">
         <div class="signup-container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Join Young4ChickS</h2>
-                        <p>Register as a young farmer to get started</p>
-                    </div>
-                    <div class="card-body">
-                        <!-- Tab Navigation -->
-                        <ul class="nav nav-tabs mb-4" id="formTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active signup-nav-tabs" id="personal-tab" data-bs-toggle="tab"
-                                    data-bs-target="#personal" type="button" role="tab">Personal Info</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link signup-nav-tabs" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
-                                    type="button" role="tab">Contact Details</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link signup-nav-tabs" id="recommender-tab" data-bs-toggle="tab"
-                                    data-bs-target="#recommender" type="button" role="tab">Recommender Details</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link signup-nav-tabs" id="account-tab" data-bs-toggle="tab" data-bs-target="#account"
-                                    type="button" role="tab">Account Settings</button>
-                            </li>
-                        </ul>
-
-                        <!-- Form with Tab Content -->
-                        <form>
-                            <div class="tab-content" id="formTabsContent">
-                                <!-- Personal Info Tab -->
-                                <div class="tab-pane fade show active" id="personal" role="tabpanel"
-                                    aria-labelledby="personal-tab">
-                                    <div class="mb-3">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <input name="firstName" placeholder="--Enter your first name--" type="text"
-                                            class="form-control" id="firstName" required>
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="/public/img/chicken.jpg" class="chicken-pic mt-1" alt="Logo">
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <input name="lastName" placeholder="--Enter your last name--" type="text"
-                                            class="form-control" id="lastName" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="age" class="form-label">Age (18-30)</label>
-                                        <input name="age" placeholder="--Enter your age--" type="number"
-                                            class="form-control" id="age">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select name="gender" class="form-control" id="gender">
-                                            <option value="">--Select gender--</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="notStated">Prefer not to say</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nin" class="form-label">National ID Number</label>
-                                        <input name="nin" placeholder="--Enter your national ID number--" type="text"
-                                            class="form-control" id="nin">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="farmerId" class="form-label">Upload a copy of your ID <i>(pdf/jpeg)</i></label>
-                                        <input name="farmerId" class="form-control" type="file" id="farmerId">
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <a href="/views/login.html"> <button type="button"
-                                                class="btn btn-secondary prev-tab" data-prev-tab="personal-tab"><i
-                                                    class="fa-solid fa-arrow-left"></i> Back to
-                                                login</button></a>
-                                        <button type="button" class="btn btn-primary next-tab"
-                                            data-next-tab="contact-tab">Next <i
-                                                class="fa-solid fa-arrow-right"></i></button>
-                                    </div>
-                                </div>
-
-                                <!-- Contact Details Tab -->
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input name="email" placeholder="--Enter your email address--" type="email"
-                                            class="form-control" id="email" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input name="phone" placeholder="--Enter your phone number--" type="tel"
-                                            class="form-control" id="phone">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
-                                        <textarea name="address" placeholder="--Enter your address--"
-                                            class="form-control" id="address" rows="3"></textarea>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary prev-tab"
-                                            data-prev-tab="personal-tab"><i class="fa-solid fa-arrow-left"></i>
-                                            Previous</button>
-                                        <button type="button" class="btn btn-primary next-tab"
-                                            data-next-tab="recommender-tab">Next <i class="fa-solid fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Recommender Details Tab -->
-                                <div class="tab-pane fade" id="recommender" role="tabpanel"
-                                    aria-labelledby="recommender-tab">
-                                    <div class="mb-3">
-                                        <label for="recommenderEmail" class="form-label">Email Address</label>
-                                        <input name="recommenderEmail" type="email" class="form-control"
-                                            placeholder="--Enter recommender's email address--" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="recommenderPhone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" name="recommenderPhone"
-                                            placeholder="--Enter recommender's phone number--">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="recommenderAddress" class="form-label">Address</label>
-                                        <textarea class="form-control" id="address" rows="3"
-                                            placeholder="--Enter recommender's Address--"
-                                            name="recommenderAddress"></textarea></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="recommenderId" class="form-label">Upload a copy of your Recommender's ID <i>(pdf/jpeg)</i></label>
-                                        <input name="recommenderId" class="form-control" type="file" id="recommenderId">
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary prev-tab"
-                                            data-prev-tab="contact-tab"><i class="fa-solid fa-arrow-left"></i>
-                                            Previous</button>
-                                        <button type="button" class="btn btn-primary next-tab"
-                                            data-next-tab="account-tab">Next <i
-                                                class="fa-solid fa-arrow-right"></i></button>
-                                    </div>
-                                </div>
-
-                                <!-- Account Settings Tab -->
-                                <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
-                                    <div class="mb-3">
-                                        <label for="role" class="form-label">Role</label>
-                                        <select name="role" class="form-control" id="role">
-                                            <option value="">--Select role--</option>
-                                            <option value="farmer">Farmer</option>
-                                            <option value="salesRep">Sales Representative</option>
-                                            <option value="brooderManager">Brooder Manager</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" placeholder="--Create a password--" class="form-control"
-                                            id="password" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" placeholder="--Confirm your password--"
-                                            class="form-control" id="confirmPassword" required>
-                                    </div>
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="terms" name="terms">
-                                        <label class="form-check-label" for="terms">I agree to the terms and
-                                            conditions</label>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary prev-tab"
-                                            data-prev-tab="recommender-tab"><i class="fa-solid fa-arrow-left"></i>
-                                            Previous</button>
-                                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-user"></i>
-                                            Create Account</button>
+                                    <div class="col-10">
+                                        <h2 class="mt-2">Join Young4ChickS</h2>
+                                        <p>Please register to get started:</p>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
+
+                        </div>
+                        <div class="card-body">
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs mb-4" id="formTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active signup-nav-tabs" id="personal-tab"
+                                        data-bs-toggle="tab" data-bs-target="#personal" type="button"
+                                        role="tab">Personal Info</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link signup-nav-tabs" id="contact-tab" data-bs-toggle="tab"
+                                        data-bs-target="#contact" type="button" role="tab">Contact Details</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link signup-nav-tabs" id="recommender-tab" data-bs-toggle="tab"
+                                        data-bs-target="#recommender" type="button" role="tab">Recommender
+                                        Details</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link signup-nav-tabs" id="account-tab" data-bs-toggle="tab"
+                                        data-bs-target="#account" type="button" role="tab">Account Settings</button>
+                                </li>
+                            </ul>
+
+                            <!-- Form with Tab Content -->
+                            <form>
+                                <div class="tab-content" id="formTabsContent">
+                                    <!-- Personal Info Tab -->
+                                    <div class="tab-pane fade show active" id="personal" role="tabpanel"
+                                        aria-labelledby="personal-tab">
+                                        <div class="mb-3">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input name="firstName" placeholder="--Enter your first name--" type="text"
+                                                class="form-control" id="firstName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input name="lastName" placeholder="--Enter your last name--" type="text"
+                                                class="form-control" id="lastName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="age" class="form-label">Age (18-30)</label>
+                                            <input name="age" placeholder="--Enter your age--" type="number"
+                                                class="form-control" id="age">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select name="gender" class="form-control" id="gender">
+                                                <option value="">--Select gender--</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="notStated">Prefer not to say</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nin" class="form-label">National ID Number</label>
+                                            <input name="nin" placeholder="--Enter your national ID number--"
+                                                type="text" class="form-control" id="nin">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="farmerId" class="form-label">Upload a copy of your ID
+                                                <i>(pdf/jpeg)</i></label>
+                                            <input name="farmerId" class="form-control" type="file" id="farmerId">
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="/views/login.html"> <button type="button"
+                                                    class="btn btn-secondary prev-tab" data-prev-tab="personal-tab"><i
+                                                        class="fa-solid fa-arrow-left"></i> Back to
+                                                    login</button></a>
+                                            <button type="button" class="btn btn-primary next-tab"
+                                                data-next-tab="contact-tab">Next <i
+                                                    class="fa-solid fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Contact Details Tab -->
+                                    <div class="tab-pane fade" id="contact" role="tabpanel"
+                                        aria-labelledby="contact-tab">
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input name="email" placeholder="--Enter your email address--" type="email"
+                                                class="form-control" id="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input name="phone" placeholder="--Enter your phone number--" type="tel"
+                                                class="form-control" id="phone">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Address</label>
+                                            <textarea name="address" placeholder="--Enter your address--"
+                                                class="form-control" id="address" rows="3"></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary prev-tab"
+                                                data-prev-tab="personal-tab"><i class="fa-solid fa-arrow-left"></i>
+                                                Previous</button>
+                                            <button type="button" class="btn btn-primary next-tab"
+                                                data-next-tab="recommender-tab">Next <i
+                                                    class="fa-solid fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Recommender Details Tab -->
+                                    <div class="tab-pane fade" id="recommender" role="tabpanel"
+                                        aria-labelledby="recommender-tab">
+                                        <div class="mb-3">
+                                            <label for="recommenderEmail" class="form-label">Email Address</label>
+                                            <input name="recommenderEmail" type="email" class="form-control"
+                                                placeholder="--Enter recommender's email address--" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recommenderPhone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phone" name="recommenderPhone"
+                                                placeholder="--Enter recommender's phone number--">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recommenderAddress" class="form-label">Address</label>
+                                            <textarea class="form-control" id="address" rows="3"
+                                                placeholder="--Enter recommender's Address--"
+                                                name="recommenderAddress"></textarea></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recommenderId" class="form-label">Upload a copy of your
+                                                Recommender's ID <i>(pdf/jpeg)</i></label>
+                                            <input name="recommenderId" class="form-control" type="file"
+                                                id="recommenderId">
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary prev-tab"
+                                                data-prev-tab="contact-tab"><i class="fa-solid fa-arrow-left"></i>
+                                                Previous</button>
+                                            <button type="button" class="btn btn-primary next-tab"
+                                                data-next-tab="account-tab">Next <i
+                                                    class="fa-solid fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Account Settings Tab -->
+                                    <div class="tab-pane fade" id="account" role="tabpanel"
+                                        aria-labelledby="account-tab">
+                                        <div class="mb-3">
+                                            <label for="role" class="form-label">Role</label>
+                                            <select name="role" class="form-control" id="role">
+                                                <option value="">--Select role--</option>
+                                                <option value="farmer">Farmer</option>
+                                                <option value="salesRep">Sales Representative</option>
+                                                <option value="brooderManager">Brooder Manager</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Create Password</label>
+                                            <input type="password" placeholder="--Create a password--"
+                                                class="form-control" id="password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                            <input type="password" placeholder="--Confirm your password--"
+                                                class="form-control" id="confirmPassword" required>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="terms" name="terms">
+                                            <label class="form-check-label" for="terms">I agree to the terms and
+                                                conditions</label>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary prev-tab"
+                                                data-prev-tab="recommender-tab"><i class="fa-solid fa-arrow-left"></i>
+                                                Previous</button>
+                                            <button type="submit" class="btn btn-success"><i
+                                                    class="fa-solid fa-user"></i>
+                                                Create Account</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

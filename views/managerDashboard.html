@@ -20,7 +20,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-sm-12 dashboard-top-container mt-2 d-flex justify-content-left">
-        <img src="/public/img/chicken.jpg" alt="Logo" style="height: 55px;">
+        <img src="/public/img/chicken.jpg" class="chicken-pic-dashboard" alt="Logo">
         <h3 class="mt-2">Young4ChickS</h3>
       </div>
       <div class="col-lg-4 col-md-12 col-sm-12 dashboard-top-container mt-2 d-flex justify-content-between">
@@ -49,15 +49,15 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12 dashboard-button mt-3 d-flex justify-content-between">
         <p class="h5-dashboard-2">Pending Requests</p>
-        <h5 class="h5-dashboard-2">800</h5> <i class="fa-solid fa-user-group mt-1"></i>
+        <h5 class="h5-dashboard-2">20</h5> <i class="fa-solid fa-user-group mt-1"></i>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12 dashboard-button mt-3 d-flex justify-content-between">
         <p class="h5-dashboard-3">Total Requests</p>
-        <h5 class="h5-dashboard-3">800</h5> <i class="fa-solid fa-arrow-trend-up mt-1"></i>
+        <h5 class="h5-dashboard-3">120</h5> <i class="fa-solid fa-arrow-trend-up mt-1"></i>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12 dashboard-button mt-3 d-flex justify-content-between">
         <p class="h5-dashboard-4">Approved Requests</p>
-        <h5 class="h5-dashboard-4">800</h5> <i class="fa-solid fa-circle-check mt-1"></i>
+        <h5 class="h5-dashboard-4">33</h5> <i class="fa-solid fa-circle-check mt-1"></i>
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12 dashboard-box">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-1">Current Stock</h5> <i class="fa-solid fa-boxes-stacked"></i>
+            <h5 class="approved mb-1">Current Stock</h5> <i class="fa-solid fa-boxes-stacked"></i>
           </div>
           <div class="card-body">
             <table class="table table-striped table-h6-font justify-content-between" id="stockTable">
@@ -95,10 +95,10 @@
       <div class="col-lg-12 col-md-12 col-sm-12 dashboard-box">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-1">Pending Requests</h5><i class="fa-regular fa-hourglass-half"></i>
+            <h5 class="pending mb-1">Pending Requests</h5><i class="fa-regular fa-hourglass-half"></i>
           </div>
           <div class="card-body">
-            <table class="table table-striped table-h6-font justify-content-between" id="pendingRequestsTable">
+            <table class="table table-striped table-h6-font justify-content-between" id="requestsTable">
               <thead>
                 <tr>
                   <th>Customer</th>
