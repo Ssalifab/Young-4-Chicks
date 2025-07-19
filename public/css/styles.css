@@ -138,6 +138,12 @@ h2 {
 .Welcome-h5Sales {
     color: rgb(8, 44, 247);
 }
+.Welcome-h5User{
+    color: rgb(0, 1, 8);
+}
+.line {
+    height:2px; border-width:0; color:gray; background-color:gray;
+}
 
 .chicken-pic {
     padding: 1px;
