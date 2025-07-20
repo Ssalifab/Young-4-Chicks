@@ -13,6 +13,22 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand nav-bar-layout" href="/views/signup.html">Young4ChickS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active nav-bar-layout" aria-current="page" href="/index.html">Home</a>
+                    <a class="nav-link nav-bar-layout" href="/views/login.html">Login</a>
+                    <a class="nav-link nav-bar-layout" href="/index.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-2">
         <div class="signup-container">
             <div class="row justify-content-center">
@@ -65,12 +81,12 @@
                                         <div class="mb-3">
                                             <label for="firstName" class="form-label">First Name</label>
                                             <input name="firstName" placeholder="--Enter your first name--" type="text"
-                                                class="form-control" id="firstName" required>
+                                                class="form-control" id="firstName">
                                         </div>
                                         <div class="mb-3">
                                             <label for="lastName" class="form-label">Last Name</label>
                                             <input name="lastName" placeholder="--Enter your last name--" type="text"
-                                                class="form-control" id="lastName" required>
+                                                class="form-control" id="lastName">
                                         </div>
                                         <div class="mb-3">
                                             <label for="age" class="form-label">Age (18-30)</label>
@@ -114,7 +130,7 @@
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email Address</label>
                                             <input name="email" placeholder="--Enter your email address--" type="email"
-                                                class="form-control" id="email" required>
+                                                class="form-control" id="email">
                                         </div>
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone Number</label>
@@ -143,7 +159,7 @@
                                         <div class="mb-3">
                                             <label for="recommenderEmail" class="form-label">Email Address</label>
                                             <input name="recommenderEmail" type="email" class="form-control"
-                                                placeholder="--Enter recommender's email address--" required>
+                                                placeholder="--Enter recommender's email address--">
                                         </div>
                                         <div class="mb-3">
                                             <label for="recommenderPhone" class="form-label">Phone Number</label>

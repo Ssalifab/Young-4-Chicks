@@ -5,6 +5,9 @@ const path = require('path');
 //Import routes
 const studyRoutes = require("./routes/studyRoutes");
 const indexRoutes = require("./routes/indexRoutes");
+const authRoutes = require("./routes/authRoutes");
+const staffRoutes = require("./routes/staffRoutes");
+const farmerRoutes = require("./routes/farmerRoutes");
 
 
 //Section 2: Instantiations
@@ -33,6 +36,9 @@ app.use(express.static(path.join(__dirname,'public')));
 //Section 5: Use imported Routes
 app.use("/study", studyRoutes);
 app.use("/", indexRoutes);
+app.use("/", authRoutes);
+app.use("/", staffRoutes);
+app.use("/", farmerRoutes);
 
 //for non exixtent routes: always above server
 app.use((req, res) => {

@@ -17,6 +17,10 @@ body {
 .login-fg-pw {
     color: rgb(34, 139, 34);
 }
+.nav-bar-layout{
+    color:rgb(34, 139, 34);
+    font-weight: bold;
+}
 
 .login-header {
     background-color: rgb(34, 139, 34);
@@ -51,6 +55,12 @@ body {
     padding: 5px;
     border-radius: 0px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.background-chicks{
+    background-image: url('/public/img/chicks1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .dashboard-button {
@@ -113,6 +123,14 @@ body {
 
 .signup-container {
     max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.homepage-container {
+    max-width: 1000px;
     margin: 0 auto;
     background-color: white;
     padding: 25px;
