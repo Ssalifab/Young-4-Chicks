@@ -27,7 +27,7 @@ block content
                 li.nav-item(role='presentation')
                   button#account-tab.nav-link.signup-nav-tabs(data-bs-toggle='tab' data-bs-target='#account' type='button' role='tab') Account Settings
               // Form with Tab Content
-              form
+              form(ation='/signup' method='POST')
                 #formTabsContent.tab-content
                   // Personal Info Tab
                   #personal.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='personal-tab')
@@ -57,7 +57,7 @@ block content
                         i (pdf/jpeg)
                       input#farmerId.form-control(name='farmerId' type='file')
                     .d-flex.justify-content-between
-                      a(href='/views/login.html')
+                      a(href='/signup')
                         button.btn.btn-secondary.prev-tab(type='button' data-prev-tab='personal-tab')
                           i.fa-solid.fa-arrow-left
                           |  Back to
@@ -75,7 +75,7 @@ block content
                       input#phone.form-control(name='phone' placeholder='--Enter your phone number--' type='tel')
                     .mb-3
                       label.form-label(for='address') Address
-                      textarea#address.form-control(name='address' placeholder='--Enter your address--' rows='3')
+                      textarea#address.form-control(name='address' placeholder='--Enter your address--' rows='3' type='text')
                     .d-flex.justify-content-between
                       button.btn.btn-secondary.prev-tab(type='button' data-prev-tab='personal-tab')
                         i.fa-solid.fa-arrow-left
@@ -86,6 +86,9 @@ block content
                   // Recommender Details Tab
                   #recommender.tab-pane.fade(role='tabpanel' aria-labelledby='recommender-tab')
                     .mb-3
+                      label.form-label(for='recommenderName') Recommender Name
+                      input.form-control(name='recommenderName' type='text' placeholder="--Enter recommender's name--")
+                    .mb-3
                       label.form-label(for='recommenderEmail') Email Address
                       input.form-control(name='recommenderEmail' type='email' placeholder="--Enter recommender's email address--")
                     .mb-3
@@ -93,7 +96,7 @@ block content
                       input#phone.form-control(type='tel' name='recommenderPhone' placeholder="--Enter recommender's phone number--")
                     .mb-3
                       label.form-label(for='recommenderAddress') Address
-                      textarea#address.form-control(rows='3' placeholder="--Enter recommender's Address--" name='recommenderAddress')
+                      textarea#address.form-control(rows='3' placeholder="--Enter recommender's Address--" name='recommenderAddress' type='text')
                     .mb-3
                       label.form-label(for='recommenderId')
                         | Upload a copy of your
@@ -118,10 +121,10 @@ block content
                         option(value='brooderManager') Brooder Manager
                     .mb-3
                       label.form-label(for='password') Create Password
-                      input#password.form-control(type='password' placeholder='--Create a password--' required='')
+                      input#password.form-control(type='password' name='password' placeholder='--Create a password--')
                     .mb-3
                       label.form-label(for='confirmPassword') Confirm Password
-                      input#confirmPassword.form-control(type='password' placeholder='--Confirm your password--' required='')
+                      input#confirmPassword.form-control(type='password' name='confirmPassword' placeholder='--Confirm your password--')
                     .mb-3.form-check
                       input#terms.form-check-input(type='checkbox' name='terms')
                       label.form-check-label(for='terms')

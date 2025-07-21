@@ -1,6 +1,10 @@
 //Section 1: Dependencies (with npm install)
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+
+require('dotenv').config(); //configuration of dotenv in server file
+
 
 //Import routes
 const studyRoutes = require("./routes/studyRoutes");
@@ -15,6 +19,15 @@ const app = express();
 const port = 3005;
 
 //Section 3: Configurations
+mongoose.connect(process.env.DATABASE);
+mongoose.connection
+.once("open",()=>{
+  console.log("Mongoose connection is open!");
+})
+.on("error", (error)=>{
+  console.error(`Connection error: ${error.message}`)
+});
+
 app.set('view engine','pug'); //Setting Pug as a view engine
 app.set('views', path.join(__dirname, 'views')); //Specifying folder containing frontend files
 

@@ -1,131 +1,133 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Young4ChickS Farmer Dashboard
-  // Bootstrap CSS
-  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
-  link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
-  // Font Awesome for icons
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
-  link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
-  // Custom CSS
-  link(rel='stylesheet' href='/css/styles.css')
-.container
-  .row
-    .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
-      img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
-      h3.mt-2 Young4ChickS
-    .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
-      p.mt-3.Welcome-h5
-        i
-          b Welcome
-      p.mt-3
-        i.fa-regular.fa-user
-        |  Amulen Redeemer
-      p.mt-3.Welcome-h5
-        b Farmer
-      a(href='/views/login.html')
-        button.btn.btn-light.mt-2
-          | Logout 
-          i.fa-solid.fa-right-from-bracket
-.container
-  .row
-    .col-12.dashboard-button.mt-2.d-flex.justify-content-between
-      h2.mt-2 Welcome,
-      h2.mt-2.ml-3.Welcome-h5User Amulen Redeemer
-      .col
-      button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
-        i.fa-solid.fa-phone
-        |  New Request
-    .col-12.d-flex.justify-content-between
-      p Manage your chick requests and track your farming journey
-.container.dashboard-box
-  .row.dashboard-box
-    .col-lg-12.col-md-12.col-sm-12.dashboard-box
-      .card
-        .card-header.d-flex.justify-content-between.align-items-center
-          h5.mb-1
-            | Available Stock 
-            i.fa-solid.fa-boxes-stacked
-        .card-body
-          .container
-            .row
-              .col-lg-6.col-md-12.col-sm-12
-                .card-header.d-flex.justify-content-between.align-items-center
-                  h6 Layer - Local
-                  h5.Welcome-h5 500
-                .d-flex.justify-content-between.align-items-center.mt-1
-                  p 21 days old
-                  p available
-                hr.line.mt-1
-                .d-flex.justify-content-between.align-items-center.mt-1
-                  h6 UGx 1,650 per chick
-              .col-lg-6.col-md-12.col-sm-12
-                .card-header.d-flex.justify-content-between.align-items-center
-                  h6 Layer - Local
-                  h5.Welcome-h5 500
-                .d-flex.justify-content-between.align-items-center.mt-1
-                  p 21 days old
-                  p available
-                hr.line.mt-1
-                .d-flex.justify-content-between.align-items-center.mt-1
-                  h6 UGx 1,650 per chick
-.container.dashboard-box
-  .row.dashboard-box
-    .col-lg-12.col-md-12.col-sm-12.dashboard-box
-      .card
-        .card-header.d-flex.justify-content-between.align-items-center
-          h5.mb-1
-            | My Requests 
+extends layout 
+block content 
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Young4ChickS Farmer Dashboard
+    // Bootstrap CSS
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
+    link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+    // Font Awesome for icons
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
+    link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+    // Custom CSS
+    link(rel='stylesheet' href='/css/styles.css')
+  body 
+    .container
+      .row
+        .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
+          img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
+          h3.mt-2 Young4ChickS
+        .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
+          p.mt-3.Welcome-h5
+            i
+              b Welcome
+          p.mt-3
+            i.fa-regular.fa-user
+            |  Amulen Redeemer
+          p.mt-3.Welcome-h5
+            b Farmer
+          a(href='/views/login.html')
+            button.btn.btn-light.mt-2
+              | Logout 
+              i.fa-solid.fa-right-from-bracket
+    .container
+      .row
+        .col-12.dashboard-button.mt-2.d-flex.justify-content-between
+          h2.mt-2 Welcome,
+          h2.mt-2.ml-3.Welcome-h5User Amulen Redeemer
+          .col
+          button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
             i.fa-solid.fa-phone
-        .card-body
-          table#myRequestsTable.table.table-striped.table-h6-font.justify-content-between
-            thead
-              tr
-                th Type
-                th Breed
-                th Quantity
-                th Request Date
-            tbody
-// New Request Modal
-#myRequestsModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-  .modal-dialog
-    .modal-content
-      .modal-header
-        h1#myRequestsModal.modal-title.fs-5 New Chick Request
-        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-      .modal-body
-        form#newRequestForm
-          .form-group
-            label(for='chickType') Type
-            select#chickType.form-control(name='chickType')
-              option(value='') --Select chick type--
-              option(value='layer') Layer
-              option(value='broiler') Broiler
-          .form-group
-            label(for='breed') Breed
-            select#breed.form-control(name='breed')
-              option(value='') --Select breed--
-              option(value='local') Local
-              option(value='exotic') Exotic
-          .form-group
-            label(for='quantity') Quantity
-            input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
-          .form-group
-            label(for='dateUpdated') Date Updated
-            input#dateUpdated.form-control(name='dateUpdated' type='date')
-          a(href='/views/farmerDashboard.html')
-            button.btn.btn-light(type='button' style='width: 200px;')
-              i.fa-solid.fa-ban
-              |                 Cancel
-          button.btn.btn-success.me-2(type='submit')
-            i.fa-solid.fa-plus
-            |  Submit Request
-          p#errorMsg.text-danger
-// Bootstrap JS Bundle with Popper
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
-script(src='/css/bootstrap/js/bootstrap.bundle.js')
-script(src='/js/include.js')
-// Custom JavaScript
-script(src='/scripts/farmerDashboard.js')
+            |  New Request
+        .col-12.d-flex.justify-content-between
+          p Manage your chick requests and track your farming journey
+    .container.dashboard-box
+      .row.dashboard-box
+        .col-lg-12.col-md-12.col-sm-12.dashboard-box
+          .card
+            .card-header.d-flex.justify-content-between.align-items-center
+              h5.mb-1
+                | Available Stock 
+                i.fa-solid.fa-boxes-stacked
+            .card-body
+              .container
+                .row
+                  .col-lg-6.col-md-12.col-sm-12
+                    .card-header.d-flex.justify-content-between.align-items-center
+                      h6 Layer - Local
+                      h5.Welcome-h5 500
+                    .d-flex.justify-content-between.align-items-center.mt-1
+                      p 21 days old
+                      p available
+                    hr.line.mt-1
+                    .d-flex.justify-content-between.align-items-center.mt-1
+                      h6 UGx 1,650 per chick
+                  .col-lg-6.col-md-12.col-sm-12
+                    .card-header.d-flex.justify-content-between.align-items-center
+                      h6 Layer - Local
+                      h5.Welcome-h5 500
+                    .d-flex.justify-content-between.align-items-center.mt-1
+                      p 21 days old
+                      p available
+                    hr.line.mt-1
+                    .d-flex.justify-content-between.align-items-center.mt-1
+                      h6 UGx 1,650 per chick
+    .container.dashboard-box
+      .row.dashboard-box
+        .col-lg-12.col-md-12.col-sm-12.dashboard-box
+          .card
+            .card-header.d-flex.justify-content-between.align-items-center
+              h5.mb-1
+                | My Requests 
+                i.fa-solid.fa-phone
+            .card-body
+              table#myRequestsTable.table.table-striped.table-h6-font.justify-content-between
+                thead
+                  tr
+                    th Type
+                    th Breed
+                    th Quantity
+                    th Request Date
+                tbody
+    // New Request Modal
+    #myRequestsModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h1#myRequestsModal.modal-title.fs-5 New Chick Request
+            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+          .modal-body
+            form#newRequestForm(ation='/farmer' method='POST')
+              .form-group
+                label(for='chickType') Type
+                select#chickType.form-control(name='chickType')
+                  option(value='') --Select chick type--
+                  option(value='layer') Layer
+                  option(value='broiler') Broiler
+              .form-group
+                label(for='breed') Breed
+                select#breed.form-control(name='breed')
+                  option(value='') --Select breed--
+                  option(value='local') Local
+                  option(value='exotic') Exotic
+              .form-group
+                label(for='quantity') Quantity
+                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
+              .form-group
+                label(for='dateUpdated') Date Updated
+                input#dateUpdated.form-control(name='dateUpdated' type='date')
+              a(href='/farmer')
+                button.btn.btn-light(type='button' style='width: 200px;')
+                  i.fa-solid.fa-ban
+                  |                 Cancel
+              button.btn.btn-success.me-2(type='submit')
+                i.fa-solid.fa-plus
+                |  Submit Request
+              p#errorMsg.text-danger
+    // Bootstrap JS Bundle with Popper
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
+    script(src='/css/bootstrap/js/bootstrap.bundle.js')
+    script(src='/js/include.js')
+    // Custom JavaScript
+    //- script(src='/scripts/farmerDashboard.js')
