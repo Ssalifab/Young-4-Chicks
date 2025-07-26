@@ -2,30 +2,63 @@ const express = require('express');
 const router = express.Router();
 const sale = require("../models/salesDashboardModal");
 const stock = require("../models/managerDashboardModal");
+const feed = require("../models/feedsModal")
 
 //Sales dashboard get route
-router.get('/sales', (req,res)=>{
+router.get('/sales', (req, res) => {
     res.render('salesDashboard');
 });
 
 //Sales dashboard post route || this comes to action when submit button is clicked
-router.post('/sales', (req,res)=>{
-    console.log(req.body);  //req.body symbolizes everything you are picking from the form
-    const newSale = new sale(req.body);
-    newSale.save();
+router.post('/sales', async (req, res) => {
+    try {
+        console.log(req.body);  //req.body symbolizes everything you are picking from the form
+        const newSale = new sale(req.body);
+        await newSale.save();
+    } catch (error) {
+        console.error(error);
+        res.status(400).render('sales'); //pass the pug file as a parameter
+    }
+
 });
 
 
-//Management dashboard route
-router.get('/management', (req,res)=>{
+//Stock Management dashboard routes
+router.get('/stock', (req, res) => {
+    res.render('managerDashboard');
+});
+
+//Stock Management dashboard post route
+router.post('/stock', async (req, res) => {
+    try {
+        console.log(req.body);
+        const newStock = new stock(req.body);
+        await newStock.save();
+    } catch (error) {
+        console.error(error);
+        res.status(400).render('managerDashboard');
+        // res.status(400).send('Unable to send data to the Database');
+    }
+
+});
+
+//Feeds on Management dashboard routes
+router.get('/feeds', (req, res) => {
     res.render('managerDashboard');
 });
 
 //Management dashboard post route
-router.post('/management', (req,res)=>{
-    console.log(req.body);
-    const newStock = new stock(req.body);
-    newStock.save();
+router.post('/feeds', async (req, res) => {
+    try {
+        console.log(req.body);
+        const newFeed = new feed(req.body);
+        await newFeed.save();
+    } catch (error) {
+        console.error(error);
+        res.status(400).render('managerDashboard');
+        // res.status(400).send('Unable to send data to the Database');
+    }
+
 });
 
-module.exports=router;
+module.exports = router;

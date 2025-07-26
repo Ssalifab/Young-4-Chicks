@@ -96,11 +96,16 @@ body {
 }
 
 .approved {
-    background-color: rgb(50, 205, 50);
+    background-color: rgb(175, 177, 175);
     padding: 5px;
     border-radius: 5px;
 }
 
+.approved1 {
+    background-color: rgb(50, 0, 50);
+    padding: 5px;
+    border-radius: 5px;
+}
 .pending {
     background-color: rgb(255, 204, 0);
     padding: 5px;

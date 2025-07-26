@@ -1,148 +1,229 @@
 extends layout 
-block content 
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Young4ChickS Manager Dashboard
-    // Bootstrap CSS
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
-    link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
-    // Font Awesome for icons
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
-    link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
-    // Custom CSS
-    link(rel='stylesheet' href='/css/styles.css')
-  .container
-    .row
-      .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
-        img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
-        h3.mt-2 Young4ChickS
-      .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
-        p.mt-3.Welcome-h5
-          i
-            b Welcome
-        p.mt-3
-          i.fa-regular.fa-user
-          |  John Doe
-        p.mt-3.Welcome-h5
-          b Manager
-        a(href='/views/login.html')
-          button.btn.btn-light.mt-2
-            | Logout 
-            i.fa-solid.fa-right-from-bracket
-  .container
-    .row
-      .col-12.dashboard-button.mt-2.d-flex.justify-content-between
-        h2.mt-2 Manager Dashboard
-        button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addStockModal')
-          i.fa-solid.fa-plus
-          |  Add Stock
-  .container.dashboard-box
-    .row.dashboard-box
-      .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
-        p Total Stock
-        h5 800
-        i.fa-solid.fa-boxes-stacked.mt-1
-      .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
-        p.h5-dashboard-2 Pending Requests
-        h5.h5-dashboard-2 20
-        i.fa-solid.fa-user-group.mt-1
-      .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
-        p.h5-dashboard-3 Total Requests
-        h5.h5-dashboard-3 120
-        i.fa-solid.fa-arrow-trend-up.mt-1
-      .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
-        p.h5-dashboard-4 Approved Requests
-        h5.h5-dashboard-4 33
-        i.fa-solid.fa-circle-check.mt-1
-  .container.dashboard-box
-    .row.dashboard-box
-      .col-lg-12.col-md-12.col-sm-12.dashboard-box
-        .card
-          .card-header.d-flex.justify-content-between.align-items-center
-            h5.approved.mb-1 Current Stock
-            i.fa-solid.fa-boxes-stacked
-          .card-body
-            table#stockTable.table.table-striped.table-h6-font.justify-content-between
-              thead
-                tr
-                  th Type
-                  th Breed
-                  th Quantity
-                  th Age (Days)
-                  th Last Updated
-                  th Price
-                  th Actions
-              tbody
-  .container.dashboard-box
-    .row.dashboard-box
-      .col-lg-12.col-md-12.col-sm-12.dashboard-box
-        .card
-          .card-header.d-flex.justify-content-between.align-items-center
-            h5.pending.mb-1 Pending Requests
-            i.fa-regular.fa-hourglass-half
-          .card-body
-            table#requestsTable.table.table-striped.table-h6-font.justify-content-between
-              thead
-                tr
-                  th Customer
-                  th Type
-                  th Breed
-                  th Quantity
-                  th Farmer Type
-                  th Request Date
-                  th Actions
-              tbody
-  // Add Stock Modal
-  #addStockModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-    .modal-dialog
-      .modal-content
-        .modal-header
-          h1#addStockModal.modal-title.fs-5 Add New Stock 
-          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-        .modal-body
-          form#addStockForm(ation='/management' method='POST')
-            .form-group
-              label(for='chickType') Type
-              select#chickType.form-control(name='chickType')
-                option(value='') --Select chick type--
-                option(value='layer') Layer
-                option(value='broiler') Broiler
-            .form-group
-              label(for='breed') Breed
-              select#breed.form-control(name='breed')
-                option(value='') --Select breed--
-                option(value='local') Local
-                option(value='exotic') Exotic
-            //
-              <div class="form-group">
-              <label for="farmerTypeS">Farmer Type</label>
-              <select class="form-control" id="farmerTypeS">
-              <option value="">Select farmer type</option>
-              <option value="starter">Starter(Max 100 chicks)</option>
-              <option value="returning">Returning (Max 500 chicks)</option>
-              </select>
-              </div>
-            .form-group
-              label(for='quantity') Quantity
-              input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
-            .form-group
-              label(for='age') Age (days)
-              input#age.form-control(name='age' type='number' placeholder='--Enter chicks age in days--')
-            .form-group
-              label(for='dateUpdated') Date Updated
-              input#dateUpdated.form-control(name='dateUpdated' type='date')
-            a(href='/views/managerDashboard.html')
-              button.btn.btn-light(type='button' style='width: 200px;')
-                i.fa-solid.fa-ban
-                |                 Cancel
-            button.btn.btn-success.me-2(type='submit')
-              i.fa-solid.fa-plus
-              |  Add Stock
-            p#errorMsg.text-danger
-  // Bootstrap JS Bundle with Popper
-  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
-  script(src='/css/bootstrap/js/bootstrap.bundle.js')
-  script(src='/js/include.js')
-  // Custom JavaScript
-  //- script(src='/scripts/managerDashboard.js')
+block content
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Young4ChickS Manager Dashboard
+        // Bootstrap CSS
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
+        link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+        // Font Awesome for icons
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
+        link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+        // Custom CSS
+        link(rel='stylesheet' href='/css/styles.css')
+    .container
+        .row
+            .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
+                img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
+                h3.mt-2 Young4ChickS
+            .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
+                p.mt-3.Welcome-h5
+                    i
+                        b Welcome
+                p.mt-3
+                    i.fa-regular.fa-user
+                    |  John Doe
+                p.mt-3.Welcome-h5
+                    b Manager
+                a(href='/views/login.html')
+                    button.btn.btn-light.mt-2
+                        | Logout 
+                        i.fa-solid.fa-right-from-bracket
+    .container
+        .row
+            .col-9.dashboard-button.mt-2.d-flex.justify-content-between
+                h2.mt-2 Manager Dashboard
+            .col-3.dashboard-button.mt-2.d-flex.justify-content-between
+                button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal')
+                    i.fa-solid.fa-plus
+                    |  Add Feeds
+                button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addStockModal')
+                    i.fa-solid.fa-plus
+                    |  Add Stock
+    .container.dashboard-box
+        .row.dashboard-box
+            .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
+                p Total Stock
+                h5 800
+                i.fa-solid.fa-boxes-stacked.mt-1
+            .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
+                p.h5-dashboard-2 Pending Requests
+                h5.h5-dashboard-2 20
+                i.fa-solid.fa-user-group.mt-1
+            .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
+                p.h5-dashboard-3 Total Requests
+                h5.h5-dashboard-3 120
+                i.fa-solid.fa-arrow-trend-up.mt-1
+            .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
+                p.h5-dashboard-4 Approved Requests
+                h5.h5-dashboard-4 33
+                i.fa-solid.fa-circle-check.mt-1
+    .container.dashboard-box
+        .row.dashboard-box
+            .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                .card
+                    .card-header.d-flex.justify-content-between.align-items-center.approved
+                        h5.approved.mb-1 Current Stock
+                        i.fa-solid.fa-boxes-stacked
+                    .card-body
+                        table#stockTable.table.table-striped.table-h6-font.justify-content-between
+                            thead
+                                tr
+                                    th Type
+                                    th Breed
+                                    th Quantity
+                                    th Age (Days)
+                                    th Last Updated
+                                    th Price
+                                    th Actions
+                            tbody
+    .container.dashboard-box
+        .row.dashboard-box
+            .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                .card
+                    .card-header.d-flex.justify-content-between.align-items-center.approved
+                        h5.approved.mb-1 Current Feeds Stock
+                        i.fa-solid.fa-boxes-stacked
+                    .card-body
+                        table#stockTable.table.table-striped.table-h6-font.justify-content-between
+                            thead
+                                tr
+                                    th Feeds Name
+                                    th Feed Type
+                                    th Target Age
+                                    th Brand/Supplier
+                                    th Stock (100kg bags)
+                                    th Price per kg
+                                    th Expiry Date
+                                    th Date Updated
+                            tbody
+    .container.dashboard-box
+        .row.dashboard-box
+            .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                .card
+                    .card-header.d-flex.justify-content-between.align-items-center.pending
+                        h5.pending.mb-1 Pending Requests
+                        i.fa-regular.fa-hourglass-half
+                    .card-body
+                        table#requestsTable.table.table-striped.table-h6-font.justify-content-between
+                            thead
+                                tr
+                                    th Customer
+                                    th Type
+                                    th Breed
+                                    th Quantity
+                                    th Farmer Type
+                                    th Request Date
+                                    th Actions
+                            tbody
+    // Add Stock Modal
+    #addStockModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h1#addStockModal.modal-title.fs-5 Add Chick Stock 
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#addStockForm(ation='/stock' method='POST')
+                        .form-group
+                            label(for='chickType') Type
+                            select#chickType.form-control(name='chickType')
+                                option(value='') --Select chick type--
+                                option(value='layer') Layer
+                                option(value='broiler') Broiler
+                        .form-group
+                            label(for='breed') Breed
+                            select#breed.form-control(name='breed')
+                                option(value='') --Select breed--
+                                option(value='local') Local
+                                option(value='exotic') Exotic
+                        //
+                            <div class="form-group">
+                            <label for="farmerTypeS">Farmer Type</label>
+                            <select class="form-control" id="farmerTypeS">
+                            <option value="">Select farmer type</option>
+                            <option value="starter">Starter(Max 100 chicks)</option>
+                            <option value="returning">Returning (Max 500 chicks)</option>
+                            </select>
+                            </div>
+                        .form-group
+                            label(for='quantity') Quantity
+                            input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
+                        .form-group
+                            label(for='age') Age (days)
+                            input#age.form-control(name='age' type='number' placeholder='--Enter chicks age in days--')
+                        .form-group
+                            label(for='dateUpdated') Date Updated
+                            input#dateUpdated.form-control(name='dateUpdated' type='date')
+                        a(href='/views/managerDashboard.html')
+                            button.btn.btn-light(type='button' style='width: 200px;')
+                                i.fa-solid.fa-ban
+                                |                 Cancel
+                        button.btn.btn-success.me-2(type='submit')
+                            i.fa-solid.fa-plus
+                            |  Add Stock
+                        p#errorMsg.text-danger
+    // Add Feeds Modal
+    #addFeedsModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h1#addFeedsModal.modal-title.fs-5 Add New Feeds 
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#addFeedsForm(ation='/feeds' method='POST')
+                        .form-group
+                            label(for='feedName') Feed Name
+                            select#feedName.form-control(name='feedName')
+                                option(value='') --Select feed name--
+                                option(value='starter') Starter Feed
+                                option(value='grower') Grower Feed
+                        .form-group
+                            label(for='feedType') Feed Type
+                            select#feedType.form-control(name='feedType')
+                                option(value='') --Select feed type--
+                                option(value='mash') Mash
+                                option(value='crumble') Crumble
+                                option(value='pellet') Pellet
+                        .form-group
+                            label(for='targetAge') Target Age
+                            select#targetAge.form-control(name='targetAge')
+                                option(value='') --Select target age--
+                                option(value='oneToSeven') Day 1-7
+                                option(value='eightToFourteen') Day 8-14
+                                option(value='fifteenToThirty') Day 15-30
+                        .form-group
+                            label(for='brand') Brand / Supplier
+                            select#brand.form-control(name='brand')
+                                option(value='') --Select brand--
+                                option(value='ugaChick') UgaChick
+                                option(value='nuvita') Nuvita
+                                option(value='farmersChoice') Farmers Choice
+                                option(value='kukuFeed') Kuku feed
+                        .form-group
+                            label(for='stock') Stock (100 kg bags)
+                            input#stock.form-control(name='stock' type='number' placeholder='--Enter number of bags--')
+                        .form-group
+                            label(for='price') Price per kg
+                            input#price.form-control(name='price' type='number' placeholder='--Enter price per kg--')
+                        .form-group
+                            label(for='expiryDate') Expiry Date
+                            input#expiryDate.form-control(name='expiryDate' type='date')
+                        .form-group
+                            label(for='dateUpdated') Date Updated
+                            input#dateUpdated.form-control(name='dateUpdated' type='date')
+                        a(href='/views/managerDashboard.html')
+                            button.btn.btn-light(type='button' style='width: 200px;')
+                                i.fa-solid.fa-ban
+                                |                 Cancel
+                        button.btn.btn-success.me-2(type='submit')
+                            i.fa-solid.fa-plus
+                            |  Add Stock
+                        p#errorMsg.text-danger
+    // Bootstrap JS Bundle with Popper
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
+    script(src='/css/bootstrap/js/bootstrap.bundle.js')
+    script(src='/js/include.js')
+    // Custom JavaScript
+    //- script(src='/scripts/managerDashboard.js')
