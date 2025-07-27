@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const sale = require("../models/salesDashboardModal");
 const stock = require("../models/managerDashboardModal");
-const feed = require("../models/feedsModal")
+const feed = require("../models/feedsModal");
+const User = require("../models/signupModal");
 
 //Sales dashboard get route
 router.get('/sales', (req, res) => {
@@ -60,5 +61,15 @@ router.post('/feeds', async (req, res) => {
     }
 
 });
+
+//Get List of all Users from the database
+router.get('/userlist', async(req,res)=>{
+try {
+    let users = await User.find().sort({$natural:-1});
+    res.render('userlist',{users})
+} catch (error) {
+    res.status(400).send('Unable to find requested users')
+}
+})
 
 module.exports = router;

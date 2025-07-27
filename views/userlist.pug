@@ -1,0 +1,43 @@
+extends layout 
+block content 
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Users
+    h4 Young4ChickS Users List 
+    .container
+        .row
+            .col-12.d-flex.justify-content-between 
+                table.table
+                    thead
+                        tr
+                            th(scope='col') First name
+                            th(scope='col') Last name
+                            th(scope='col') Age
+                            th(scope='col') Gender
+                            th(scope='col') NiN 
+                            th(scope='col') Email 
+                            th(scope='col') Phone 
+                            th(scope='col') Address 
+                            th(scope='col') Recommender name 
+                            th(scope='col') Recommender email 
+                            th(scope='col') Recommender phone 
+                            th(scope='col') Role 
+                    tbody
+                        if users.length 
+                            each user in users
+                                tr 
+                                    td #{user.firstName}
+                                    td #{user.lastName}
+                                    td #{user.age}
+                                    td #{user.gender}
+                                    td #{user.nin}
+                                    td #{user.email}
+                                    td #{user.phone}
+                                    td #{user.address}
+                                    td #{user.recommenderName}
+                                    td #{user.recommenderEmail}
+                                    td #{user.recommenderPhone}
+                                    td #{user.role}
+
+

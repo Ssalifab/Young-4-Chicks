@@ -20,7 +20,7 @@ errorMsg.textContent = '';
     form.reset();
 
 });
-// //table handling
+//table handling
 function addToStockTable(chickType, breed, quantity, dateUpdated) {
     const table = document.getElementById('myRequestsTable').getElementsByTagName('tbody')[0];
     let row = table.insertRow();

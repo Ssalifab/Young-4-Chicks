@@ -44,9 +44,21 @@ router.post('/login', passport.authenticate('local', {failureRedirect:'/login'})
     }else if(req.user.role == 'brooderManager'){
         res.redirect('/stock')
     }else{
-        req.logout();
+        res.send('You do not have a role in the system');
         res.redirect('/login');
     }    
 });
+
+//Logout route
+router.get('/logout', (req, res)=>{
+    if(req.session){
+        req.session.destroy((error)=>{
+            if(error){
+                return res.status(500).send('Error logging out')
+            }
+            res.redirect('/index')
+        })
+    }
+})
 
 module.exports = router;
