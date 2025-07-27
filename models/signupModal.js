@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -21,13 +22,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true
     },
     email: {
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        lowercase: true
     },
     phone:{
         type: String,
@@ -52,16 +53,14 @@ const userSchema = new mongoose.Schema({
     role:{
         type: String,
         required: true
-    },
-    password:{
-        type: String,
-        required: true,
-        trim: true
-    },
-    confirmPassword:{
-        type: String,
-        required: true,
-        trim: true
     }
 });
+// Remove the username field from the schema if you're not using it
+userSchema.remove('username');
+
+userSchema.plugin(passportLocalMongoose,{
+    usernameField: 'email',
+    usernameUnique: true, // ensures email is unique
+    usernameLowerCase: true // converts email to lowercase
+})
 module.exports = mongoose.model("user", userSchema);

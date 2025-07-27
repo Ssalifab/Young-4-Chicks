@@ -2,9 +2,17 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const expressSession = require('express-session')({
+  secret: 'bukomansimbi',
+  resave: false,
+  saveUninitialized: false
+});
 
 require('dotenv').config(); //configuration of dotenv in server file
 
+//Import User Model
+const user = require('./models/signupModal')
 
 //Import routes
 const studyRoutes = require("./routes/studyRoutes");
@@ -32,12 +40,6 @@ app.set('view engine','pug'); //Setting Pug as a view engine
 app.set('views', path.join(__dirname, 'views')); //Specifying folder containing frontend files
 
 //Section 4: Middleware
-
-app.use('/about', (req, res, next) => {
-  console.log('A new request received at ' + Date.now());
-  next();
-});
-
 // To parse URL encoded data. VERY IMPORTANT LINE OF CODE. It is the transporter of data to db
 app.use(express.urlencoded({ extended: false }));
 
@@ -45,6 +47,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname,'public')));
 
 //Express session configs...For authentication
+app.use(expressSession);
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Passport Configs
+passport.use(user.createStrategy());
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
 
 //Section 5: Use imported Routes
 app.use("/study", studyRoutes);

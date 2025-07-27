@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const user = require("../models/signupModal");
+const User = require("../models/signupModal");
+const passport = require('passport');
 
 //Signup get route
 router.get('/signup', (req, res) => {
@@ -10,12 +11,21 @@ router.get('/signup', (req, res) => {
 //Signup post route
 router.post('/signup', async (req, res) => {
     try {
-        console.log(req.body);
-        const newUser = new user(req.body);
-        await newUser.save();
+        const user = new User(req.body);
+        let existingUser = await User.findOne({email: req.body.email});
+        if(existingUser){
+            return res.status(400).send('Email already exixts on platform');
+        } else{
+            await User.register(user, req.body.password, (err)=>{
+                if (err){
+                    throw err;
+                }
+                res.redirect('/login')
+            });
+        }
     } catch (error) {
         console.error(error);
-        res.status(400).render('signup'); //pass the pug file as a parameter
+        res.status(400).send('Sorry! Something went wrong'); 
     }
 
 });
@@ -23,6 +33,20 @@ router.post('/signup', async (req, res) => {
 //Login route
 router.get('/login', (req, res) => {
     res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', {failureRedirect:'/login'}), (req, res) => {
+    req.session.user = req.user;
+    if(req.user.role == 'farmer'){
+        res.redirect('/farmer')
+    }else if(req.user.role == 'salesRep'){
+        res.redirect('/sales')
+    }else if(req.user.role == 'brooderManager'){
+        res.redirect('/stock')
+    }else{
+        req.logout();
+        res.redirect('/login');
+    }    
 });
 
 module.exports = router;
