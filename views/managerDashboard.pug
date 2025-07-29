@@ -26,19 +26,22 @@ block content
                     |  John Doe
                 p.mt-3.Welcome-h5
                     b Manager
-                a(href='/views/login.html')
+                a(href='/logut')
                     button.btn.btn-light.mt-2
                         | Logout 
                         i.fa-solid.fa-right-from-bracket
     .container
         .row
-            .col-9.dashboard-button.mt-2.d-flex.justify-content-between
+            .col-8.dashboard-button.mt-2.d-flex.justify-content-between
                 h2.mt-2 Manager Dashboard
-            .col-3.dashboard-button.mt-2.d-flex.justify-content-between
-                button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal')
+            .col-4.dashboard-button.mt-2.d-flex.gap-2.justify-content-between
+                a.button.btn.btn-warning.dashboard-button.mt-1(href="/userlist" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+                    i.fa-solid.fa-eye
+                    |  User List           
+                button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                     i.fa-solid.fa-plus
                     |  Add Feeds
-                button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addStockModal')
+                button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addStockModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                     i.fa-solid.fa-plus
                     |  Add Stock
     .container.dashboard-box

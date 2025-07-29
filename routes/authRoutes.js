@@ -56,7 +56,7 @@ router.get('/logout', (req, res)=>{
             if(error){
                 return res.status(500).send('Error logging out')
             }
-            res.redirect('/index')
+            res.redirect('/')
         })
     }
 })

@@ -65,7 +65,7 @@ router.post('/feeds', async (req, res) => {
 //Get List of all Users from the database
 router.get('/userlist', async(req,res)=>{
 try {
-    let users = await User.find().sort({$natural:-1});
+    let users = await User.find().sort({$natural:-1}).limit(20);
     res.render('userlist',{users})
 } catch (error) {
     res.status(400).send('Unable to find requested users')
