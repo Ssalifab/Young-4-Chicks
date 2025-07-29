@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const moment = require('moment');
 const expressSession = require('express-session')({
   secret: 'bukomansimbi',
   resave: false,
@@ -27,6 +28,7 @@ const app = express();
 const port = 3005;
 
 //Section 3: Configurations
+app.locals.moment=moment;
 mongoose.connect(process.env.DATABASE);
 mongoose.connection
 .once("open",()=>{

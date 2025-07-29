@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const{ensureAuthenticated, ensureManager}= require('../middleware/authMiddleware');
 const sale = require("../models/salesDashboardModal");
 const stock = require("../models/managerDashboardModal");
 const feed = require("../models/feedsModal");
@@ -63,7 +64,7 @@ router.post('/feeds', async (req, res) => {
 });
 
 //Get List of all Users from the database
-router.get('/userlist', async(req,res)=>{
+router.get('/userlist', ensureAuthenticated, ensureManager, async(req,res)=>{
 try {
     let users = await User.find().sort({$natural:-1}).limit(20);
     res.render('userlist',{users})
