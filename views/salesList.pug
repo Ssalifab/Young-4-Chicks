@@ -4,82 +4,83 @@ block content
         meta(charset='UTF-8')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title Sales List
-    .container
-        .row
-            .col-lg-12.col-md-12.col-sm-12.dashboard-box
-                .card
-                    .card-header.d-flex.justify-content-between.align-items-center
-                        h5.mb-1
-                            | Sales List (Starter farmer)  
-                            i.fa.fa-capsules
-                        .card-body
-                            table.table.table-striped.table-h6-font.justify-content-between
-                                thead
-                                    tr
-                                        th(scope='col') Farmer Name
-                                        th(scope='col') Farmer NIN
-                                        th(scope='col') Type
-                                        th(scope='col') Breed
-                                        th(scope='col') Quantity 
-                                        th(scope='col') Farmer Type
-                                        th(scope='col') Date Ordered
-                                        th(scope='col') Update
-                                        th(scope='col') Delete
-                                tbody
-                                    if sales.length 
-                                        each sale in sales
-                                            if sale.farmerType=="starter"
-                                                tr 
-                                                    td #{sale.farmerName}
-                                                    td #{sale.nin}
-                                                    td #{sale.type}
-                                                    td #{sale.breed}
-                                                    td #{sale.quantity}
-                                                    td #{sale.farmerType}
-                                                    td #{sale.dateUpdated}
-                                                    //- td 
-                                                    //-     a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
-                                                    //- td
-                                                    //-     form(method='POST' action='/deleteUser')
-                                                    //-         input(type='hidden' name='id' value=user._id)  
-                                                    //-         button.btn.btn-danger.btn-block(type='submit') Delete 
-            .col-lg-12.col-md-12.col-sm-12.dashboard-box
-                .card
-                    .card-header.d-flex.justify-content-between.align-items-center
-                        h5.mb-1
-                            | Sales List (Returning farmer)  
-                            i.fa.fa-capsules
-                        .card-body
-                            table.table.table-striped.table-h6-font.justify-content-between
-                                thead
-                                    tr
-                                        th(scope='col') Farmer Name
-                                        th(scope='col') Farmer NIN
-                                        th(scope='col') Type
-                                        th(scope='col') Breed
-                                        th(scope='col') Quantity 
-                                        th(scope='col') Farmer Type
-                                        th(scope='col') Date Ordered
-                                        th(scope='col') Update
-                                        th(scope='col') Delete
-                                tbody
-                                    if sales.length 
-                                        each sale in sales
-                                            if sale.farmerType=="returning"
-                                                tr 
-                                                    td #{sale.farmerName}
-                                                    td #{sale.nin}
-                                                    td #{sale.type}
-                                                    td #{sale.breed}
-                                                    td #{sale.quantity}
-                                                    td #{sale.farmerType}
-                                                    td #{sale.dateUpdated}
-                                                    //- td 
-                                                    //-     a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
-                                                    //- td
-                                                    //-     form(method='POST' action='/deleteUser')
-                                                    //-         input(type='hidden' name='id' value=user._id)  
-                                                    //-         button.btn.btn-danger.btn-block(type='submit') Delete  
-                                         
+    body.chicks
+        .container
+            .row
+                .col-lg-12.col-md-12.col-sm-12.dashboard-box.back_color
+                    .card
+                        .card-header.d-flex.justify-content-between.align-items-center
+                            h5.mb-1
+                                | Sales List (Starter farmer)  
+                                i.fa.fa-capsules
+                            .card-body
+                                table.table.table-striped.table-h6-font.justify-content-between
+                                    thead
+                                        tr
+                                            th(scope='col') Farmer Name
+                                            th(scope='col') Farmer NIN
+                                            th(scope='col') Type
+                                            th(scope='col') Breed
+                                            th(scope='col') Quantity 
+                                            th(scope='col') Farmer Type
+                                            th(scope='col') Date Ordered
+                                            th(scope='col') Update
+                                            th(scope='col') Delete
+                                    tbody
+                                        if sales.length 
+                                            each sale in sales
+                                                if sale.farmerType=="starter"
+                                                    tr 
+                                                        td #{sale.farmerName}
+                                                        td #{sale.nin}
+                                                        td #{sale.type}
+                                                        td #{sale.breed}
+                                                        td #{sale.quantity}
+                                                        td #{sale.farmerType}
+                                                        td #{moment(sale.dateUpdated).format("DD-MM-YYYY")}
+                                                        td 
+                                                            a.btn.btn-primary.btn-block(href="/updateSales/"+sale._id) Update
+                                                        td
+                                                            form(method='POST' action='/deleteSale')
+                                                                input(type='hidden' name='id' value=sale._id)  
+                                                                button.btn.btn-danger.btn-block(type='submit') Delete 
+                .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                    .card
+                        .card-header.d-flex.justify-content-between.align-items-center
+                            h5.mb-1
+                                | Sales List (Returning farmer)  
+                                i.fa.fa-capsules
+                            .card-body
+                                table.table.table-striped.table-h6-font.justify-content-between
+                                    thead
+                                        tr
+                                            th(scope='col') Farmer Name
+                                            th(scope='col') Farmer NIN
+                                            th(scope='col') Type
+                                            th(scope='col') Breed
+                                            th(scope='col') Quantity 
+                                            th(scope='col') Farmer Type
+                                            th(scope='col') Date Ordered
+                                            th(scope='col') Update
+                                            th(scope='col') Delete
+                                    tbody
+                                        if sales.length 
+                                            each sale in sales
+                                                if sale.farmerType=="returning"
+                                                    tr 
+                                                        td #{sale.farmerName}
+                                                        td #{sale.nin}
+                                                        td #{sale.type}
+                                                        td #{sale.breed}
+                                                        td #{sale.quantity}
+                                                        td #{sale.farmerType}
+                                                        td #{moment(sale.dateUpdated).format("DD-MM-YYYY")}
+                                                        td 
+                                                            a.btn.btn-primary.btn-block(href="/updateSales/"+sale._id) Update
+                                                        td
+                                                            form(method='POST' action='/deleteSale')
+                                                                input(type='hidden' name='id' value=sale._id)  
+                                                                button.btn.btn-danger.btn-block(type='submit') Delete  
+                                            
 
-            
+                

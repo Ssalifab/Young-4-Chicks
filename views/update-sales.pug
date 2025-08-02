@@ -1,0 +1,54 @@
+extends layout 
+block content
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Young4ChickS Manager Dashboard
+        // Bootstrap CSS
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
+        link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
+        // Font Awesome for icons
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
+        link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
+        // Custom CSS
+        link(rel='stylesheet' href='/css/styles.css')
+    body.chicks    
+        .container.mt-5
+            .row.justify-content-center
+                .col-lg-6.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between.back_color
+                    form#newRequestForm(ation='/updateSales?id='+ sale._id method='POST') 
+                        .form-group
+                            label(for='farmerName') Farmer Name
+                            input#farmerName.form-control(name='farmerName' type='text' value=sale.farmerName)
+                        .form-group
+                            label(for='nin') National ID Number (NIN)
+                            input#nin.form-control(name='nin' type='text' value=sale.nin)
+                        .form-group
+                            label(for='type') Type
+                            select#type.form-control(name='type')
+                                option(value='layer' selected=sale.type ==='layer') Layer
+                                option(value='broiler' selected=sale.type ==='broiler') Broiler
+                        .form-group
+                            label(for='breed') Breed
+                            select#breed.form-control(name='breed')
+                                option(value='local' selected=sale.breed ==='local') Local
+                                option(value='exotic' selected=sale.breed ==='exotic') Exotic
+                        .form-group
+                            label(for='farmerType') Farmer Type
+                            select#farmerType.form-control(name='farmerType')
+                                option(value='starter' selected=sale.farmerType ==='starter') Starter(Max 100 chicks)
+                                option(value='returning' selected=sale.farmerType ==='returning') Returning (Max 500 chicks)
+                        .form-group
+                            label(for='quantity') Quantity
+                            input#quantity.form-control(name='quantity' type='number' value=sale.quantity)
+                        .form-group
+                            label(for='dateUpdated') Date Updated
+                            input#dateUpdated.form-control(name='dateUpdated' type='date' value=sale.dateUpdated)
+                        a(href='/salesList')
+                            button.btn.btn-light(type='button' style='width: 200px;')
+                            i.fa-solid.fa-ban
+                            |                 Cancel
+                        button.btn.btn-primary.me-2(type='submit')
+                            i.fa-solid.fa-plus
+                            |  Update Request
+                        p#errorMsg.text-danger

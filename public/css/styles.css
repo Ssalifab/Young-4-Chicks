@@ -4,6 +4,10 @@ body {
   margin: 0;
 }
 
+.back_color{
+    background-color: #f8f9fa;
+}
+
 .login-container {
     max-width: 400px;
     margin: 0 auto;

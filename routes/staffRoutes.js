@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const{ensureAuthenticated, ensureManager}= require('../middleware/authMiddleware');
-const sale = require("../models/salesDashboardModal");
-const stock = require("../models/managerDashboardModal");
-const feed = require("../models/feedsModal");
+const Sale = require("../models/salesDashboardModal");
+const Stock = require("../models/managerDashboardModal");
+const Feed = require("../models/feedsModal");
 const User = require("../models/signupModal");
 
 //Sales Rep Routes
@@ -28,12 +28,46 @@ router.post('/sales', async (req, res) => {
 //List of sales in Database
 router.get('/salesList', async(req,res)=>{
     try {
-        let sales = await sale.find().sort({$natural:-1});
+        let sales = await Sale.find().sort({$natural:-1});
         res.render('salesList', {sales})
     } catch (error) {
         res.status(400).send('Unable to retrieve sales from database')
     }
 })
+
+//Updating sales get route
+
+router.get("/updateSales/:id", async (req,res)=>{
+    try {
+        const updateSales = await Sale.findOne({_id:req.params.id})
+        res.render('update-sales', {sale: updateSales});
+    } catch (error) {
+        res.status(400).send('Unable to retrieve sales from the database');
+        console.log(error);
+    }
+});
+
+//Update sales post route
+router.post("/updateSales/:id", async (req, res) => {  
+  try {
+    await Sale.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/salesList');
+  } catch (error) {
+    res.status(400).send("Error: " + error.message);
+  }
+});
+
+//Delete sale 
+router.post('/deleteSale', async(req,res)=>{
+    try {
+        await Sale.deleteOne({_id:req.body.id})
+        res.redirect('/salesList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+        console.log(error.message);
+    }
+})
+
 
 //Manager Dashboard routes
 //Stock Management dashboard routes
@@ -45,7 +79,7 @@ router.get('/stock', (req, res) => {
 router.post('/stock', async (req, res) => {
     try {
         console.log(req.body);
-        const newStock = new stock(req.body);
+        const newStock = new Stock(req.body);
         await newStock.save();
     } catch (error) {
         console.error(error);
@@ -58,12 +92,49 @@ router.post('/stock', async (req, res) => {
 //List of stock in Database
 router.get('/stockList', async(req,res)=>{
     try {
-        let stocks = await stock.find().sort({$natural:-1});
+        let stocks = await Stock.find().sort({$natural:-1});
         res.render('stockList', {stocks})
     } catch (error) {
         res.status(400).send('Unable to retrieve stock from database')
     }
 });
+
+//Updating stock get route
+
+router.get("/updateStock/:id", async (req,res)=>{
+    try {
+        const updateStock = await Stock.findOne({_id:req.params.id})
+        res.render('update-stock', {stock: updateStock});
+    } catch (error) {
+        res.status(400).send('Unable to find stock in the database');
+        console.log(error);
+    }
+});
+
+//Update stock post route
+router.post("/updateStock/:id", async (req, res) => {  
+  try {
+    await Stock.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/stockList');
+  } catch (error) {
+    res.status(400).send("Error: " + error.message);
+  }
+});
+
+//Delete stock 
+router.post('/deleteStock', async(req,res)=>{
+    try {
+        await Stock.deleteOne({_id:req.body.id})
+        res.redirect('/stockList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+        console.log(error.message);
+    }
+})
+
+
+
+
 
 
 //Feeds on Management dashboard routes

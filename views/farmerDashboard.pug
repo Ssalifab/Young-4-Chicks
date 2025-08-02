@@ -12,13 +12,13 @@ block content
     link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
     // Custom CSS
     link(rel='stylesheet' href='/css/styles.css')
-  body 
+  body.chicks 
     .container
       .row
-        .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
+        .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left.back_color
           img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
           h3.mt-2 Young4ChickS
-        .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
+        .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between.back_color
           p.mt-3.Welcome-h5
             i
               b Welcome
@@ -31,20 +31,20 @@ block content
             button.btn.btn-light.mt-2
               | Logout 
               i.fa-solid.fa-right-from-bracket
-    .container
+    .container.back_color
       .row
-        .col-12.dashboard-button.mt-2.d-flex.justify-content-between
+        .col-12.dashboard-button.mt-2.d-flex.justify-content-between.back_color
           h2.mt-2 Welcome,
           h2.mt-2.ml-3.Welcome-h5User Amulen Redeemer
           .col
           button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
             i.fa-solid.fa-phone
             |  New Request
-        .col-12.d-flex.justify-content-between
+        .col-12.d-flex.justify-content-between.back_color
           p Manage your chick requests and track your farming journey
     .container.dashboard-box
       .row.dashboard-box
-        .col-lg-12.col-md-12.col-sm-12.dashboard-box
+        .col-lg-12.col-md-12.col-sm-12.dashboard-box.back_color
           .card
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1
@@ -53,7 +53,7 @@ block content
             .card-body
               .container
                 .row
-                  .col-lg-6.col-md-12.col-sm-12
+                  .col-lg-6.col-md-12.col-sm-12.back_color
                     .card-header.d-flex.justify-content-between.align-items-center
                       h6 Layer - Local
                       h5.Welcome-h5 500
@@ -63,7 +63,7 @@ block content
                     hr.line.mt-1
                     .d-flex.justify-content-between.align-items-center.mt-1
                       h6 UGx 1,650 per chick
-                  .col-lg-6.col-md-12.col-sm-12
+                  .col-lg-6.col-md-12.col-sm-12.back_color
                     .card-header.d-flex.justify-content-between.align-items-center
                       h6 Layer - Local
                       h5.Welcome-h5 500
@@ -75,7 +75,7 @@ block content
                       h6 UGx 1,650 per chick
     .container.dashboard-box
       .row.dashboard-box
-        .col-lg-12.col-md-12.col-sm-12.dashboard-box
+        .col-lg-12.col-md-12.col-sm-12.dashboard-box.back_color
           .card
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1
