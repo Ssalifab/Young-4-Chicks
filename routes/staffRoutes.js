@@ -73,4 +73,38 @@ try {
 }
 })
 
+//Updating User get route
+
+router.get("/updateUser/:id", async (req,res)=>{
+    try {
+        const updateUser = await User.findOne({_id:req.params.id})
+        res.render('update-user', {user: updateUser});
+    } catch (error) {
+        res.status(400).send('Unable to find User in the database');
+        console.log(error);
+    }
+});
+
+//Update User post route
+router.post("/updateUser/:id", async (req, res) => {  
+  try {
+    await User.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/userlist');
+  } catch (error) {
+    res.status(400).send("Error: " + error.message);
+  }
+});
+
+//Delete User 
+router.post('/deleteUser', async(req,res)=>{
+    try {
+        await User.deleteOne({_id:req.body.id})
+        res.redirect('/userlist');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+        console.log(error.message);
+    }
+})
+
+
 module.exports = router;

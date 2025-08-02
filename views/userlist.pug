@@ -28,6 +28,8 @@ block content
                                         //- th(scope='col') Recommender email 
                                         //- th(scope='col') Recommender phone 
                                         th(scope='col') Role 
+                                        th(scope='col') Update
+                                        th(scope='col') Delete
                                 tbody
                                     if users.length 
                                         each user in users
@@ -45,6 +47,12 @@ block content
                                                     //- td #{user.recommenderEmail}
                                                     //- td #{user.recommenderPhone}
                                                     td #{user.role}
+                                                    td 
+                                                        a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
+                                                    td
+                                                        form(method='POST' action='/deleteUser')
+                                                            input(type='hidden' name='id' value=user._id)  
+                                                            button.btn.btn-danger.btn-block(type='submit') Delete  
         
             .col-lg-12.col-md-12.col-sm-12.dashboard-box
                 .card
@@ -67,7 +75,9 @@ block content
                                         //- th(scope='col') Recommender name 
                                         //- th(scope='col') Recommender email 
                                         //- th(scope='col') Recommender phone 
-                                        th(scope='col') Role 
+                                        th(scope='col') Role
+                                        th(scope='col') Update
+                                        th(scope='col') Delete 
                                 tbody
                                     if users.length 
                                         each user in users
@@ -85,3 +95,9 @@ block content
                                                     //- td #{user.recommenderEmail}
                                                     //- td #{user.recommenderPhone}
                                                     td #{user.role}
+                                                    td
+                                                        a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
+                                                    td 
+                                                        form(method='POST' action='/deleteUser')
+                                                            input(type='hidden' name='id' value=user._id)  
+                                                            button.btn.btn-danger.btn-block(type='submit') Delete 
