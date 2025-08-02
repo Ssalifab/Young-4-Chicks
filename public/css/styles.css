@@ -1,5 +1,7 @@
 body {
     background-color: #f8f9fa;
+    height: 100%;
+  margin: 0;
 }
 
 .login-container {
@@ -17,8 +19,9 @@ body {
 .login-fg-pw {
     color: rgb(34, 139, 34);
 }
-.nav-bar-layout{
-    color:rgb(34, 139, 34);
+
+.nav-bar-layout {
+    color: rgb(34, 139, 34);
     font-weight: bold;
 }
 
@@ -35,7 +38,6 @@ body {
 
 .btn-login {
     background-color: rgb(34, 139, 34);
-    ;
     border: none;
     padding: 10px;
 }
@@ -56,22 +58,19 @@ body {
     border-radius: 0px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
-.background-chicks {
-    background-image: url('/img/chicks1.jpg');
+
+.chicks {
+    background-image: url('/img/two-baby-chicks.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    min-height: 100%;
+    
 }
-.home-bg{
-    background-image: url('/img/chicks1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+
 .custom-justify {
-  display: flex;
-  justify-content: center;
-  gap: 2rem; /* Adds space between items */
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    /* Adds space between items */
 }
 
 .dashboard-button {
@@ -79,6 +78,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .sales-status-container {
     padding: 10px;
 }
@@ -114,6 +114,7 @@ body {
     padding: 5px;
     border-radius: 5px;
 }
+
 .pending {
     background-color: rgb(255, 204, 0);
     padding: 5px;
@@ -145,6 +146,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .homepage-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -169,14 +171,20 @@ h2 {
 .Welcome-h5 {
     color: rgb(34, 139, 34);
 }
+
 .Welcome-h5Sales {
     color: rgb(8, 44, 247);
 }
-.Welcome-h5User{
+
+.Welcome-h5User {
     color: rgb(0, 1, 8);
 }
+
 .line {
-    height:2px; border-width:0; color:gray; background-color:gray;
+    height: 2px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
 }
 
 .chicken-pic {
@@ -184,7 +192,8 @@ h2 {
     border-radius: 10px;
     height: 90px
 }
-.chicken-pic-dashboard{
+
+.chicken-pic-dashboard {
     padding: 1px;
     border-radius: 10px;
     height: 55px

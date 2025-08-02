@@ -6,12 +6,13 @@ const stock = require("../models/managerDashboardModal");
 const feed = require("../models/feedsModal");
 const User = require("../models/signupModal");
 
-//Sales dashboard get route
+//Sales Rep Routes
+//Sales dashboard get route|| Sales Rep
 router.get('/sales', (req, res) => {
     res.render('salesDashboard');
 });
 
-//Sales dashboard post route || this comes to action when submit button is clicked
+//Sales dashboard post route || this comes to action when submit button is clicked || Sales Rep
 router.post('/sales', async (req, res) => {
     try {
         console.log(req.body);  //req.body symbolizes everything you are picking from the form
@@ -24,7 +25,17 @@ router.post('/sales', async (req, res) => {
 
 });
 
+//List of sales in Database
+router.get('/salesList', async(req,res)=>{
+    try {
+        let sales = await sale.find().sort({$natural:-1});
+        res.render('salesList', {sales})
+    } catch (error) {
+        res.status(400).send('Unable to retrieve sales from database')
+    }
+})
 
+//Manager Dashboard routes
 //Stock Management dashboard routes
 router.get('/stock', (req, res) => {
     res.render('managerDashboard');
@@ -44,6 +55,17 @@ router.post('/stock', async (req, res) => {
 
 });
 
+//List of stock in Database
+router.get('/stockList', async(req,res)=>{
+    try {
+        let stocks = await stock.find().sort({$natural:-1});
+        res.render('stockList', {stocks})
+    } catch (error) {
+        res.status(400).send('Unable to retrieve stock from database')
+    }
+});
+
+
 //Feeds on Management dashboard routes
 router.get('/feeds', (req, res) => {
     res.render('managerDashboard');
@@ -61,6 +83,16 @@ router.post('/feeds', async (req, res) => {
         // res.status(400).send('Unable to send data to the Database');
     }
 
+});
+
+//List of feeds in Database
+router.get('/feedsList', async(req,res)=>{
+    try {
+        let feeds = await feed.find().sort({$natural:-1});
+        res.render('feedList', {feeds})
+    } catch (error) {
+        res.status(400).send('Unable to retrieve feeds from database')
+    }
 });
 
 //Get List of all Users from the database

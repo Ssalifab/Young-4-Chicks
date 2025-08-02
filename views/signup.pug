@@ -1,6 +1,6 @@
 extends layout 
 block content 
-  body.background-chicks
+  body.chicks
     .container.mt-2
       .signup-container
         .row.justify-content-center
@@ -58,7 +58,7 @@ block content
                           i (pdf/jpeg)
                         input#farmerId.form-control(name='farmerId' type='file')
                       .d-flex.justify-content-between
-                        a(href='/signup')
+                        a(href='/login')
                           button.btn.btn-secondary.prev-tab(type='button' data-prev-tab='personal-tab')
                             i.fa-solid.fa-arrow-left
                             |  Back to

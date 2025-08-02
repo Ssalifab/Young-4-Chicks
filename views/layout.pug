@@ -7,7 +7,7 @@ head
   link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
   link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
   link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
-  link(rel='stylesheet' href='/css/styles.css')
+  link(rel='stylesheet', href='/css/styles.css')
 nav.navbar.navbar-expand.bg-body-tertiary
   .container-fluid
     a.navbar-brand.nav-bar-layout(href='/') Young4ChickS
@@ -17,5 +17,8 @@ nav.navbar.navbar-expand.bg-body-tertiary
       .navbar-nav
         a.nav-link.active.nav-bar-layout(aria-current='page' href='/') Home
         a.nav-link.nav-bar-layout(href='/login') Login
+        a.nav-link.nav-bar-layout(href='/stock') Manager Dashboard
+        a.nav-link.nav-bar-layout(href='/sales') Sales Dashboard
+        a.nav-link.nav-bar-layout(href='/farmer') Farmer Dashboard
         a.nav-link.nav-bar-layout(href='/') Contact Us
 block content 
