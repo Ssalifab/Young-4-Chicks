@@ -17,8 +17,22 @@ nav.navbar.navbar-expand.bg-body-tertiary
       .navbar-nav
         a.nav-link.active.nav-bar-layout(aria-current='page' href='/') Home
         a.nav-link.nav-bar-layout(href='/login') Login
-        a.nav-link.nav-bar-layout(href='/stock') Manager Dashboard
-        a.nav-link.nav-bar-layout(href='/sales') Sales Dashboard
-        a.nav-link.nav-bar-layout(href='/farmer') Farmer Dashboard
+        
+        //- Dashboards dropdown
+        .nav-item.dropdown
+          a.nav-link.nav-bar-layout.dropdown-toggle.success-on-active(
+            href='#' 
+            role='button' 
+            data-bs-toggle='dropdown' 
+            aria-expanded='false'
+          ) Dashboards
+          ul.dropdown-menu
+            li
+              a.dropdown-item(href='/stock') Manager Dashboard
+            li
+              a.dropdown-item(href='/sales') Sales Dashboard
+            li
+              a.dropdown-item(href='/farmer') Farmer Dashboard
+        
         a.nav-link.nav-bar-layout(href='/') Contact Us
 block content 

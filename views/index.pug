@@ -1,20 +1,257 @@
-extends layout 
-block content 
+doctype html
+html(lang="en")
   head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Young4ChickS
-    // Bootstrap CSS
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet')
-    link(rel='stylesheet' href='/css/bootstrap/css/bootstrap.css')
-    // Font Awesome for icons
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css')
-    link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
-    // Custom CSS
-    link(rel='stylesheet' href='/css/styles.css')
-  .container
-    .row
-      .col-lg-12.custom-justify
-        img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
-        h3.mt-2.h5-dashboard-4 Young4ChickS
-  script(src='/css/bootstrap/js/bootstrap.bundle.js')
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Young4Chicks - Poultry Empowerment for Youth
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", rel="stylesheet")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+    link(rel="stylesheet", href="/css/home.css")
+
+  body
+    // Navigation
+    nav.navbar.navbar-expand-lg.navbar-light.bg-white.sticky-top
+      .container
+        a.navbar-brand(href="#")
+          img(src='/img/chicken.jpg', alt="Young4Chicks Logo", height="40")
+        button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ms-auto
+            li.nav-item
+              a.nav-link.active(href="#") Home
+            li.nav-item
+              a.nav-link(href="#how-it-works") How It Works
+            li.nav-item
+              a.nav-link(href="#pricing") Pricing
+            li.nav-item
+              a.nav-link(href="#testimonials") Success Stories
+            li.nav-item
+              a.nav-link(href="#contact") Contact
+          .ms-lg-3
+            a.btn.btn-outline-success.me-2(href="/login") Login
+            a.btn.btn-success(href="/signup") Sign up
+
+    // Hero Section
+    section.hero-section.bg-light
+      .container
+        h1.display-4.fw-bold.mb-4 Empowering Youth Through Poultry Farming
+        p.lead.mb-5 Get started with quality chicks and build your poultry business with our youth-focused program
+        .d-flex.justify-content-between.gap-3
+          a.btn.btn-success.btn-lg(href="/farmer") Request Chicks
+          a.btn.btn-outline-success.btn-lg(href="#how-it-works") Learn More
+
+    // How It Works
+    section#how-it-works.py-5.bg-light
+      .container
+        .text-center.mb-5
+          h2.display-5.fw-bold.mb-3 How It Works
+          p.lead.text-muted Simple steps to get your poultry business started
+        .row.g-4
+          .col-md-4
+            .feature-card.card.h-100.text-center.p-4
+              .feature-icon
+                i.fas.fa-user-check
+              h4 1. Register
+              p Register with your NIN and recommender's details to become an eligible young farmer
+          .col-md-4
+            .feature-card.card.h-100.text-center.p-4
+              .feature-icon
+                i.fas.fa-edit
+              h4 2. Request Chicks
+              p Submit your request for layers or broilers (100 chicks for starters, up to 500 for returning farmers)
+          .col-md-4
+            .feature-card.card.h-100.text-center.p-4
+              .feature-icon
+                i.fas.fa-check-circle
+              h4 3. Get Approved
+              p Our brooder manager will approve your request and notify you when ready for pickup
+
+    // Pricing Section
+    section#pricing.py-5.chicks
+      .container
+        .text-center.mb-5
+          h2.display-5.fw-bold.mb-3 Our Pricing
+          p.lead.text-muted Affordable options for young entrepreneurs
+        .row.justify-content-center
+          .col-lg-8
+            .card
+              .card-body.p-5
+                .row
+                  .col-md-6.border-end
+                    h3.mb-4 Chicks Pricing
+                    ul.list-unstyled
+                      li.mb-3
+                        strong Layers/Broilers: 
+                        | UGX 1,650 per chick
+                      li.mb-3
+                        strong Starter Package: 
+                        | 100 chicks maximum
+                      li.mb-3
+                        strong Returning Farmers: 
+                        | Up to 500 chicks
+                  .col-md-6
+                    h3.mb-4 Feed Options
+                    ul.list-unstyled
+                      li.mb-3
+                        strong 2 Bags Included: 
+                        | Payable after 2 months
+                      li.mb-3
+                        strong Quality Feed: 
+                        | Specially formulated for optimal growth
+                      li.mb-3
+                        strong Delivery: 
+                        | Available for bulk orders
+                .text-center.mt-4
+                  a.btn.btn-success(href="/farmer") Request Chicks Now
+
+    // Stats Section
+    section.py-5.bg-success.text-white
+      .container
+        .row.text-center
+          .col-md-3.mb-4.mb-md-0
+            .stats-counter 5,000+
+            p.mb-0 Young Farmers Empowered
+          .col-md-3.mb-4.mb-md-0
+            .stats-counter 200K+
+            p.mb-0 Chicks Distributed
+          .col-md-3.mb-4.mb-md-0
+            .stats-counter 85%
+            p.mb-0 Success Rate
+          .col-md-3
+            .stats-counter 24/7
+            p.mb-0 Support Available
+
+    // Testimonials
+    section#testimonials.py-5.bg-light
+      .container
+        .text-center.mb-5
+          h2.display-5.fw-bold.mb-3 Success Stories
+          p.lead.text-muted What our young farmers say about us
+        .row.g-4
+          .col-md-4
+            .card.h-100.p-4
+              .d-flex.align-items-center.mb-3
+                img.testimonial-img.me-3(src='/img/farmer2.png', alt="Sarah K.")
+                div
+                  h5.mb-0 Sarah K.
+                  small.text-muted Poultry Farmer, 24
+              p "Started with 100 chicks and now I have a thriving business with 500 layers. The program changed my life!"
+          .col-md-4
+            .card.h-100.p-4
+              .d-flex.align-items-center.mb-3
+                img.testimonial-img.me-3(src='/img/farmer3.png', alt="David M.")
+                div
+                  h5.mb-0 David M.
+                  small.text-muted Poultry Farmer, 28
+              p "The quality of chicks is excellent, and the payment plan for feeds makes it affordable for young entrepreneurs."
+          .col-md-4
+            .card.h-100.p-4
+              .d-flex.align-items-center.mb-3
+                img.testimonial-img.me-3(src='/img/farmer1.png', alt="Grace N.")
+                div
+                  h5.mb-0 Grace N.
+                  small.text-muted Poultry Farmer, 22
+              p "The online request system makes it so easy to track my orders. I've recommended it to all my friends!"
+
+    // Contact Section
+    section#contact.py-5
+      .container
+        .row
+          .col-lg-6.mb-5.mb-lg-0
+            h2.display-5.fw-bold.mb-4 Contact Us
+            p.lead Have questions? Reach out to our team
+            .mt-4
+              h5.mb-3
+                i.fas.fa-map-marker-alt.me-2
+                | Our Office
+              p Nsambya, Kampala, Uganda
+              h5.mb-3
+                i.fas.fa-phone.me-2
+                | Call Us
+              p +256 782 768448
+              h5.mb-3
+                i.fas.fa-envelope.me-2
+                | Email Us
+              p info@youngforchicks.ug
+              .mt-4
+                h5.mb-3 Follow Us
+                a.btn.btn-outline-secondary.btn-sm.me-2(href="#")
+                  i.fab.fa-facebook-f
+                a.btn.btn-outline-secondary.btn-sm.me-2(href="#")
+                  i.fab.fa-twitter
+                a.btn.btn-outline-secondary.btn-sm.me-2(href="#")
+                  i.fab.fa-instagram
+                a.btn.btn-outline-secondary.btn-sm(href="#")
+                  i.fab.fa-whatsapp
+          .col-lg-6
+            .card.shadow
+              .card-body.p-5
+                h3.mb-4 Send Us a Message
+                form
+                  .mb-3
+                    label.form-label(for="name") Your Name
+                    input.form-control(type="text", id="name", required)
+                  .mb-3
+                    label.form-label(for="email") Email Address
+                    input.form-control(type="email", id="email", required)
+                  .mb-3
+                    label.form-label(for="subject") Subject
+                    select.form-select(id="subject")
+                      option(selected) Choose a subject
+                      option Chick Requests
+                      option Feed Inquiries
+                      option General Questions
+                      option Technical Support
+                  .mb-3
+                    label.form-label(for="message") Message
+                    textarea.form-control(id="message", rows="4", required)
+                  button.btn.btn-success(type="submit") Send Message
+
+    // Footer
+    footer.bg-dark.text-white.py-5
+      .container
+        .row
+          .col-md-4.mb-4.mb-md-0
+            h5 Young4Chicks
+            p Empowering youth through poultry farming initiatives since 2020.
+          .col-md-2.mb-4.mb-md-0
+            h5 Quick Links
+            ul.list-unstyled
+              li.mb-2
+                a.text-white-50(href="#") Home
+              li.mb-2
+                a.text-white-50(href="#how-it-works") How It Works
+              li.mb-2
+                a.text-white-50(href="#pricing") Pricing
+              li.mb-2
+                a.text-white-50(href="#testimonials") Success Stories
+          .col-md-3.mb-4.mb-md-0
+            h5 Resources
+            ul.list-unstyled
+              li.mb-2
+                a.text-white-50(href="#") Poultry Guides
+              li.mb-2
+                a.text-white-50(href="#") FAQ
+              li.mb-2
+                a.text-white-50(href="#") Terms of Service
+              li.mb-2
+                a.text-white-50(href="#") Privacy Policy
+          .col-md-3
+            h5 Newsletter
+            p Subscribe to get updates and farming tips
+            form
+              .input-group.mb-3
+                input.form-control(type="email", placeholder="Your email")
+                button.btn.btn-success(type="submit") Subscribe
+        hr.my-4
+        .row
+          .col-md-6
+            p.mb-0 &copy; 2025 Young4Chicks. All rights reserved.
+          .col-md-6.text-md-end
+            p.mb-0 Designed by ssali lwanga | Refactory | Cohort 18 with 
+              i.fas.fa-heart.text-danger
+              |  for Ugandan youth
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js")

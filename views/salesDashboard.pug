@@ -33,8 +33,12 @@ block content
               i.fa-solid.fa-right-from-bracket
     .container
       .row
-        .col-12.dashboard-button.mt-2.d-flex.justify-content-between
+        .col-9.dashboard-button.mt-2.d-flex.justify-content-between
           h2.Welcome-h5Sales.mt-2 Sales Dashboard
+        .col-3.dashboard-button.mt-2.d-flex.justify-content-between
+          a.button.btn.btn-warning.dashboard-button.mt-1(href="/salesList" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+            i.fa-solid.fa-eye
+            |  Sales   
           button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#newRequestModal')
             i.fa-solid.fa-phone
             |  New Request

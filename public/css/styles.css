@@ -70,6 +70,13 @@ body {
     
 }
 
+.success-on-active:focus,
+.success-on-active:active,
+.success-on-active.show {
+  background-color: #198754 !important;  /* Bootstrap success color */
+  color: white !important;
+}
+
 .custom-justify {
     display: flex;
     justify-content: center;
