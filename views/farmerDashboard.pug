@@ -100,6 +100,16 @@ block content
           .modal-body
             form#newRequestForm(ation='/farmer' method='POST')
               .form-group
+                label(for='farmerType') Farmer Type
+                .form-check 
+                  input.form-check-input#starter(type='radio' name='farmerType' value='starter'
+                  checked = (isStarter ? 'checked': false))
+                  label.form-check-label(for="starter") Starter Farmer (Max 100 Chicks)
+                .form-check 
+                  input.form-check-input#returning(type='radio' name='farmerType' value='returning'
+                  checked = (isStarter ? false: 'checked'))
+                  label.form-check-label(for="returning") Returning Farmer (Max 500 Chicks)
+              .form-group
                 label(for='chickType') Type
                 select#chickType.form-control(name='chickType')
                   option(value='') --Select chick type--
@@ -113,7 +123,15 @@ block content
                   option(value='exotic') Exotic
               .form-group
                 label(for='quantity') Quantity
-                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
+                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' min = '1' max = (isStarter ? 100 : 500))
+                small.form-text-muted 
+                  | Maximum: #{isStarter ? '100' : '500'} Chicks 
+              .form-group
+                label(for='unitPrice') Unit Price (1650)
+                input#unitPrice.form-control(name='unitPrice' type='number' value=1650 readonly)
+              .form-group
+                label(for='totalPrice') Total Price
+                input#totalPrice.form-control(name='totalPrice' type='number' readonly)  
               .form-group
                 label(for='dateUpdated') Date Updated
                 input#dateUpdated.form-control(name='dateUpdated' type='date')
