@@ -8,6 +8,7 @@ router.get('/farmer', ensureAuthenticated, ensureFarmer, async(req, res) => {
     try {
         const requests = await request.find({user:req.session.user._id});
         const isStarter = requests.length === 0;
+        console.log("These are my requests so far:", requests);
         res.render('farmerDashboard', {isStarter})
     } catch (error) {
         console.error(error.message);

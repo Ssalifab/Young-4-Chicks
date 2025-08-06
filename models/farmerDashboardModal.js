@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const requestSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.Object,
-        ref: "user",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     farmerType: {
@@ -28,8 +28,7 @@ const requestSchema = new mongoose.Schema({
         required: true
     },
      totalPrice: {
-        type: Number,
-        required: true
+        type: Number
     },
     dateUpdated: {
         type: Date,
@@ -40,6 +39,6 @@ const requestSchema = new mongoose.Schema({
         enum: ["pending", "approved","dispatched","canceled"],
         default: "pending"
     },
-    lastTakenDate: Date
+    approvedDate: Date
 });
 module.exports = mongoose.model("request", requestSchema);

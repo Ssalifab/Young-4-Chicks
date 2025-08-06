@@ -15,18 +15,18 @@ block content
     body.chicks
         .container
             .row
-                .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
+                .col-lg-6.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
                     img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
                     h3.mt-2 Young4ChickS
-                .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
+                .col-lg-6.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
                     p.mt-3.Welcome-h5
                         i
                             b Welcome
                     p.mt-3
                         i.fa-regular.fa-user
-                        |  John Doe
+                        |  #{currentUser.name}
                     p.mt-3.Welcome-h5
-                        b Manager
+                        b #{currentUser.role}
                     a(href='/logout')
                         button.btn.btn-light.mt-2
                             | Logout 
@@ -52,19 +52,19 @@ block content
             .row.dashboard-box
                 .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
                     p Total Stock
-                    h5 800
+                    h5 #{totalChickStock}
                     i.fa-solid.fa-boxes-stacked.mt-1
                 .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
                     p.h5-dashboard-2 Pending Requests
-                    h5.h5-dashboard-2 20
+                    h5.h5-dashboard-2 #{pendingRequests}
                     i.fa-solid.fa-user-group.mt-1
                 .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
                     p.h5-dashboard-3 Total Requests
-                    h5.h5-dashboard-3 120
+                    h5.h5-dashboard-3 #{totalRequests}
                     i.fa-solid.fa-arrow-trend-up.mt-1
                 .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
                     p.h5-dashboard-4 Approved Requests
-                    h5.h5-dashboard-4 33
+                    h5.h5-dashboard-4 #{approvedRequests}
                     i.fa-solid.fa-circle-check.mt-1
         .container.dashboard-box
             .row.dashboard-box
@@ -85,6 +85,15 @@ block content
                                         th Price
                                         th Actions
                                 tbody
+                                    if stock.length  
+                                        each item in stock
+                                            tr
+                                                td #{item.chickType}
+                                                td #{item.breed}
+                                                td #{item.quantity}
+                                                td #{item.age}
+                                                td #{moment(item.dateUpdated).format('DD MM YYYY')}                               
+
         .container.dashboard-box
             .row.dashboard-box
                 .col-lg-12.col-md-12.col-sm-12.dashboard-box
@@ -124,6 +133,15 @@ block content
                                         th Request Date
                                         th Actions
                                 tbody
+                                    if requests.length  
+                                            each item in requests
+                                                tr
+                                                    td #{item.user.firstName} #{item.user.lastName}
+                                                    td #{item.chickType}
+                                                    td #{item.breed}
+                                                    td #{item.quantity}
+                                                    td #{item.farmerType}
+                                                    td #{moment(item.dateUpdated).format('DD MM YYYY')} 
         // Add Stock Modal
         #addStockModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
             .modal-dialog

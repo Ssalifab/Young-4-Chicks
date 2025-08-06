@@ -60,7 +60,10 @@ userSchema.remove('username');
 
 userSchema.plugin(passportLocalMongoose,{
     usernameField: 'email',
-    usernameUnique: true, // ensures email is unique
-    usernameLowerCase: true // converts email to lowercase
+    usernameQueryFields: ['email'],
+    usernameLowerCase: true, // converts email to lowercase
+    errorMessages: {
+    UserExistsError: 'A user with the given email already exists'
+  }
 })
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);

@@ -11,10 +11,9 @@
 }
 
 .hero-section {
-  background: linear-gradient(rgba(0,0,0,0.6), url('https://source.unsplash.com/random/1200x600/?poultry,farm');
   background-size: cover;
   background-position: center;
-  color: white;
+  color: rgb(5, 5, 5);
   padding: 120px 0;
   text-align: center;
 }
@@ -85,7 +84,7 @@ footer a.text-white-50:hover {
   text-decoration: none;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for mobile/tablet */
 @media (max-width: 768px) {
   .hero-section {
     padding: 80px 0;

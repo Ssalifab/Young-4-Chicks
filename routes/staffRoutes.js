@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const{ensureAuthenticated, ensureManager}= require('../middleware/authMiddleware');
+const { ensureAuthenticated, ensureManager, ensureSalesRep } = require('../middleware/authMiddleware');
 const Sale = require("../models/salesDashboardModal");
 const Stock = require("../models/managerDashboardModal");
 const Feed = require("../models/feedsModal");
 const User = require("../models/signupModal");
+const Requests = require("../models/farmerDashboardModal");
 
 //Sales Rep Routes
 //Sales dashboard get route|| Sales Rep
@@ -26,10 +27,10 @@ router.post('/sales', async (req, res) => {
 });
 
 //List of sales in Database
-router.get('/salesList', async(req,res)=>{
+router.get('/salesList', async (req, res) => {
     try {
-        let sales = await Sale.find().sort({$natural:-1});
-        res.render('salesList', {sales})
+        let sales = await Sale.find().sort({ $natural: -1 });
+        res.render('salesList', { sales })
     } catch (error) {
         res.status(400).send('Unable to retrieve sales from database')
     }
@@ -37,10 +38,10 @@ router.get('/salesList', async(req,res)=>{
 
 //Updating sales get route
 
-router.get("/updateSales/:id", async (req,res)=>{
+router.get("/updateSales/:id", async (req, res) => {
     try {
-        const updateSales = await Sale.findOne({_id:req.params.id})
-        res.render('update-sales', {sale: updateSales});
+        const updateSales = await Sale.findOne({ _id: req.params.id })
+        res.render('update-sales', { sale: updateSales });
     } catch (error) {
         res.status(400).send('Unable to retrieve sales from the database');
         console.log(error);
@@ -48,19 +49,19 @@ router.get("/updateSales/:id", async (req,res)=>{
 });
 
 //Update sales post route
-router.post("/updateSales/:id", async (req, res) => {  
-  try {
-    await Sale.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect('/salesList');
-  } catch (error) {
-    res.status(400).send("Error: " + error.message);
-  }
+router.post("/updateSales/:id", async (req, res) => {
+    try {
+        await Sale.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/salesList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+    }
 });
 
 //Delete sale 
-router.post('/deleteSale', async(req,res)=>{
+router.post('/deleteSale', async (req, res) => {
     try {
-        await Sale.deleteOne({_id:req.body.id})
+        await Sale.deleteOne({ _id: req.body.id })
         res.redirect('/salesList');
     } catch (error) {
         res.status(400).send("Error: " + error.message);
@@ -71,8 +72,55 @@ router.post('/deleteSale', async(req,res)=>{
 
 //Manager Dashboard routes
 //Stock Management dashboard routes
-router.get('/stock', (req, res) => {
-    res.render('managerDashboard');
+router.get('/stock', ensureAuthenticated, ensureManager, async (req, res) => {
+    try {
+        // Get logged-in user details from session
+        const loggedInUser = {
+            id: req.user._id,
+            name: `${req.user.firstName} ${req.user.lastName}`,
+            email: req.user.email,
+            role: req.user.role
+        };
+        const totalRequests = await Requests.countDocuments({})
+        const pendingRequests = await Requests.countDocuments({ status: 'pending' })
+        const approvedRequests = await Requests.countDocuments({ status: 'approved' })
+        const dispatchedRequests = await Requests.countDocuments({ status: 'dispatched' })
+        const canceledRequests = await Requests.countDocuments({ status: 'canceled' })
+        const users = await User.find();
+        const farmers = await User.find({ role: 'farmer' });
+        const stock = await Stock.find();
+        const requests = await Requests.find().populate("user", "firstName lastName")
+        const [totalStock] = await Stock.aggregate([
+            { $group: { _id: null, totalChickStock: { $sum: '$quantity' } } }
+        ]) || [{}];
+
+
+        const chickSales = await Requests.aggregate([
+            { $match: { status: { $in: ['approved', 'dispatched'] } } },
+            {
+                $group: {
+                    _id: null, totalQuantity: { $sum: '$quantity' },
+                    totalChickSales: { $sum: { $multiply: ['$quantity', 1650] } }
+                }
+            }
+        ])
+        res.render('managerDashboard', {
+            currentUser: loggedInUser,
+            users,
+            farmers,
+            stock,
+            requests,
+            chickSales: chickSales[0],
+            pendingRequests,
+            approvedRequests,
+            dispatchedRequests,
+            canceledRequests,
+            totalRequests,
+            totalChickStock: totalStock.totalChickStock || 0
+        });
+    } catch (error) {
+        res.status(500).send('Error loading dashboard data');
+    }
 });
 
 //Stock Management dashboard post route
@@ -90,10 +138,10 @@ router.post('/stock', async (req, res) => {
 });
 
 //List of stock in Database
-router.get('/stockList', async(req,res)=>{
+router.get('/stockList', async (req, res) => {
     try {
-        let stocks = await Stock.find().sort({$natural:-1});
-        res.render('stockList', {stocks})
+        let stocks = await Stock.find().sort({ $natural: -1 });
+        res.render('stockList', { stocks })
     } catch (error) {
         res.status(400).send('Unable to retrieve stock from database')
     }
@@ -101,10 +149,10 @@ router.get('/stockList', async(req,res)=>{
 
 //Updating stock get route
 
-router.get("/updateStock/:id", async (req,res)=>{
+router.get("/updateStock/:id", async (req, res) => {
     try {
-        const updateStock = await Stock.findOne({_id:req.params.id})
-        res.render('update-stock', {stock: updateStock});
+        const updateStock = await Stock.findOne({ _id: req.params.id })
+        res.render('update-stock', { stock: updateStock });
     } catch (error) {
         res.status(400).send('Unable to find stock in the database');
         console.log(error);
@@ -112,19 +160,19 @@ router.get("/updateStock/:id", async (req,res)=>{
 });
 
 //Update stock post route
-router.post("/updateStock/:id", async (req, res) => {  
-  try {
-    await Stock.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect('/stockList');
-  } catch (error) {
-    res.status(400).send("Error: " + error.message);
-  }
+router.post("/updateStock/:id", async (req, res) => {
+    try {
+        await Stock.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/stockList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+    }
 });
 
 //Delete stock 
-router.post('/deleteStock', async(req,res)=>{
+router.post('/deleteStock', async (req, res) => {
     try {
-        await Stock.deleteOne({_id:req.body.id})
+        await Stock.deleteOne({ _id: req.body.id })
         res.redirect('/stockList');
     } catch (error) {
         res.status(400).send("Error: " + error.message);
@@ -157,31 +205,31 @@ router.post('/feeds', async (req, res) => {
 });
 
 //List of feeds in Database
-router.get('/feedsList', async(req,res)=>{
+router.get('/feedsList', async (req, res) => {
     try {
-        let feeds = await feed.find().sort({$natural:-1});
-        res.render('feedList', {feeds})
+        let feeds = await feed.find().sort({ $natural: -1 });
+        res.render('feedList', { feeds })
     } catch (error) {
         res.status(400).send('Unable to retrieve feeds from database')
     }
 });
 
 //Get List of all Users from the database
-router.get('/userlist', ensureAuthenticated, ensureManager, async(req,res)=>{
-try {
-    let users = await User.find().sort({$natural:-1}).limit(20);
-    res.render('userlist',{users})
-} catch (error) {
-    res.status(400).send('Unable to find requested users')
-}
+router.get('/userlist', ensureAuthenticated, ensureManager, async (req, res) => {
+    try {
+        let users = await User.find().sort({ $natural: -1 }).limit(20);
+        res.render('userlist', { users })
+    } catch (error) {
+        res.status(400).send('Unable to find requested users')
+    }
 })
 
 //Updating User get route
 
-router.get("/updateUser/:id", async (req,res)=>{
+router.get("/updateUser/:id", async (req, res) => {
     try {
-        const updateUser = await User.findOne({_id:req.params.id})
-        res.render('update-user', {user: updateUser});
+        const updateUser = await User.findOne({ _id: req.params.id })
+        res.render('update-user', { user: updateUser });
     } catch (error) {
         res.status(400).send('Unable to find User in the database');
         console.log(error);
@@ -189,19 +237,19 @@ router.get("/updateUser/:id", async (req,res)=>{
 });
 
 //Update User post route
-router.post("/updateUser/:id", async (req, res) => {  
-  try {
-    await User.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect('/userlist');
-  } catch (error) {
-    res.status(400).send("Error: " + error.message);
-  }
+router.post("/updateUser/:id", async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/userlist');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+    }
 });
 
 //Delete User 
-router.post('/deleteUser', async(req,res)=>{
+router.post('/deleteUser', async (req, res) => {
     try {
-        await User.deleteOne({_id:req.body.id})
+        await User.deleteOne({ _id: req.body.id })
         res.redirect('/userlist');
     } catch (error) {
         res.status(400).send("Error: " + error.message);
