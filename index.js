@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const moment = require('moment');
+const flash = require('connect-flash');
 const expressSession = require('express-session')({
   secret: 'bukomansimbi',
   resave: false,
@@ -52,6 +53,15 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Flash
+app.use(flash());
+
+// Make flash messages available to templates
+app.use((req, res, next) => {
+  res.locals.messages = req.flash();
+  next();
+});
 
 //Passport Configs
 passport.use(user.createStrategy());

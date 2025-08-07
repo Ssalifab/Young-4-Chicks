@@ -5,23 +5,267 @@ const Sale = require("../models/salesDashboardModal");
 const Stock = require("../models/managerDashboardModal");
 const Feed = require("../models/feedsModal");
 const User = require("../models/signupModal");
-const Requests = require("../models/farmerDashboardModal");
+const Requests = require("../models/salesDashboardModal");
 
 //Sales Rep Routes
 //Sales dashboard get route|| Sales Rep
-router.get('/sales', (req, res) => {
-    res.render('salesDashboard');
+// router.get('/sales', ensureAuthenticated, ensureSalesRep, async (req, res) => {
+//     try {
+//         if (!req.user) {
+//             return res.redirect('/login');
+//         }
+//         const loggedInUser = {
+//             id: req.user._id,
+//             name: `${req.user.firstName} ${req.user.lastName}`,
+//             email: req.user.email,
+//             role: req.user.role
+//         };
+//         const totalRequests = await Requests.countDocuments({})
+//         const pendingRequests = await Requests.countDocuments({ status: 'pending' })
+//         const approvedRequests = await Requests.countDocuments({ status: 'approved' })
+//         const dispatchedRequests = await Requests.countDocuments({ status: 'dispatched' })
+//         const canceledRequests = await Requests.countDocuments({ status: 'canceled' })
+//         const users = await User.find();
+//         const farmers = await User.find({ role: 'farmer' }).select('firstName lastName nin').lean() || [];
+//         const requests = await Requests.find().populate({
+//             path: 'user farmer',  // Populate both user and farmer references
+//             select: 'firstName lastName'  // Only get these fields
+//         })
+//             .sort({ dateUpdated: -1 })  // Newest first
+//             .lean() || [];
+//         const isStarter = requests.length === 0;
+
+
+//         const chickSales = await Requests.aggregate([
+//             { $match: { status: { $in: ['approved', 'dispatched'] } } },
+//             {
+//                 $group: {
+//                     _id: null, totalQuantity: { $sum: '$quantity' },
+//                     totalChickSales: { $sum: { $multiply: ['$quantity', 1650] } }
+//                 }
+//             }
+//         ]).catch(() => [{ totalQuantity: 0, totalChickSales: 0 }]); // Fallback if aggregation fails
+
+//         res.render('salesDashboard', {
+//             currentUser: loggedInUser,
+//             users,
+//             farmers: farmers || [],
+//             isStarter: true,
+//             requests: requests || [],
+//             chickSales: chickSales[0],
+//             pendingRequests,
+//             approvedRequests,
+//             dispatchedRequests,
+//             canceledRequests,
+//             totalRequests,
+//         });
+
+//     } catch (error) {
+//         console.error(err);
+//         res.status(500).render('salesDashboard', {
+//             farmers: [], requests: []
+//         });
+//     }
+// });
+
+router.get('/sales', ensureAuthenticated, ensureSalesRep, async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.redirect('/login');
+        }
+
+        // User data
+        const loggedInUser = {
+            id: req.user._id,
+            name: `${req.user.firstName} ${req.user.lastName}`,
+            email: req.user.email,
+            role: req.user.role
+        };
+
+        // Counts
+        const [
+            totalRequests,
+            pendingRequests,
+            approvedRequests,
+            dispatchedRequests,
+            canceledRequests,
+            users,
+            farmers,
+            requests,
+            chickSales
+        ] = await Promise.all([
+            Requests.countDocuments({}),
+            Requests.countDocuments({ status: 'pending' }),
+            Requests.countDocuments({ status: 'approved' }),
+            Requests.countDocuments({ status: 'dispatched' }),
+            Requests.countDocuments({ status: 'canceled' }),
+            User.find().lean(),
+            User.find({ role: 'farmer' }).select('firstName lastName nin').lean(),
+            Requests.find()
+                .populate([
+                    {
+                        path: 'user',
+                        select: 'firstName lastName',
+                        model: 'User'
+                    },
+                    {
+                        path: 'farmer',
+                        select: 'firstName lastName',
+                        model: 'User'
+                    }
+                ])
+                .sort({ dateUpdated: -1 })
+                .lean(),
+            Requests.aggregate([
+                { $match: { status: { $in: ['approved', 'dispatched'] } } },
+                {
+                    $group: {
+                        _id: null,
+                        totalQuantity: { $sum: '$quantity' },
+                        totalChickSales: { $sum: { $multiply: ['$quantity', 1650] } }
+                    }
+                }
+            ]).catch(() => [{ totalQuantity: 0, totalChickSales: 0 }])
+        ]);
+
+        res.render('salesDashboard', {
+            currentUser: loggedInUser,
+            users: users || [],
+            farmers: farmers || [],
+            isStarter: requests.length === 0,
+            requests: requests || [],
+            chickSales: chickSales[0] || { totalQuantity: 0, totalChickSales: 0 },
+            pendingRequests: pendingRequests || 0,
+            approvedRequests: approvedRequests || 0,
+            dispatchedRequests: dispatchedRequests || 0,
+            canceledRequests: canceledRequests || 0,
+            totalRequests: totalRequests || 0,
+            moment: require('moment') // Add moment for date formatting
+        });
+
+    } catch (error) {
+        console.error('Error in /sales route:', error);
+        res.status(500).render('salesDashboard', {
+            currentUser: req.user || {},
+            farmers: [],
+            requests: [],
+            error: 'Failed to load dashboard data'
+        });
+    }
 });
 
 //Sales dashboard post route || this comes to action when submit button is clicked || Sales Rep
-router.post('/sales', async (req, res) => {
+router.post('/sales', ensureAuthenticated, ensureSalesRep, async (req, res) => {
     try {
         console.log(req.body);  //req.body symbolizes everything you are picking from the form
-        const newSale = new sale(req.body);
-        await newSale.save();
+
+        const farmerType = req.body.farmerType;
+        if (!['starter', 'returning'].includes(farmerType)) {
+            throw new Error('Invalid farmer type');
+        }
+        const maxQuantity = farmerType === 'starter' ? 100 : 500;
+        const quantity = Math.min(parseInt(req.body.quantity) || 0, maxQuantity);
+
+        const { farmerId, farmerName, type, breed } = req.body;
+
+        // Validate required fields
+        if (!farmerId || !type || !breed || !farmerType || !quantity) {
+            const farmers = await User.find({ role: 'farmer' }).lean();
+            return res.status(400).render('salesDashboard', {
+                error: 'All fields are required',
+                currentUser: req.user,
+                farmers: farmers || []
+            });
+        }
+        // Verify farmer exists
+        const farmer = await User.findById(farmerId);
+        if (!farmer) {
+            return res.status(404).render('salesDashboard', {
+                error: 'Farmer not found',
+                currentUser: req.user
+            });
+        }
+        // Validate quantity based on farmer type
+
+        if (quantity > maxQuantity) {
+            return res.status(400).render('salesDashboard', {
+                error: `Quantity exceeds maximum allowed (${maxQuantity})`,
+                currentUser: req.user
+            });
+        }
+
+        // 5. Date handling - either from form or current date
+        let dateValue;
+        if (Array.isArray(req.body.dateUpdated)) {
+            dateValue = req.body.dateUpdated[0] || new Date();
+        } else {
+            dateValue = req.body.dateUpdated || new Date();
+        }
+        const dateUpdated = new Date(dateValue);
+        if (isNaN(dateUpdated.getTime())) {
+            throw new Error('Invalid date format');
+        }
+
+        // 5. Create and save the sale
+        const saleData = {
+            farmer: farmerId,
+            user: req.user._id,
+            submittedBy: req.user._id,
+            type,
+            breed,
+            farmerType,
+            quantity,
+            dateUpdated,
+            status: 'pending'
+        };
+
+        console.log('Saving sale:', saleData); // Debug log
+
+        const newSale = new Sale(saleData);
+        const savedSale = await newSale.save();
+        console.log('Sale saved:', savedSale); // Debug log
+
+        res.redirect('/sales');
+
     } catch (error) {
-        console.error(error);
-        res.status(400).render('sales'); //pass the pug file as a parameter
+        console.error('Submission failed:', error.message);
+
+        const farmers = await User.find({ role: 'farmer' }).lean();
+        res.status(400).render('salesDashboard', {
+            error: error.message,
+            currentUser: req.user,
+            farmers: farmers || [],
+            submittedData: req.body
+            // Create new sale
+            //     const newSale = new Sale({
+            //         farmer: farmerId,
+            //         user: req.user._id,  // Add the authenticated user
+            //         submittedBy: req.user._id, //sales rep ID from session
+            //         farmerName,
+            //         type,
+            //         breed,
+            //         farmerType,
+            //         quantity: Number(quantity),
+            //         dateUpdated,
+            //         status: 'pending' // Default status
+            //     });
+            //     console.log('Saving sale:', saleData); // Debug log
+
+            //     await newSale.save();
+            //     req.flash('success', 'Sale request submitted successfully');
+            //     return res.redirect('/sales');
+
+            // } catch (error) {
+            //     console.error('Submission error:', error);
+            //     // Get fresh farmer list for the form
+            //     const farmers = await User.find({ role: 'farmer' }).lean();
+            //     return res.status(500).render('salesDashboard', {
+            //         error: error.message || 'Failed to process request',
+            //         currentUser: req.user,
+            //         farmers: farmers || [],
+            //         // Pass submitted data back to maintain form state
+            //         submittedData: req.body
+        });
     }
 
 });
