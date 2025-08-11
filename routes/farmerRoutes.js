@@ -25,8 +25,19 @@ router.get('/farmer', ensureAuthenticated, ensureFarmer, async(req, res) => {
         ]);
         const broilers = availableStock[0].broilerStock || 0;
         const layers = availableStock[0].layerStock || 0;
+        const availableBreeds = await Stock.aggregate([
+            {$match: {breed:{$in:["local", "exotic"]}}},
+            {$group: {
+                _id: null,
+                localStock: {$sum: {$cond: [{$eq: ["$breed", "local"]}, "$quantity", 0]}},
+                exoticStock: {$sum: {$cond: [{$eq: ["$breed", "exotic"]}, "$quantity", 0]}}
+            }}
+        ]);
+        const local = availableBreeds[0].localStock || 0;
+        const exotic = availableBreeds[0].exoticStock || 0;
+        
         console.log("These are my requests so far:", requests);
-        res.render('farmerDashboard', {isStarter, users, requests, stock, farmerName, farmerType, availableStock: availableStock[0].totalChickStock || 0, broilers, layers});
+        res.render('farmerDashboard', {isStarter, users, requests, stock, farmerName, farmerType, availableStock: availableStock[0].totalChickStock || 0, broilers, layers, availableBreeds: availableBreeds[0].totalChickStock || 0, local, exotic});
     } catch (error) {
         console.error(error.message);
         res.redirect('/farmer')

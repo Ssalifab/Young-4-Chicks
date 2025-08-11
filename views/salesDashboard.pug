@@ -15,16 +15,16 @@ block content
   body.chicks 
     .container
       .row
-        .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
+        .col-lg-6.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left
           img.chicken-pic-dashboard(src='/img/chicken.jpg' alt='Logo')
           h3.mt-2 Young4ChickS
-        .col-lg-4.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
+        .col-lg-6.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-between
           p.mt-3.Welcome-h5Sales
             i
               b Welcome
           p.mt-3
             i.fa-regular.fa-user
-            |  Namuli Ariella
+            |  #{currentUser.name}
           p.mt-3.Welcome-h5Sales
             b Sales Rep
           a(href='/logout')
@@ -46,20 +46,20 @@ block content
       .row.dashboard-box
         .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
           p Total Requests
-          p 20
+          p #{totalRequests}
           i.fa-solid.fa-user-group.mt-1
         .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
           p.h5-dashboard-3 Pending Requests
-          p.h5-dashboard-3 8
+          p.h5-dashboard-3 #{pendingRequests}
           i.fa-solid.fa-clock.mt-1
         .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
           p.h5-dashboard-4 Approved Requests
-          p.h5-dashboard-4 15
+          p.h5-dashboard-4 #{approvedRequests}
           i.fa-solid.fa-circle-check.mt-1
         .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
           p.h5-dashboard-5 Revenue
           p.h5-dashboard-5 Ugx:
-          p.h5-dashboard-5 1000000
+          p.h5-dashboard-5 #{chickSales}
           i.fa-solid.fa-dollar-sign.mt-1
     .container.dashboard-box
       .row.dashboard-box
@@ -82,6 +82,22 @@ block content
                     th Date
                     th Actions
                 tbody
+                  if requests.length 
+                    each request in requests 
+                      if request.status == 'pending'
+                        tr
+                          td #{request.user.firstName} #{request.user.lastName}
+                          td #{request.chickType}
+                          td #{request.breed}
+                          td #{request.quantity}
+                          td #{request.amount}
+                          td #{request.farmerType}
+                          td #{request.status}
+                          td #{moment(request.dateUpdated).format('DD MM YYYY')}
+                          td
+                            a(href='/requestDetails?requestId=' + request.id)
+                              button.btn.btn-primary
+                                i.fa-solid.fa-eye
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.rejected Rejected Requests
@@ -100,6 +116,19 @@ block content
                     th Date
                     th Actions
                 tbody
+                  if requests.length 
+                    each request in requests 
+                      if request.status == 'rejected'
+                        tr
+                          td #{request.user.firstName} #{request.user.lastName}
+                          td #{request.chickType}
+                          td #{request.breed}
+                          td #{request.quantity}
+                          td #{request.amount}
+                          td #{request.farmerType}
+                          td #{request.status}
+                          td #{moment(request.dateUpdated).format('DD MM YYYY')}
+                          td
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.approved Approved Requests
@@ -118,6 +147,19 @@ block content
                     th Date
                     th Actions
                 tbody
+                  if requests.length 
+                    each request in requests 
+                      if request.status == 'approved'
+                        tr
+                          td #{request.user.firstName} #{request.user.lastName}
+                          td #{request.chickType}
+                          td #{request.breed}
+                          td #{request.quantity}
+                          td #{request.amount}
+                          td #{request.farmerType}
+                          td #{request.status}
+                          td #{moment(request.dateUpdated).format('DD MM YYYY')}
+                          td
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.completed Completed Requests
@@ -136,6 +178,19 @@ block content
                     th Date
                     th Actions
                 tbody
+                  if requests.length 
+                    each request in requests 
+                      if request.status == 'completed'
+                        tr
+                          td #{request.user.firstName} #{request.user.lastName}
+                          td #{request.chickType}
+                          td #{request.breed}
+                          td #{request.quantity}
+                          td #{request.amount}
+                          td #{request.farmerType}
+                          td #{request.status}
+                          td #{moment(request.dateUpdated).format('DD MM YYYY')}
+                          td
     // New Request Modal
     #newRequestModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
       .modal-dialog

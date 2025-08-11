@@ -9,28 +9,66 @@ const Requests = require("../models/farmerDashboardModal");
 
 //Sales Rep Routes
 //Sales dashboard get route|| Sales Rep
-router.get('/sales', (req, res) => {
-    res.render('salesDashboard');
+router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
+    //Get logged-in user details from session
+        const loggedInUser = {
+            id: req.user._id,
+            name: req.user.firstName + " " + req.user.lastName,
+            email: req.user.email,
+            role: req.user.role
+        };
+        const totalRequests = await Requests.countDocuments({});
+        const pendingRequests = await Requests.countDocuments({ status: 'pending' });
+        const approvedRequests = await Requests.countDocuments({ status: 'approved' });
+        const dispatchedRequests = await Requests.countDocuments({ status: 'dispatched' });
+        const rejectedRequests = await Requests.countDocuments({ status: 'rejected' });
+        const users = await User.find();
+        const farmers = await User.find({ role: 'farmer' });
+        const stock = await Stock.find();
+        const requests = await Requests.find().populate("user", "firstName lastName");
+        const chickSales = await Requests.aggregate([
+            { $match: { status: { $in: ['approved', 'dispatched'] } } },
+            {
+                $group: {
+                    _id: null, totalQuantity: { $sum: '$quantity' },
+                    totalChickSales: { $sum: { $multiply: ['$quantity', 1650] } }
+                }
+            }
+        ])
+    res.render('salesDashboard',{
+        currentUser: loggedInUser,
+        totalRequests,
+        pendingRequests,
+        approvedRequests,
+        dispatchedRequests,
+        rejectedRequests,
+        users,
+        farmers,
+        stock,
+        requests,
+        chickSales: chickSales[0]
+    });
 });
 
 //Sales dashboard post route || this comes to action when submit button is clicked || Sales Rep
 router.post('/sales', async (req, res) => {
-    try {
+    try { 
         console.log(req.body);  //req.body symbolizes everything you are picking from the form
-        const newSale = new sale(req.body);
+        const newSale = new Sale(req.body);
         await newSale.save();
     } catch (error) {
         console.error(error);
         res.status(400).render('sales'); //pass the pug file as a parameter
     }
-
 });
+
 
 //List of sales in Database
 router.get('/salesList', async (req, res) => {
     try {
+        const farmers = await User.find({ role: 'farmer' });
         let sales = await Sale.find().sort({ $natural: -1 });
-        res.render('salesList', { sales })
+        res.render('salesList', { sales, farmers });
     } catch (error) {
         res.status(400).send('Unable to retrieve sales from database')
     }
