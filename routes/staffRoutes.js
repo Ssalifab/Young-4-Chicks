@@ -71,12 +71,49 @@ router.get('/salesList', async (req, res) => {
     try {
         const users = await User.find();
         const farmers = await User.find({ role: 'farmer' });
-        let sales = await Sale.find().sort({ $natural: -1 }).populate('user').populate('farmer');
-        res.render('salesList', { sales, farmers, users });
+        let sales = await Sale.find().sort({ $natural: -1 }).populate({path:'farmer', select:'firstName lastName nin', model:'User'});
+        res.render('salesList', { sales, helpers: {
+                getFarmerName: (farmer) => {
+                    return farmer ? `${farmer.firstName} ${farmer.lastName}` : 'Unknown Farmer';
+                }, users }});
     } catch (error) {
+        console.error('Error fetching sales:', error);
         res.status(400).send('Unable to retrieve sales from database')
     }
 })
+// router.get('/salesList', async (req, res) => {
+//     try {
+//         const sales = await Sale.find()
+//             .sort({ $natural: -1 })
+//             .populate({
+//                 path: 'user',
+//                 select: 'firstName lastName'
+//             })
+//             .populate({
+//                 path: 'farmer',
+//                 select: 'firstName lastName nin role',
+//                 match: { role: 'farmer' } // Ensure only farmers are populated
+//             });
+
+//         // Get distinct lists if needed elsewhere in your template
+//         const users = await User.find().select('firstName lastName');
+//         const farmers = await User.find({ role: 'farmer' }).select('firstName lastName nin');
+
+//         res.render('salesList', { 
+//             sales,
+//             farmers,
+//             users,
+//             helpers: {
+//                 getFarmerName: (farmer) => {
+//                     return farmer ? `${farmer.firstName} ${farmer.lastName}` : 'Unknown Farmer';
+//                 }
+//             }
+//         });
+//     } catch (error) {
+//         console.error('Sales list error:', error);
+//         res.status(500).render('error', { message: 'Failed to load sales data' });
+//     }
+// });
 
 //Updating sales get route
 
@@ -129,6 +166,7 @@ router.get('/stock', ensureAuthenticated, ensureManager, async (req, res) => {
         const dispatchedRequests = await Requests.countDocuments({ status: 'dispatched' })
         const canceledRequests = await Requests.countDocuments({ status: 'canceled' })
         const users = await User.find();
+        const feeds = await Feed.find();
         const farmers = await User.find({ role: 'farmer' });
         const stock = await Stock.find();
         const requests = await Requests.find().populate("user", "firstName lastName")
@@ -149,6 +187,7 @@ router.get('/stock', ensureAuthenticated, ensureManager, async (req, res) => {
         res.render('managerDashboard', {
             currentUser: loggedInUser,
             users,
+            feeds,
             farmers,
             stock,
             requests,
@@ -228,19 +267,21 @@ router.post('/deleteStock', async (req, res) => {
 
 
 //Feeds on Management dashboard routes
-router.get('/feeds', (req, res) => {
-    res.render('managerDashboard');
+router.get('/feeds', ensureAuthenticated, ensureManager, async (req, res) => {
+    console.log('Attempting to render feedsDashboard');
+    const feeds = await Feed.find().sort({ $natural: -1 });
+    res.render('feedsDashboard', { feeds });
 });
 
 //Management dashboard post route
 router.post('/feeds', async (req, res) => {
     try {
         console.log(req.body);
-        const newFeed = new feed(req.body);
+        const newFeed = new Feed(req.body);
         await newFeed.save();
     } catch (error) {
         console.error(error);
-        res.status(400).render('managerDashboard');
+        res.status(400).render('feedsDashboard');
         // res.status(400).send('Unable to send data to the Database');
     }
 
@@ -249,7 +290,7 @@ router.post('/feeds', async (req, res) => {
 //List of feeds in Database
 router.get('/feedsList', async (req, res) => {
     try {
-        let feeds = await feed.find().sort({ $natural: -1 });
+        let feeds = await Feed.find().sort({ $natural: -1 });
         res.render('feedList', { feeds })
     } catch (error) {
         res.status(400).send('Unable to retrieve feeds from database')

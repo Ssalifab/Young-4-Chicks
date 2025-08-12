@@ -33,15 +33,18 @@ block content
                             i.fa-solid.fa-right-from-bracket
         .container
             .row
-                .col-6.dashboard-button.mt-2.d-flex.justify-content-between
+                .col-4.dashboard-button.mt-2.d-flex.justify-content-between
                     h2.mt-2 Manager Dashboard
-                .col-6.dashboard-button.mt-2.d-flex.gap-2.justify-content-between
+                .col-8.dashboard-button.mt-2.d-flex.gap-2.justify-content-between
                     a.button.btn.btn-warning.dashboard-button.mt-1(href="/userlist" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-eye
                         |  Users  
                     a.button.btn.btn-danger.dashboard-button.mt-1(href="/stockList" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-boxes-stacked
-                        |  Stock         
+                        |  Stock     
+                    a.button.btn.btn-light.dashboard-button.mt-1(href="/feeds" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+                        i.fa-solid.fa-eye
+                        |  Feeds    
                     button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-plus
                         |  Add Feeds
@@ -92,7 +95,13 @@ block content
                                                 td #{item.breed}
                                                 td #{item.quantity}
                                                 td #{item.age}
-                                                td #{moment(item.dateUpdated).format('DD MM YYYY')}                               
+                                                td #{moment(item.dateUpdated).format('DD MM YYYY')}  
+                                                td #{item.price}
+                                                td 
+                                                    button.btn.btn-sm.btn-outline-primary.me-1
+                                                        i.fas.fa-edit
+                                                    button.btn.btn-sm.btn-outline-danger
+                                                        i.fas.fa-trash                           
 
         .container.dashboard-box
             .row.dashboard-box
@@ -114,6 +123,17 @@ block content
                                         th Expiry Date
                                         th Date Updated
                                 tbody
+                                    if feeds.length  
+                                        each item in feeds
+                                            tr
+                                                td #{item.feedName}
+                                                td #{item.feedType}
+                                                td #{item.targetAge}
+                                                td #{item.brand}
+                                                td #{item.stock}
+                                                td #{item.price}
+                                                td #{moment(item.expiryDate).format('DD MM YYYY')}
+                                                td #{moment(item.dateUpdated).format('DD MM YYYY')}
         .container.dashboard-box
             .row.dashboard-box
                 .col-lg-12.col-md-12.col-sm-12.dashboard-box
@@ -136,12 +156,25 @@ block content
                                     if requests.length  
                                             each item in requests
                                                 tr
-                                                    td #{item.user.firstName} #{item.user.lastName}
+                                                    td 
+                                                        if item.user && item.user.firstName
+                                                            | #{item.user.firstName} #{item.user.lastName}
+                                                        else
+                                                            | Unknown User
                                                     td #{item.chickType}
                                                     td #{item.breed}
                                                     td #{item.quantity}
                                                     td #{item.farmerType}
                                                     td #{moment(item.dateUpdated).format('DD MM YYYY')} 
+                                                    td
+                                                        button.btn.btn-sm.btn-outline-primary.me-1
+                                                            i.fas.fa-edit
+                                                        button.btn.btn-sm.btn-outline-success 
+                                                            i.fas.fa-check 
+                                                        button.btn.btn-sm.btn-outline-danger
+                                                            i.fas.fa-trash
+                                                        button.btn.btn-sm.btn-outline-success
+                                                            i.fas.fa-envelope    
         // Add Stock Modal
         #addStockModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
             .modal-dialog
@@ -238,7 +271,7 @@ block content
                             .form-group
                                 label(for='dateUpdated') Date Updated
                                 input#dateUpdated.form-control(name='dateUpdated' type='date')
-                            a(href='/views/managerDashboard.html')
+                            a(href='/stock')
                                 button.btn.btn-light(type='button' style='width: 200px;')
                                     i.fa-solid.fa-ban
                                     |                 Cancel

@@ -86,7 +86,11 @@ block content
                     each request in requests 
                       if request.status == 'pending'
                         tr
-                          td #{request.user.firstName} #{request.user.lastName}
+                          td 
+                            if request.user && request.user.firstName
+                              | #{request.user.firstName} #{request.user.lastName}
+                            else
+                              | N/A
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
@@ -120,7 +124,11 @@ block content
                     each request in requests 
                       if request.status == 'rejected'
                         tr
-                          td #{request.user.firstName} #{request.user.lastName}
+                          td 
+                            if request.user && request.user.firstName
+                              | #{request.user.firstName} #{request.user.lastName}
+                            else
+                              | N/A
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
@@ -151,7 +159,11 @@ block content
                     each request in requests 
                       if request.status == 'approved'
                         tr
-                          td #{request.user.firstName} #{request.user.lastName}
+                          td 
+                            if request.user && request.user.firstName
+                              | #{request.user.firstName} #{request.user.lastName}
+                            else
+                              | N/A
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
@@ -182,7 +194,11 @@ block content
                     each request in requests 
                       if request.status == 'completed'
                         tr
-                          td #{request.user.firstName} #{request.user.lastName}
+                          td 
+                            if request.user && request.user.firstName
+                              | #{request.user.firstName} #{request.user.lastName}
+                            else
+                              | N/A
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}

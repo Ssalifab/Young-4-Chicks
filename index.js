@@ -60,7 +60,7 @@ passport.deserializeUser(user.deserializeUser());
 
 
 //Section 5: Use imported Routes
-app.use("/study", studyRoutes);
+app.use("/", studyRoutes);
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/", staffRoutes);

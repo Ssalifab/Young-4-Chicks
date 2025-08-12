@@ -33,8 +33,12 @@ block content
                                             each sale in sales
                                                 if sale.farmerType=="starter"
                                                     tr 
-                                                        td #{sale.farmer.firstName} #{sale.farmer.lastName}
-                                                        td #{sale.farmer.nin} 
+                                                        td 
+                                                            if sale.farmer && sale.farmer.firstName
+                                                                | #{sale.farmer.firstName} #{sale.farmer.lastName}
+                                                            else
+                                                                | N/A
+                                                        td 
                                                         td #{sale.type}
                                                         td #{sale.breed}
                                                         td #{sale.quantity}
@@ -70,8 +74,12 @@ block content
                                             each sale in sales
                                                 if sale.farmerType=="returning"
                                                     tr 
-                                                        td #{sale.farmer.firstName} #{sale.farmer.lastName}
-                                                        td #{sale.farmer.nin}
+                                                        td 
+                                                            if sale.farmer && sale.farmer.firstName
+                                                                | #{sale.farmer.firstName} #{sale.farmer.lastName}
+                                                            else
+                                                                | N/A
+                                                        td 
                                                         td #{sale.type}
                                                         td #{sale.breed}
                                                         td #{sale.quantity}
