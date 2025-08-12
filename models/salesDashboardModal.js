@@ -1,33 +1,34 @@
 const mongoose = require('mongoose');
 
 const salesSchema = new mongoose.Schema({
-    farmerName:{
-        type: String,
-        required: true
-    },
-    nin:{
-        type: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
-        trim: true,
-        unique: true
     },
-    type:{
+    firstName: String,
+    lastName: String,
+    farmer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    type: {
         type: String,
         required: true
     },
-    breed:{
+    breed: {
         type: String,
         required: true
     },
-    farmerType:{
+    farmerType: {
         type: String,
         required: true
     },
-    quantity:{
+    quantity: {
         type: Number,
         required: true
     },
-    dateUpdated:{
+    dateUpdated: {
         type: Date,
         required: true
     }

@@ -23,7 +23,8 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
         const dispatchedRequests = await Requests.countDocuments({ status: 'dispatched' });
         const rejectedRequests = await Requests.countDocuments({ status: 'rejected' });
         const users = await User.find();
-        const farmers = await User.find({ role: 'farmer' });
+        const sales = await Sale.find().populate('user');
+        const farmers = await User.find({ role: 'farmer' }).select('firstName lastName nin');
         const stock = await Stock.find();
         const requests = await Requests.find().populate("user", "firstName lastName");
         const chickSales = await Requests.aggregate([
@@ -37,6 +38,7 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
         ])
     res.render('salesDashboard',{
         currentUser: loggedInUser,
+        user: req.user,
         totalRequests,
         pendingRequests,
         approvedRequests,
@@ -44,6 +46,7 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
         rejectedRequests,
         users,
         farmers,
+        sales,
         stock,
         requests,
         chickSales: chickSales[0]
@@ -51,14 +54,14 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
 });
 
 //Sales dashboard post route || this comes to action when submit button is clicked || Sales Rep
-router.post('/sales', async (req, res) => {
+router.post('/sales', ensureAuthenticated, ensureSalesRep, async (req, res) => {
     try { 
         console.log(req.body);  //req.body symbolizes everything you are picking from the form
-        const newSale = new Sale(req.body);
+        const newSale = new Sale({...req.body,  user: req.user._id, dateUpdated: new Date()}); 
         await newSale.save();
     } catch (error) {
         console.error(error);
-        res.status(400).render('sales'); //pass the pug file as a parameter
+        res.status(400).render('salesDashboard'); //pass the pug file as a parameter
     }
 });
 
@@ -66,9 +69,10 @@ router.post('/sales', async (req, res) => {
 //List of sales in Database
 router.get('/salesList', async (req, res) => {
     try {
+        const users = await User.find();
         const farmers = await User.find({ role: 'farmer' });
-        let sales = await Sale.find().sort({ $natural: -1 });
-        res.render('salesList', { sales, farmers });
+        let sales = await Sale.find().sort({ $natural: -1 }).populate('user').populate('farmer');
+        res.render('salesList', { sales, farmers, users });
     } catch (error) {
         res.status(400).send('Unable to retrieve sales from database')
     }

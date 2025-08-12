@@ -24,7 +24,7 @@ block content
               b Welcome
           p.mt-3
             i.fa-regular.fa-user
-            |  #{currentUser.name}
+            |  #{user.firstName} #{user.lastName}
           p.mt-3.Welcome-h5Sales
             b Sales Rep
           a(href='/logout')
@@ -202,10 +202,13 @@ block content
             form#newRequestForm(ation='/sales' method='POST') 
               .form-group
                 label(for='farmerName') Farmer Name
-                input#farmerName.form-control(name='farmerName' type='text')
-              .form-group
-                label(for='nin') National ID Number (NIN)
-                input#nin.form-control(name='nin' type='text')
+                select#farmer.form-control(name='farmerId' required)
+                  option(value='') -- Select Farmer --
+                  each farmer in farmers
+                    option(value=farmer._id) #{farmer.firstName} #{farmer.lastName} (NIN: #{farmer.nin})
+              //- .form-group
+              //-   label(for='nin') National ID Number (NIN)
+              //-   input#nin.form-control(name='nin' type='text' readonly)
               .form-group
                 label(for='type') Type
                 select#type.form-control(name='type')
