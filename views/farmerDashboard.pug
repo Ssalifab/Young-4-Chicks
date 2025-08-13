@@ -74,9 +74,12 @@ block content
           h2.mt-2 Welcome,
           h2.mt-2.ml-3.Welcome-h5User #{farmerName}
           .col
+          button#newFeedRequestButton.btn.btn-info.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myFeedRequestsModal')
+            i.fa-solid.fa-phone
+            |  New Feeds Request
           button#newRequestButton.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
             i.fa-solid.fa-phone
-            |  New Request
+            |  New Chick Request
         .col-12.d-flex.justify-content-between
           p Manage your chick requests and track your farming journey
     .container.dashboard-box
@@ -191,6 +194,59 @@ block content
                 i.fa-solid.fa-plus
                 |  Submit Request
               p#errorMsg.text-danger
+    // New Feed Request Modal
+    #myFeedRequestsModal.modal.fade(tabindex='-1' aria-labelledby='myFeedRequestsModalLabel' aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h1#myFeedRequestsModalLabel.modal-title.fs-5 New Feed Request
+            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+          .modal-body
+            form#newFeedRequestForm(action='/feedsRequest' method='POST')
+              .form-group
+                label(for='feedsName') Feeds Name
+                select#feedsName.form-control(name='feedsName')
+                  option(value='') --Select feeds name--
+                  option(value='starter') Starter Feed
+                  option(value='grower') Grower Feed
+                  option(value='finisher') Finisher Feed
+              .form-group
+                label(for='feedType') Feed Type
+                select#feedType.form-control(name='feedType')
+                  option(value='') --Select feed type--
+                  option(value='mash') Mash
+                  option(value='crumble') Crumble
+                  option(value='pellet') Pellet
+              .form-group
+                label(for='targetAge') Target Age
+                select#targetAge.form-control(name='targetAge')
+                  option(value='') --Select target age--
+                  option(value='oneToSeven') Day 1-7
+                  option(value='eightToFourteen') Day 8-14
+                  option(value='fifteenToThirty') Day 15-30
+              .form-group
+                label(for='brand') Brand
+                select#brand.form-control(name='brand')
+                  option(value='') --Select brand--
+                  option(value='ugachick') UgaChick
+                  option(value='nuvita') Nuvita 
+                  option(value='farmersChoice') Farmers Choice
+                  option(value='kukuFeed') Kuku feed
+              .form-group
+                label(for='qty') Quantity (100 kg bags)
+                input#qty.form-control(name='qty' type='number' placeholder='--Enter number of bags--' min=1 max=2)
+                small.form-text-muted Maximum: 2 Bags  
+              .form-group
+                label(for='dateRequested') Date Updated
+                input#dateRequested.form-control(name='dateRequested' type='date')
+              a(href='/farmer')
+                button.btn.btn-light(type='button' style='width: 200px;')
+                  i.fa-solid.fa-ban
+                  |  Cancel
+              button.btn.btn-success.me-2(type='submit')
+                i.fa-solid.fa-plus
+                |  Submit Feed Request
+              p#errorMsg.text-danger
 
     // Date Restriction Modal
     #dateRestrictionModal.restriction-modal
@@ -204,6 +260,7 @@ block content
     script(src='/js/include.js')
     
     // Custom JavaScript
+    script(src='/scripts/farmerScript.js')
     script.
       document.addEventListener('DOMContentLoaded', function() {
         const newRequestButton = document.getElementById('newRequestButton');

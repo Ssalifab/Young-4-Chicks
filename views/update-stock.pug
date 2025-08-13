@@ -16,7 +16,7 @@ block content
         .container.mt-5
             .row.justify-content-center
                 .col-lg-6.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between.back_color
-                    form#addStockForm(action='/updateStock?id='+ stock._id method='POST')
+                    form#addStockForm(action=`/updateStock/${stock._id}` method='POST')
                             .form-group
                                 label(for='chickType') Type
                                 select#chickType.form-control(name='chickType')

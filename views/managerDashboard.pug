@@ -33,21 +33,21 @@ block content
                             i.fa-solid.fa-right-from-bracket
         .container
             .row
-                .col-4.dashboard-button.mt-2.d-flex.justify-content-between
+                .col-6.dashboard-button.mt-2.d-flex.justify-content-between
                     h2.mt-2 Manager Dashboard
-                .col-8.dashboard-button.mt-2.d-flex.gap-2.justify-content-between
+                .col-6.dashboard-button.mt-2.d-flex.gap-2.justify-content-between
                     a.button.btn.btn-warning.dashboard-button.mt-1(href="/userlist" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-eye
                         |  Users  
-                    a.button.btn.btn-danger.dashboard-button.mt-1(href="/stockList" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+                    a.button.btn.btn-light.dashboard-button.mt-1(href="/stockList" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-boxes-stacked
                         |  Stock     
-                    a.button.btn.btn-light.dashboard-button.mt-1(href="/feeds" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+                    a.button.btn.btn-primary.dashboard-button.mt-1(href="/feedsList" style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-eye
                         |  Feeds    
-                    button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
-                        i.fa-solid.fa-plus
-                        |  Add Feeds
+                    //- button.btn.btn-primary.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addFeedsModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
+                    //-     i.fa-solid.fa-plus
+                    //-     |  Add Feeds
                     button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#addStockModal' style="min-width: 120px;" class="d-flex justify-content-center align-items-center gap-2")
                         i.fa-solid.fa-plus
                         |  Add Stock
@@ -85,8 +85,8 @@ block content
                                         th Quantity
                                         th Age (Days)
                                         th Last Updated
-                                        th Price
-                                        th Actions
+                                        //- th Price
+                                        //- th Actions
                                 tbody
                                     if stock.length  
                                         each item in stock
@@ -98,10 +98,13 @@ block content
                                                 td #{moment(item.dateUpdated).format('DD MM YYYY')}  
                                                 td #{item.price}
                                                 td 
-                                                    button.btn.btn-sm.btn-outline-primary.me-1
-                                                        i.fas.fa-edit
-                                                    button.btn.btn-sm.btn-outline-danger
-                                                        i.fas.fa-trash                           
+                                                //-     button.btn.btn-sm.btn-outline-primary.me-1
+                                                //-         i.fas.fa-edit(href="/updateStock/"+stock._id)
+                                                //- td        
+                                                //-     form(method='POST' action='/deleteStock')
+                                                //-         input(type='hidden' name='id' value=stock._id)  
+                                                //-         button.btn.btn-sm.btn-outline-danger.me-1(type='submit') 
+                                                //-             i.fas.fa-trash                                
 
         .container.dashboard-box
             .row.dashboard-box

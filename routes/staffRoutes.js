@@ -269,8 +269,7 @@ router.post('/deleteStock', async (req, res) => {
 //Feeds on Management dashboard routes
 router.get('/feeds', ensureAuthenticated, ensureManager, async (req, res) => {
     console.log('Attempting to render feedsDashboard');
-    const feeds = await Feed.find().sort({ $natural: -1 });
-    res.render('feedsDashboard', { feeds });
+    res.render('feedsDashboard');
 });
 
 //Management dashboard post route
@@ -291,11 +290,44 @@ router.post('/feeds', async (req, res) => {
 router.get('/feedsList', async (req, res) => {
     try {
         let feeds = await Feed.find().sort({ $natural: -1 });
-        res.render('feedList', { feeds })
+        res.render('feedsDashboard', { feeds })
     } catch (error) {
         res.status(400).send('Unable to retrieve feeds from database')
     }
 });
+
+//Update feed get route
+
+router.get("/updateFeed/:id", async (req, res) => {
+    try {
+        const updateFeed = await Feed.findOne({ _id: req.params.id })
+        res.render('update-feed', { feed: updateFeed });
+    } catch (error) {
+        res.status(400).send('Unable to find feed in the database');
+        console.log(error);
+    }
+});
+
+//Update feed post route
+router.post("/updateFeed/:id", async (req, res) => {
+    try {
+        await Feed.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/feedsList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+    }
+});
+
+//Delete feed 
+router.post('/deleteFeed', async (req, res) => {
+    try {
+        await Feed.deleteOne({ _id: req.body.id })
+        res.redirect('/feedsList');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+        console.log(error.message);
+    }
+})
 
 //Get List of all Users from the database
 router.get('/userlist', ensureAuthenticated, ensureManager, async (req, res) => {
@@ -321,6 +353,7 @@ router.get("/updateUser/:id", async (req, res) => {
 
 //Update User post route
 router.post("/updateUser/:id", async (req, res) => {
+    
     try {
         await User.findByIdAndUpdate(req.params.id, req.body);
         res.redirect('/userlist');

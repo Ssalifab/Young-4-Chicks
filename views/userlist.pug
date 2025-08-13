@@ -4,7 +4,7 @@ block content
         meta(charset='UTF-8')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title Users List
-    .container
+    .container 
         .row
             .col-lg-2.col-md-4.col-sm-6.dashboard-box
                 a.btn.btn-success.btn-block(href="/stock") Back
@@ -50,7 +50,8 @@ block content
                                                     //- td #{user.recommenderPhone}
                                                     td #{user.role}
                                                     td 
-                                                        a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
+                                                        a.btn.btn-primary.btn-block(href=`/updateUser/${user._id}`)
+                                                            | Update
                                                     td
                                                         form(method='POST' action='/deleteUser')
                                                             input(type='hidden' name='id' value=user._id)  
@@ -98,7 +99,8 @@ block content
                                                     //- td #{user.recommenderPhone}
                                                     td #{user.role}
                                                     td
-                                                        a.btn.btn-primary.btn-block(href="/updateUser/"+user._id) Update
+                                                        a.btn.btn-primary.btn-block(href=`/updateUser/${user._id}`) 
+                                                            | Update
                                                     td 
                                                         form(method='POST' action='/deleteUser')
                                                             input(type='hidden' name='id' value=user._id)  
