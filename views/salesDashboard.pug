@@ -59,7 +59,7 @@ block content
         .col-lg-3.col-md-6.col-sm-12.dashboard-button.mt-3.d-flex.justify-content-between
           p.h5-dashboard-5 Revenue
           p.h5-dashboard-5 Ugx:
-          p.h5-dashboard-5 #{chickSales}
+          p.h5-dashboard-5 #{totalChickSales}
           i.fa-solid.fa-dollar-sign.mt-1
     .container.dashboard-box
       .row.dashboard-box
@@ -94,20 +94,18 @@ block content
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
-                          td #{request.amount}
+                          td #{request.totalPrice}
                           td #{request.farmerType}
                           td #{request.status}
                           td #{moment(request.dateUpdated).format('DD MM YYYY')}
                           td
-                            a(href='/requestDetails?requestId=' + request.id)
-                              button.btn.btn-primary
-                                i.fa-solid.fa-eye
                             a(href='/editRequest?requestId=' + request.id)
                               button.btn.btn-warning
                                 i.fa-solid.fa-pencil
-                            a(href='/deleteRequest?requestId=' + request.id)
-                              button.btn.btn-danger
-                                i.fa-solid.fa-trash
+                            a(href='/requestDetails?requestId=' + request.id)
+                              button.btn.btn-primary
+                                i.fa-solid.fa-envelope
+                               
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.rejected Rejected Requests
@@ -138,11 +136,17 @@ block content
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
-                          td #{request.amount}
+                          td #{request.totalPrice}
                           td #{request.farmerType}
                           td #{request.status}
                           td #{moment(request.dateUpdated).format('DD MM YYYY')}
                           td
+                            a(href='/editRequest?requestId=' + request.id)
+                              button.btn.btn-warning
+                                i.fa-solid.fa-pencil
+                            a(href='/requestDetails?requestId=' + request.id)
+                              button.btn.btn-primary
+                                i.fa-solid.fa-envelope
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.approved Approved Requests
@@ -173,11 +177,17 @@ block content
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
-                          td #{request.amount}
+                          td #{request.totalPrice}
                           td #{request.farmerType}
                           td #{request.status}
                           td #{moment(request.dateUpdated).format('DD MM YYYY')}
                           td
+                            a(href='/requestDetails?requestId=' + request.id)
+                              button.btn.btn-danger
+                                i.fa-solid.fa-ban
+                            a(href='/requestDetails?requestId=' + request.id)
+                              button.btn.btn-primary
+                                i.fa-solid.fa-envelope
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.completed Completed Requests
@@ -208,11 +218,17 @@ block content
                           td #{request.chickType}
                           td #{request.breed}
                           td #{request.quantity}
-                          td #{request.amount}
+                          td #{request.totalPrice}
                           td #{request.farmerType}
                           td #{request.status}
                           td #{moment(request.dateUpdated).format('DD MM YYYY')}
                           td
+                            a.btn.btn-primary(href='/requests/' + request._id)
+                              button.btn.btn-primary
+                                i.fa-solid.fa-envelope
+                            a.btn.btn-primary(href='/requests/' + request._id)
+                              button.btn.btn-danger
+                                i.fa-solid.fa-ban
     // New Request Modal
     #newRequestModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
       .modal-dialog

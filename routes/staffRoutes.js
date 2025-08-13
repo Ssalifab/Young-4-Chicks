@@ -28,7 +28,7 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
         const stock = await Stock.find();
         const requests = await Requests.find().populate("user", "firstName lastName");
         const chickSales = await Requests.aggregate([
-            { $match: { status: { $in: ['approved', 'dispatched'] } } },
+            { $match: { status: { $in: ['approved'] } } },
             {
                 $group: {
                     _id: null, totalQuantity: { $sum: '$quantity' },
@@ -49,6 +49,7 @@ router.get('/sales', ensureAuthenticated,ensureSalesRep, async (req, res) => {
         sales,
         stock,
         requests,
+        totalChickSales: chickSales[0].totalChickSales,
         chickSales: chickSales[0]
     });
 });
@@ -81,6 +82,27 @@ router.get('/salesList', async (req, res) => {
         res.status(400).send('Unable to retrieve sales from database')
     }
 })
+
+//Edit request get route
+router.get('/requests/:id', ensureAuthenticated, ensureSalesRep, async (req, res) => {
+    try {
+        const requests = await Requests.findOne({ _id: req.params.id })
+        res.render('salesDashboard', { requests })
+    } catch (error) {
+        res.status(400).send('Unable to find requests in the database');
+        console.log(error);
+    }
+});
+
+//Edit request post route
+router.post('/requests/:id', ensureAuthenticated, ensureSalesRep, async (req, res) => {
+    try {
+        await Requests.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/sales');
+    } catch (error) {
+        res.status(400).send("Error: " + error.message);
+    }
+});
 
 
 //Updating sales get route
