@@ -102,6 +102,12 @@ block content
                             a(href='/requestDetails?requestId=' + request.id)
                               button.btn.btn-primary
                                 i.fa-solid.fa-eye
+                            a(href='/editRequest?requestId=' + request.id)
+                              button.btn.btn-warning
+                                i.fa-solid.fa-pencil
+                            a(href='/deleteRequest?requestId=' + request.id)
+                              button.btn.btn-danger
+                                i.fa-solid.fa-trash
           .card.mt-3
             .card-header.d-flex.justify-content-between.align-items-center
               h5.mb-1.rejected Rejected Requests
@@ -249,7 +255,7 @@ block content
               .form-group
                 label(for='dateUpdated') Date Updated
                 input#dateUpdated.form-control(name='dateUpdated' type='date')
-              a(href='/views/salesDashboard.html')
+              a(href='/sales')
                 button.btn.btn-light(type='button' style='width: 200px;')
                   i.fa-solid.fa-ban
                   |                 Cancel

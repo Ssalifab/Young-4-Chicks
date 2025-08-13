@@ -73,6 +73,138 @@ block content
             .row.dashboard-box
                 .col-lg-12.col-md-12.col-sm-12.dashboard-box
                     .card
+                        .card-header.d-flex.justify-content-between.align-items-center.pending
+                            h5.pending.mb-1 Pending Requests
+                            i.fa-regular.fa-hourglass-half
+                        .card-body
+                            table#requestsTable.table.table-striped.table-h6-font.justify-content-between
+                                thead
+                                    tr
+                                        th Customer
+                                        th Type
+                                        th Breed
+                                        th Quantity
+                                        th Farmer Type
+                                        th Request Date
+                                        th Status
+                                        th Actions
+                                tbody
+                                    if requests.length  
+                                            each item in requests 
+                                                if item.status == 'pending'
+                                                    tr
+                                                        td 
+                                                            if item.user && item.user.firstName
+                                                                | #{item.user.firstName} #{item.user.lastName}
+                                                            else
+                                                                | Unknown User
+                                                        td #{item.chickType}
+                                                        td #{item.breed}
+                                                        td #{item.quantity}
+                                                        td #{item.farmerType}
+                                                        td #{moment(item.dateUpdated).format('DD MM YYYY')} 
+                                                        td #{item.status}
+                                                        td
+                                                            a.btn.btn-sm.btn-outline-success.me-1(href="/approveRequest/"+item._id)
+                                                                i.fas.fa-thumbs-up
+                                                            a.btn.btn-sm.btn-outline-warning.me-1(href="/rejectRequest/"+item._id)
+                                                                i.fas.fa-thumbs-down
+                                                            form(method="POST" action="/deleteRequest/"+item._id style="display: inline;")
+                                                                input(type="hidden" name="_method" value="DELETE")
+                                                                button.btn.btn-sm.btn-outline-danger.me-1(type="submit" onclick="return confirm('Are you sure you want to delete this?')")
+                                                                    i.fas.fa-trash
+        .container.dashboard-box
+            .row.dashboard-box
+                .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                    .card
+                        .card-header.d-flex.justify-content-between.align-items-center.approved
+                            h5.approved.mb-1 Approved Requests
+                            i.fa-regular.fa-hourglass-half
+                        .card-body
+                            table#requestsTable.table.table-striped.table-h6-font.justify-content-between
+                                thead
+                                    tr
+                                        th Customer
+                                        th Type
+                                        th Breed
+                                        th Quantity
+                                        th Farmer Type
+                                        th Request Date
+                                        th Status
+                                        th Actions
+                                tbody
+                                    if requests.length  
+                                            each item in requests 
+                                                if item.status == 'approved'
+                                                    tr
+                                                        td 
+                                                            if item.user && item.user.firstName
+                                                                | #{item.user.firstName} #{item.user.lastName}
+                                                            else
+                                                                | Unknown User
+                                                        td #{item.chickType}
+                                                        td #{item.breed}
+                                                        td #{item.quantity}
+                                                        td #{item.farmerType}
+                                                        td #{moment(item.dateUpdated).format('DD MM YYYY')} 
+                                                        td #{item.status}
+                                                        td
+                                                            a.btn.btn-sm.btn-outline-success.me-1(href="/approveRequest/"+item._id)
+                                                                i.fas.fa-thumbs-up
+                                                            a.btn.btn-sm.btn-outline-warning.me-1(href="/rejectRequest/"+item._id)
+                                                                i.fas.fa-thumbs-down
+                                                            form(method="POST" action="/deleteRequest/"+item._id style="display: inline;")
+                                                                input(type="hidden" name="_method" value="DELETE")
+                                                                button.btn.btn-sm.btn-outline-danger.me-1(type="submit" onclick="return confirm('Are you sure you want to delete this?')")
+                                                                    i.fas.fa-trash
+        .container.dashboard-box
+            .row.dashboard-box
+                .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                    .card
+                        .card-header.d-flex.justify-content-between.align-items-center.rejected
+                            h5.rejected.mb-1 Rejected Requests
+                            i.fa-regular.fa-hourglass-half
+                        .card-body
+                            table#requestsTable.table.table-striped.table-h6-font.justify-content-between
+                                thead
+                                    tr
+                                        th Customer
+                                        th Type
+                                        th Breed
+                                        th Quantity
+                                        th Farmer Type
+                                        th Request Date
+                                        th Status
+                                        th Actions
+                                tbody
+                                    if requests.length  
+                                            each item in requests 
+                                                if item.status == 'rejected'
+                                                    tr
+                                                        td 
+                                                            if item.user && item.user.firstName
+                                                                | #{item.user.firstName} #{item.user.lastName}
+                                                            else
+                                                                | Unknown User
+                                                        td #{item.chickType}
+                                                        td #{item.breed}
+                                                        td #{item.quantity}
+                                                        td #{item.farmerType}
+                                                        td #{moment(item.dateUpdated).format('DD MM YYYY')} 
+                                                        td #{item.status}
+                                                        td
+                                                            a.btn.btn-sm.btn-outline-success.me-1(href="/approveRequest/"+item._id)
+                                                                i.fas.fa-thumbs-up
+                                                            a.btn.btn-sm.btn-outline-warning.me-1(href="/rejectRequest/"+item._id)
+                                                                i.fas.fa-thumbs-down
+                                                            form(method="POST" action="/deleteRequest/"+item._id style="display: inline;")
+                                                                input(type="hidden" name="_method" value="DELETE")
+                                                                button.btn.btn-sm.btn-outline-danger.me-1(type="submit" onclick="return confirm('Are you sure you want to delete this?')")
+                                                                    i.fas.fa-trash                                                                                      
+        .container.dashboard-box
+            .row.dashboard-box
+                .col-lg-12.col-md-12.col-sm-12.dashboard-box
+                    .card
                         .card-header.d-flex.justify-content-between.align-items-center.approved
                             h5.approved.mb-1 Current Stock
                             i.fa-solid.fa-boxes-stacked
@@ -137,47 +269,7 @@ block content
                                                 td #{item.price}
                                                 td #{moment(item.expiryDate).format('DD MM YYYY')}
                                                 td #{moment(item.dateUpdated).format('DD MM YYYY')}
-        .container.dashboard-box
-            .row.dashboard-box
-                .col-lg-12.col-md-12.col-sm-12.dashboard-box
-                    .card
-                        .card-header.d-flex.justify-content-between.align-items-center.pending
-                            h5.pending.mb-1 Pending Requests
-                            i.fa-regular.fa-hourglass-half
-                        .card-body
-                            table#requestsTable.table.table-striped.table-h6-font.justify-content-between
-                                thead
-                                    tr
-                                        th Customer
-                                        th Type
-                                        th Breed
-                                        th Quantity
-                                        th Farmer Type
-                                        th Request Date
-                                        th Actions
-                                tbody
-                                    if requests.length  
-                                            each item in requests
-                                                tr
-                                                    td 
-                                                        if item.user && item.user.firstName
-                                                            | #{item.user.firstName} #{item.user.lastName}
-                                                        else
-                                                            | Unknown User
-                                                    td #{item.chickType}
-                                                    td #{item.breed}
-                                                    td #{item.quantity}
-                                                    td #{item.farmerType}
-                                                    td #{moment(item.dateUpdated).format('DD MM YYYY')} 
-                                                    td
-                                                        button.btn.btn-sm.btn-outline-primary.me-1
-                                                            i.fas.fa-edit
-                                                        button.btn.btn-sm.btn-outline-success 
-                                                            i.fas.fa-check 
-                                                        button.btn.btn-sm.btn-outline-danger
-                                                            i.fas.fa-trash
-                                                        button.btn.btn-sm.btn-outline-success
-                                                            i.fas.fa-envelope    
+        
         // Add Stock Modal
         #addStockModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
             .modal-dialog

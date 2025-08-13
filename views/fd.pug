@@ -1,5 +1,6 @@
-extends layout 
-block content 
+extends layout
+
+block content
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -12,7 +13,43 @@ block content
     link(rel='stylesheet' href='/css/fontawesome-free-6.7.2-web/css/all.min.css')
     // Custom CSS
     link(rel='stylesheet' href='/css/styles.css')
-  body.chicks 
+    // Modal-specific CSS
+    style.
+      .restriction-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1050;
+      }
+      .restriction-modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+      }
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close:hover {
+        color: #000;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        cursor: not-allowed;
+      }
+
+  body.chicks
     .container
       .row
         .col-lg-8.col-md-12.col-sm-12.dashboard-top-container.mt-2.d-flex.justify-content-left.back_color
@@ -24,7 +61,7 @@ block content
               b Welcome
           p.mt-3
             i.fa-regular.fa-user
-            |  Amulen Redeemer
+            |  #{farmerName}
           p.mt-3.Welcome-h5
             b Farmer
           a(href='/logout')
@@ -35,11 +72,14 @@ block content
       .row
         .col-12.dashboard-button.mt-2.d-flex.justify-content-between
           h2.mt-2 Welcome,
-          h2.mt-2.ml-3.Welcome-h5User Amulen Redeemer
+          h2.mt-2.ml-3.Welcome-h5User #{farmerName}
           .col
-          button.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
+          button#newFeedRequestButton.btn.btn-info.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myFeedRequestsModal')
             i.fa-solid.fa-phone
-            |  New Request
+            |  New Feeds Request
+          button#newRequestButton.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
+            i.fa-solid.fa-phone
+            |  New Chick Request
         .col-12.d-flex.justify-content-between
           p Manage your chick requests and track your farming journey
     .container.dashboard-box
@@ -55,21 +95,21 @@ block content
                 .row
                   .col-lg-6.col-md-12.col-sm-12.back_color
                     .card-header.d-flex.justify-content-between.align-items-center
-                      h6 Layer - Local
-                      h5.Welcome-h5 500
-                    .d-flex.justify-content-between.align-items-center.mt-1
-                      p 21 days old
-                      p available
+                      h5 Layers
+                      h5.Welcome-h5 #{layers}
+                    .card-header.d-flex.justify-content-between.align-items-center
+                      h5 Local 
+                      h5 #{local}
                     hr.line.mt-1
                     .d-flex.justify-content-between.align-items-center.mt-1
                       h6 UGx 1,650 per chick
                   .col-lg-6.col-md-12.col-sm-12.back_color
                     .card-header.d-flex.justify-content-between.align-items-center
-                      h6 Layer - Local
-                      h5.Welcome-h5 500
-                    .d-flex.justify-content-between.align-items-center.mt-1
-                      p 21 days old
-                      p available
+                      h5 Broilers
+                      h5.Welcome-h5 #{broilers}
+                    .card-header.d-flex.justify-content-between.align-items-center
+                      h5 Exotic 
+                      h5 #{exotic}
                     hr.line.mt-1
                     .d-flex.justify-content-between.align-items-center.mt-1
                       h6 UGx 1,650 per chick
@@ -85,30 +125,44 @@ block content
               table#myRequestsTable.table.table-striped.table-h6-font.justify-content-between
                 thead
                   tr
+                    th Farmer Type
                     th Type
                     th Breed
                     th Quantity
+                    th Unit Price
+                    th Total Price
                     th Request Date
+                    th Status
                 tbody
+                  if requests.length
+                    each request in requests 
+                      tr
+                        td #{request.farmerType}
+                        td #{request.chickType}
+                        td #{request.breed}
+                        td #{request.quantity}
+                        td #{request.unitPrice}
+                        td #{request.totalPrice}
+                        td #{moment(request.dateUpdated).format("DD-MM-YYYY")}
+                        th #{request.status}
+
     // New Request Modal
-    #myRequestsModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    #myRequestsModal.modal.fade(tabindex='-1' aria-labelledby='myRequestsModalLabel' aria-hidden='true')
       .modal-dialog
         .modal-content
           .modal-header
-            h1#myRequestsModal.modal-title.fs-5 New Chick Request
+            h1#myRequestsModalLabel.modal-title.fs-5 New Chick Request
             button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
           .modal-body
-            form#newRequestForm(ation='/farmer' method='POST')
+            form#newRequestForm(action='/farmer' method='POST')
               .form-group
                 label(for='farmerType') Farmer Type
                 .form-check 
-                  input.form-check-input#starter(type='radio' name='farmerType' value='starter'
-                  checked = (isStarter ? 'checked': false))
-                  label.form-check-label(for="starter") Starter Farmer (Max 100 Chicks)
+                  input.form-check-input#starter(type='radio' name='farmerType' value='starter' checked=isStarter)
+                  label.form-check-label(for='starter') Starter Farmer (Max 100 Chicks)
                 .form-check 
-                  input.form-check-input#returning(type='radio' name='farmerType' value='returning'
-                  checked = (isStarter ? false: 'checked'))
-                  label.form-check-label(for="returning") Returning Farmer (Max 500 Chicks)
+                  input.form-check-input#returning(type='radio' name='farmerType' value='returning' checked=!isStarter)
+                  label.form-check-label(for='returning') Returning Farmer (Max 500 Chicks)
               .form-group
                 label(for='chickType') Type
                 select#chickType.form-control(name='chickType')
@@ -123,14 +177,13 @@ block content
                   option(value='exotic') Exotic
               .form-group
                 label(for='quantity') Quantity
-                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' min = '1' max = (isStarter ? 100 : 500))
-                small.form-text-muted 
-                  | Maximum: #{isStarter ? '100' : '500'} Chicks 
+                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' min='1' max=isStarter ? '100' : '500')
+                small.form-text-muted Maximum: #{isStarter ? '100' : '500'} Chicks 
               .form-group
-                label(for='unitPrice') Unit Price (1650)
-                input#unitPrice.form-control(name='unitPrice' type='number' value=1650 readonly)
+                label(for='unitPrice') Unit Price (UGx)
+                input#unitPrice.form-control(name='unitPrice' type='number' value='1650' readonly)
               .form-group
-                label(for='totalPrice') Total Price
+                label(for='totalPrice') Total Price (UGx)
                 input#totalPrice.form-control(name='totalPrice' type='number' readonly)  
               .form-group
                 label(for='dateUpdated') Date Updated
@@ -138,23 +191,136 @@ block content
               a(href='/farmer')
                 button.btn.btn-light(type='button' style='width: 200px;')
                   i.fa-solid.fa-ban
-                  |                 Cancel
+                  |  Cancel
               button.btn.btn-success.me-2(type='submit')
                 i.fa-solid.fa-plus
                 |  Submit Request
               p#errorMsg.text-danger
+    // New Feed Request Modal
+    #myFeedRequestsModal.modal.fade(tabindex='-1' aria-labelledby='myFeedRequestsModalLabel' aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h1#myFeedRequestsModalLabel.modal-title.fs-5 New Feed Request
+            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+          .modal-body
+            form#newFeedRequestForm(action='/feedsRequest' method='POST')
+              .form-group
+                label(for='feedsName') Feeds Name
+                select#feedsName.form-control(name='feedsName')
+                  option(value='') --Select feeds name--
+                  option(value='starter') Starter Feed
+                  option(value='grower') Grower Feed
+                  option(value='finisher') Finisher Feed
+              .form-group
+                label(for='feedType') Feed Type
+                select#feedType.form-control(name='feedType')
+                  option(value='') --Select feed type--
+                  option(value='mash') Mash
+                  option(value='crumble') Crumble
+                  option(value='pellet') Pellet
+              .form-group
+                label(for='targetAge') Target Age
+                select#targetAge.form-control(name='targetAge')
+                  option(value='') --Select target age--
+                  option(value='oneToSeven') Day 1-7
+                  option(value='eightToFourteen') Day 8-14
+                  option(value='fifteenToThirty') Day 15-30
+              .form-group
+                label(for='brand') Brand
+                select#brand.form-control(name='brand')
+                  option(value='') --Select brand--
+                  option(value='ugachick') UgaChick
+                  option(value='nuvita') Nuvita 
+                  option(value='farmersChoice') Farmers Choice
+                  option(value='kukuFeed') Kuku feed
+              .form-group
+                label(for='qty') Quantity (100 kg bags)
+                input#qty.form-control(name='qty' type='number' placeholder='--Enter number of bags--' min=1 max=2)
+                small.form-text-muted Maximum: 2 Bags  
+              .form-group
+                label(for='dateRequested') Date Updated
+                input#dateRequested.form-control(name='dateRequested' type='date')
+              a(href='/farmer')
+                button.btn.btn-light(type='button' style='width: 200px;')
+                  i.fa-solid.fa-ban
+                  |  Cancel
+              button.btn.btn-success.me-2(type='submit')
+                i.fa-solid.fa-plus
+                |  Submit Feed Request
+              p#errorMsg.text-danger
+
+    // Date Restriction Modal
+    #dateRestrictionModal.restriction-modal
+      .restriction-modal-content
+        span.close &times;
+        p#restrictionMessage.text-danger Farmer cannot make any request until...
+
     // Bootstrap JS Bundle with Popper
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
     script(src='/css/bootstrap/js/bootstrap.bundle.js')
     script(src='/js/include.js')
+    
     // Custom JavaScript
-    //- script(src='/scripts/farmerDashboard.js')
+    script(src='/scripts/farmerScript.js')
     script.
-      document.getElementById('quantity').addEventListener('input', function() {
-        const quantity = parseInt(this.value) || 0;
-        const unitPrice = 1650;
-        const totalPriceInput = document.getElementById('totalPrice');
-        if (totalPriceInput) {
-          totalPriceInput.value = quantity * unitPrice;
+      document.addEventListener('DOMContentLoaded', function() {
+        const newRequestButton = document.getElementById('newRequestButton');
+        const dateRestrictionModal = document.getElementById('dateRestrictionModal');
+        const restrictionMessage = document.getElementById('restrictionMessage');
+        const closeModal = document.querySelector('.close');
+        
+        // Get the latest request date from the table
+        const requestDates = Array.from(document.querySelectorAll('#myRequestsTable tbody tr td:last-child')).map(td => {
+          const [day, month, year] = td.textContent.split('-');
+          return new Date(`${year}-${month}-${day}`);
+        });
+        
+        if (requestDates.length > 0) {
+          const latestRequestDate = new Date(Math.max(...requestDates));
+          const cooldownPeriod = 4; // months
+          const nextAvailableDate = new Date(latestRequestDate);
+          nextAvailableDate.setMonth(nextAvailableDate.getMonth() + cooldownPeriod);
+          
+          const today = new Date();
+          
+          if (today < nextAvailableDate) {
+            // Disable the new request button
+            newRequestButton.disabled = true;
+            newRequestButton.classList.add('btn-secondary');
+            newRequestButton.classList.remove('btn-success');
+            
+            // Format the next available date for display
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = nextAvailableDate.toLocaleDateString('en-US', options);
+            
+            // Set the restriction message
+            restrictionMessage.textContent = `You cannot make any new requests until ${formattedDate}. The cooldown period is 4 months from your last request.`;
+            
+            // Show the modal
+            dateRestrictionModal.style.display = 'block';
+          }
         }
+        
+        // Close modal when clicking the X
+        closeModal.addEventListener('click', function() {
+          dateRestrictionModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+          if (event.target === dateRestrictionModal) {
+            dateRestrictionModal.style.display = 'none';
+          }
+        });
+        
+        // Quantity calculation logic
+        document.getElementById('quantity')?.addEventListener('input', function() {
+          const quantity = parseInt(this.value) || 0;
+          const unitPrice = 1650;
+          const totalPriceInput = document.getElementById('totalPrice');
+          if (totalPriceInput) {
+            totalPriceInput.value = quantity * unitPrice;
+          }
+        });
       });

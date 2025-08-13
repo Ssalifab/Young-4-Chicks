@@ -81,39 +81,7 @@ router.get('/salesList', async (req, res) => {
         res.status(400).send('Unable to retrieve sales from database')
     }
 })
-// router.get('/salesList', async (req, res) => {
-//     try {
-//         const sales = await Sale.find()
-//             .sort({ $natural: -1 })
-//             .populate({
-//                 path: 'user',
-//                 select: 'firstName lastName'
-//             })
-//             .populate({
-//                 path: 'farmer',
-//                 select: 'firstName lastName nin role',
-//                 match: { role: 'farmer' } // Ensure only farmers are populated
-//             });
 
-//         // Get distinct lists if needed elsewhere in your template
-//         const users = await User.find().select('firstName lastName');
-//         const farmers = await User.find({ role: 'farmer' }).select('firstName lastName nin');
-
-//         res.render('salesList', { 
-//             sales,
-//             farmers,
-//             users,
-//             helpers: {
-//                 getFarmerName: (farmer) => {
-//                     return farmer ? `${farmer.firstName} ${farmer.lastName}` : 'Unknown Farmer';
-//                 }
-//             }
-//         });
-//     } catch (error) {
-//         console.error('Sales list error:', error);
-//         res.status(500).render('error', { message: 'Failed to load sales data' });
-//     }
-// });
 
 //Updating sales get route
 
@@ -261,10 +229,148 @@ router.post('/deleteStock', async (req, res) => {
     }
 })
 
+//Requests on Management dashboard routes
+router.get('/requests', ensureAuthenticated, ensureManager, async (req, res) => {
+    try {
+        const requests = await Requests.find().populate("user", "firstName lastName")
+        res.render('requestsList', { requests })
+    } catch (error) {
+        res.status(400).send('Unable to retrieve requests from database')
+    }
+});
 
 
+//Approve request
+router.get('/approveRequest/:id', ensureAuthenticated, ensureManager, async (req, res) => {
+    try {
+        const requests = await Requests.findById(req.params.id).populate("user");
+        if (!requests) {
+            req.flash('error', 'Request not found');
+            return res.redirect('/stock');
+        }
+        //check stock
+        const stock = await Stock.findOne({ 
+            category: requests.category,
+            type: requests.type
+        });
+        if (!stock|| stock.quantity === 0) {
+            req.flash('error', 'Stock not found');
+            return res.redirect('/stock');
+        }
+        if (stock.quantity < requests.quantity) {
+            req.flash('error', 'Not enough stock');
+            return res.redirect('/stock');
+        }
+        //update stock
+        stock.quantity -= requests.quantity;
+        await stock.save();
 
+        //update request
+        requests.status = 'approved';
+        requests.approvedAt = Date.now();
+        await requests.save();
 
+        req.flash('success', 'Request approved successfully');
+        //redirect
+        res.redirect('/stock');
+    } catch (error) {
+        console.error(error.message);
+        req.flash('error', 'Error approving request');
+        res.redirect('/stock');
+    }
+})
+
+//Post
+router.post('/approveRequest/:id', ensureAuthenticated, ensureManager, async (req, res) => {
+    try {
+        const requests = await Requests.findById(req.params.id).populate("user");
+        if (!requests) {
+            req.flash('error', 'Request not found');
+            return res.redirect('/stock');
+        }
+        //check stock
+        const stock = await Stock.findOne({ 
+            category: requests.category,
+            type: requests.type
+        });
+        if (!stock|| stock.quantity === 0) {
+            req.flash('error', 'Stock not found');
+            return res.redirect('/stock');
+        }
+        if (stock.quantity < requests.quantity) {
+            req.flash('error', 'Not enough stock');
+            return res.redirect('/stock');
+        }
+        //update stock
+        stock.quantity -= requests.quantity;
+        await stock.save();
+
+        //update request
+        requests.status = 'approved';
+        requests.approvedAt = Date.now();
+        await requests.save();
+
+        req.flash('success', 'Request approved successfully');
+        //redirect
+        res.redirect('/stock');
+    } catch (error) {
+        console.error(error.message);
+        req.flash('error', 'Error approving request');
+        res.redirect('/stock');
+    }
+})
+
+//delete request
+router.post('/deleteRequest/:id', async (req, res) => {
+    try {
+        await Requests.deleteOne({ _id: req.params.id });
+        req.flash('success', 'Deleted successfully');
+        res.redirect('/stock');
+    } catch (error) {
+        req.flash('error', 'Delete failed: ' + error.message);
+        res.redirect('/stock');
+    }
+});
+
+//reject request
+router.get('/rejectRequest/:id', async (req, res) => {
+    try {
+        const requests = await Requests.findById(req.params.id).populate("user");
+        if (!requests) {
+            req.flash('error', 'Request not found');
+            return res.redirect('/stock');
+        }
+        //update request
+        requests.status = 'rejected';
+        requests.rejectedAt = Date.now();
+        await requests.save();
+        req.flash('success', 'Rejected successfully');
+        res.redirect('/stock');
+    } catch (error) {
+        req.flash('error', 'Delete failed: ' + error.message);
+        res.redirect('/stock');
+    }
+});
+
+//post 
+router.post('/rejectRequest/:id', async (req, res) => {
+    try {
+        const requests = await Requests.findById(req.params.id).populate("user");
+        if (!requests) {
+            req.flash('error', 'Request not found');
+            return res.redirect('/stock');
+        }
+        //update request
+        requests.status = 'rejected';
+        requests.rejectedAt = Date.now();
+        await requests.save();
+        req.flash('success', 'Rejected successfully');
+        res.redirect('/stock');
+    } catch (error) {
+        req.flash('error', 'Delete failed: ' + error.message);
+        res.redirect('/stock');
+    }
+});
 
 //Feeds on Management dashboard routes
 router.get('/feeds', ensureAuthenticated, ensureManager, async (req, res) => {

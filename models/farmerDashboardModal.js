@@ -36,9 +36,10 @@ const requestSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "approved","dispatched","canceled"],
+        enum: ["pending", "approved","dispatched","rejected","canceled"],
         default: "pending"
     },
-    approvedDate: Date
+    approvedDate: Date,
+    rejectedAt: Date
 });
 module.exports = mongoose.model("request", requestSchema);
