@@ -74,10 +74,10 @@ block content
           h2.mt-2 Welcome,
           h2.mt-2.ml-3.Welcome-h5User #{farmerName}
           .col
-          button#newFeedRequestButton.btn.btn-info.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myFeedRequestsModal')
+          a#newFeedRequestButton.btn.btn-info.dashboard-button.mt-1.d-flex.align-items-center.justify-content-center(href='/feedRequest')
             i.fa-solid.fa-phone
-            |  New Feeds Request
-          button#newRequestButton.btn.btn-success.dashboard-button.mt-1(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
+            | New Feeds Request
+          button#newRequestButton.btn.btn-success.dashboard-button.mt-1.d-flex.align-items-center.justify-content-center(data-bs-toggle='modal' data-bs-target='#myRequestsModal')
             i.fa-solid.fa-phone
             |  New Chick Request
         .col-12.d-flex.justify-content-between
@@ -145,6 +145,42 @@ block content
                         td #{request.totalPrice}
                         td #{moment(request.dateUpdated).format("DD-MM-YYYY")}
                         th #{request.status}
+    //- .container.dashboard-box
+    //-   .row.dashboard-box
+    //-     .col-lg-12.col-md-12.col-sm-12.dashboard-box.back_color
+    //-       .card
+    //-         .card-header.d-flex.justify-content-between.align-items-center
+    //-           h5.mb-1
+    //-             | My Feeds Requests 
+    //-             i.fa-solid.fa-phone
+    //-         .card-body
+    //-           table#myFeedsRequestsTable.table.table-striped.table-h6-font.justify-content-between
+    //-             thead
+    //-               tr
+    //-                 th Feeds Name
+    //-                 th Feed Type
+    //-                 th Target Age
+    //-                 th Brand
+    //-                 th Quantity
+    //-                 th Total Price
+    //-                 th Request Date
+    //-                 th Status
+    //-             tbody
+    //-               if feedRequests && feedRequests.length > 0
+    //-                 each request in feedRequests 
+    //-                   tr
+    //-                     td = request.feedName || 'N/A'
+    //-                     td = request.feedType || 'N/A'
+    //-                     td = request.targetAge || 'N/A'
+    //-                     td = request.brand || 'N/A'
+    //-                     td = request.qty ? request.qty.toLocaleString() : 'N/A'
+    //-                     td = request.unitPrice ? `$${request.unitPrice.toFixed(2)}` : 'N/A'
+    //-                     td = request.totalPrice ? `$${request.totalPrice.toFixed(2)}` : 'N/A'
+    //-                     td = request.date ? moment(request.date).format('MMM DD, YYYY') : 'N/A'
+    //-                     th = request.status || 'N/A'
+    //-               else
+    //-                 tr
+    //-                   td(colspan='8') You have no feed requests
 
     // New Request Modal
     #myRequestsModal.modal.fade(tabindex='-1' aria-labelledby='myRequestsModalLabel' aria-hidden='true')
@@ -193,7 +229,7 @@ block content
                   i.fa-solid.fa-ban
                   |  Cancel
               button.btn.btn-success.me-2(type='submit')
-                i.fa-solid.fa-plus
+                i.fas.fa-paper-plane
                 |  Submit Request
               p#errorMsg.text-danger
     // New Feed Request Modal

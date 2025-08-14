@@ -4,6 +4,9 @@ const request = require("../models/farmerDashboardModal");
 const {ensureAuthenticated, ensureFarmer} = require("../middleware/authMiddleware");
 const User = require("../models/signupModal");
 const Stock = require("../models/managerDashboardModal");
+const Sale = require("../models/salesDashboardModal");
+const Feed = require("../models/feedsModal");
+const FeedRequest = require("../models/feedsRequestModal");
 
 //Farmer dashboard get route
 router.get('/farmer', ensureAuthenticated, ensureFarmer, async(req, res) => {
@@ -59,10 +62,65 @@ router.post('/farmer', async (req, res) => {
         res.status(400).render('farmerDashboard'); //pass the pug file as a parameter
     }
 
-   
+});
+
+// Get all feed requests for the farmer
+router.get('/feedRequest', ensureAuthenticated, ensureFarmer, async (req, res) => {
+  try {
+    const users = await User.find();
+    const farmerName = req.session.user.firstName + " " + req.session.user.lastName;
+    const farmerType = req.session.user.farmerType;
+    const feedRequests = await FeedRequest.find({ user: req.user._id })
+      .sort({ createdAt: -1 })
+      .lean();
+    console.log("These are my feed requests so far:", feedRequests);
+    res.render('feedRequest', {
+      farmerName: `${req.user.firstName} ${req.user.lastName}`,
+      farmerType: req.user.farmerType,
+      feedRequests,
+      messages: req.flash()
+    });
+  } catch (error) {
+    console.error('Error fetching feed requests:', error);
+    req.flash('error', 'Failed to load feed requests');
+    res.redirect('/farmer');
+  }
+});
 
 
+// Create new feed request
+router.post('/feedRequest', ensureAuthenticated, ensureFarmer, async (req, res) => {
+  try {
+    const { feedName, feedType, targetAge, brand, qty, unitPrice, dateRequested } = req.body;
+    
+    // Basic validation
+    if (!feedName || !feedType || !targetAge || !brand || !qty || !unitPrice) {
+      req.flash('error', 'Please fill all required fields');
+      return res.redirect('/feedRequest');
+    }
 
+    const newRequest = new FeedRequest({
+      user: req.user._id,
+      feedName,
+      feedType,
+      targetAge,
+      brand,
+      qty: parseInt(qty),
+      unitPrice: parseFloat(unitPrice),
+      expiryDate: new Date(new Date(dateRequested).setFullYear(new Date(dateRequested).getFullYear() + 1)),
+      dateRequested
+    });
+
+    await newRequest.save();
+    
+    req.flash('success', 'Feed request submitted successfully');
+    res.redirect('/feedRequest');
+    
+  } catch (error) {
+    console.error('Error creating feed request:', error);
+    req.flash('error', 'Failed to submit feed request. Please try again.');
+    res.redirect('/feedRequest');
+  }
 });
 
 module.exports = router;

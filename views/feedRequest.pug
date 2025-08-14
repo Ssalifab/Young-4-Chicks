@@ -1,0 +1,167 @@
+extends layout
+
+block content
+  .container-fluid.chicks
+    .row
+      .col-md-2.mt-2
+        a.btn.btn-success.btn-block(href="/farmer") Back to Dashboard
+      
+      .col-md-8
+        .card.mt-1
+          .card-header.bg-success.text-white
+            h4 Make Feed Request
+          
+          .card-body
+            if messages.error
+              .alert.alert-danger= messages.error
+            if messages.success
+              .alert.alert-success= messages.success
+            
+            form#feedRequestForm(method='POST' action='/feedRequest')
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='feedName') Feed Name
+                    select#feedsName.form-control(name='feedName' required)
+                      option(value='') --Select feed name--
+                      option(value='starter') Starter Feed
+                      option(value='grower') Grower Feed
+                      option(value='finisher') Finisher Feed
+                
+                .col-md-6
+                  .form-group
+                    label(for='feedType') Feed Type
+                    select#feedType.form-control(name='feedType' required)
+                      option(value='') --Select feed type--
+                      option(value='mash') Mash
+                      option(value='crumble') Crumble
+                      option(value='pellet') Pellet
+              
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='targetAge') Target Age
+                    select#targetAge.form-control(name='targetAge' required)
+                      option(value='') --Select target age--
+                      option(value='oneToSeven') Day 1-7
+                      option(value='eightToFourteen') Day 8-14
+                      option(value='fifteenToThirty') Day 15-30
+                
+                .col-md-6
+                  .form-group
+                    label(for='brand') Brand
+                    select#brand.form-control(name='brand' required)
+                      option(value='') --Select brand--
+                      option(value='ugachick') UgaChick
+                      option(value='nuvita') Nuvita 
+                      option(value='farmersChoice') Farmers Choice
+                      option(value='kukuFeed') Kuku feed
+              
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='qty') Quantity (100 kg bags)
+                    input#qty.form-control(
+                      name='qty' 
+                      type='number' 
+                      min='1' 
+                      max='2' 
+                      required
+                      placeholder='Enter number of bags'
+                    )
+                    small.form-text.text-muted Maximum: 2 Bags
+                
+                .col-md-6
+                  .form-group
+                    label(for='unitPrice') Unit Price (UGX)
+                    input#unitPrice.form-control(
+                      name='unitPrice' 
+                      type='number' 
+                      step='0.01' 
+                      min='0' 
+                      required
+                      value= 185000
+                      readonly 
+                    )
+              
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='dateRequested') Request Date
+                    input#dateRequested.form-control(
+                      name='dateRequested' 
+                      type='date' 
+                      required
+                      value=new Date().toISOString().split('T')[0]
+                    )
+              
+              .form-group.text-center.mt-4
+                button.btn.btn-danger.mr-3(type='button' onclick="window.location.href='/farmer'")
+                  i.fas.fa-ban
+                  |  Cancel
+                button.btn.btn-success(type='submit')
+                  i.fas.fa-paper-plane
+                  |  Submit Request
+
+    .row.mt-4
+      .col-12
+        .card
+          .card-header.bg-primary.d-flex.justify-content-between.align-items-center
+            h5.mb-0
+              i.fas.fa-list-alt.mr-2
+              | My Feed Requests
+          .card-body
+            table#myFeedsRequestsTable.table.table-striped.table-bordered
+              thead.bg-light
+                tr
+                  th Feed Name
+                  th Feed Type
+                  th Target Age
+                  th Brand
+                  th Quantity
+                  th Unit Price
+                  th Total Price
+                  th Request Date
+                  th Status
+              tbody
+                if feedRequests && feedRequests.length > 0
+                  each request in feedRequests
+                    tr
+                      td= request.feedName || 'N/A'
+                      td= request.feedType || 'N/A'
+                      td= request.targetAge || 'N/A'
+                      td= request.brand || 'N/A'
+                      td= request.qty ? request.qty.toLocaleString() : 'N/A'
+                      td= request.unitPrice ? `UGX ${request.unitPrice.toLocaleString()}` : 'N/A'
+                      td= request.totalPrice ? `UGX ${request.totalPrice.toLocaleString()}` : 'N/A'
+                      td= request.date ? moment(request.date).format('DD/MM/YYYY') : 'N/A'
+                      td
+                        span.badge(class={
+                          'badge-warning': request.status === 'pending',
+                          'badge-success': request.status === 'approved',
+                          'badge-info': request.status === 'dispatched',
+                          'badge-danger': request.status === 'rejected'
+                        })= request.status || 'N/A'
+                else
+                  tr
+                    td.text-center(colspan='9')
+                      .alert.alert-info.mb-0
+                        i.fas.fa-info-circle.mr-2
+                        | No feed requests found
+
+  script.
+    document.getElementById('feedRequestForm').addEventListener('submit', function(e) {
+      const qty = document.getElementById('qty');
+      if (qty.value < 1 || qty.value > 2) {
+        e.preventDefault();
+        alert('Quantity must be between 1 and 2 bags');
+        qty.focus();
+      }
+      
+      // Calculate total price 
+      const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
+      const quantity = parseInt(qty.value) || 0;
+      const totalPrice = unitPrice * quantity;
+      
+      
+    });
