@@ -68,7 +68,7 @@ router.post('/sales', ensureAuthenticated, ensureSalesRep, async (req, res) => {
 
 
 //List of sales in Database
-router.get('/salesList', async (req, res) => {
+router.get('/salesList', ensureAuthenticated, ensureSalesRep, async (req, res) => {
     try {
         const users = await User.find();
         const farmers = await User.find({ role: 'farmer' });
@@ -195,7 +195,7 @@ router.get('/stock', ensureAuthenticated, ensureManager, async (req, res) => {
 });
 
 //Stock Management dashboard post route
-router.post('/stock', async (req, res) => {
+router.post('/stock', ensureAuthenticated, ensureManager, async (req, res) => {
     try {
         console.log(req.body);
         const newStock = new Stock(req.body);
@@ -209,7 +209,7 @@ router.post('/stock', async (req, res) => {
 });
 
 //List of stock in Database
-router.get('/stockList', async (req, res) => {
+router.get('/stockList', ensureAuthenticated, ensureManager, async (req, res) => {
     try {
         let stocks = await Stock.find().sort({ $natural: -1 });
         res.render('stockList', { stocks })
@@ -415,7 +415,7 @@ router.post('/feeds', async (req, res) => {
 });
 
 //List of feeds in Database
-router.get('/feedsList', async (req, res) => {
+router.get('/feedsList', ensureAuthenticated, ensureManager, async (req, res) => {
     try {
         let feeds = await Feed.find().sort({ $natural: -1 });
         res.render('feedsDashboard', { feeds })

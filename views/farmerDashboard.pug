@@ -134,7 +134,7 @@ block content
                     th Request Date
                     th Status
                 tbody
-                  if requests.length
+                  if (requests && requests.length >0)
                     each request in requests 
                       tr
                         td #{request.farmerType}
@@ -145,6 +145,9 @@ block content
                         td #{request.totalPrice}
                         td #{moment(request.dateUpdated).format("DD-MM-YYYY")}
                         th #{request.status}
+                  else
+                    tr
+                      td(colspan='8') You have no chick requests
     //- .container.dashboard-box
     //-   .row.dashboard-box
     //-     .col-lg-12.col-md-12.col-sm-12.dashboard-box.back_color
@@ -201,19 +204,19 @@ block content
                   label.form-check-label(for='returning') Returning Farmer (Max 500 Chicks)
               .form-group
                 label(for='chickType') Type
-                select#chickType.form-control(name='chickType')
+                select#chickType.form-control(name='chickType' required)
                   option(value='') --Select chick type--
                   option(value='layer') Layer
                   option(value='broiler') Broiler
               .form-group
                 label(for='breed') Breed
-                select#breed.form-control(name='breed')
+                select#breed.form-control(name='breed' required)
                   option(value='') --Select breed--
                   option(value='local') Local
                   option(value='exotic') Exotic
               .form-group
                 label(for='quantity') Quantity
-                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' min='1' max=isStarter ? '100' : '500')
+                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' min='1' max=isStarter ? '100' : '500' required)
                 small.form-text-muted Maximum: #{isStarter ? '100' : '500'} Chicks 
               .form-group
                 label(for='unitPrice') Unit Price (UGx)
@@ -223,7 +226,7 @@ block content
                 input#totalPrice.form-control(name='totalPrice' type='number' readonly)  
               .form-group
                 label(for='dateUpdated') Date Updated
-                input#dateUpdated.form-control(name='dateUpdated' type='date')
+                input#dateUpdated.form-control(name='dateUpdated' type='date' required)
               a(href='/farmer')
                 button.btn.btn-light(type='button' style='width: 200px;')
                   i.fa-solid.fa-ban

@@ -281,13 +281,13 @@ block content
                         form#addStockForm(ation='/stock' method='POST')
                             .form-group
                                 label(for='chickType') Type
-                                select#chickType.form-control(name='chickType')
+                                select#chickType.form-control(name='chickType' required)
                                     option(value='') --Select chick type--
                                     option(value='layer') Layer
                                     option(value='broiler') Broiler
                             .form-group
                                 label(for='breed') Breed
-                                select#breed.form-control(name='breed')
+                                select#breed.form-control(name='breed' required)
                                     option(value='') --Select breed--
                                     option(value='local') Local
                                     option(value='exotic') Exotic
@@ -302,13 +302,13 @@ block content
                                 </div>
                             .form-group
                                 label(for='quantity') Quantity
-                                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--')
+                                input#quantity.form-control(name='quantity' type='number' placeholder='--Enter number of chicks--' required)
                             .form-group
                                 label(for='age') Age (days)
                                 input#age.form-control(name='age' type='number' placeholder='--Enter chicks age in days--')
                             .form-group
                                 label(for='dateUpdated') Date Updated
-                                input#dateUpdated.form-control(name='dateUpdated' type='date')
+                                input#dateUpdated.form-control(name='dateUpdated' type='date' required)
                             a(href='/views/managerDashboard.html')
                                 button.btn.btn-light(type='button' style='width: 200px;')
                                     i.fa-solid.fa-ban

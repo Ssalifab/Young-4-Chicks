@@ -134,7 +134,7 @@ block content
                       td= request.qty ? request.qty.toLocaleString() : 'N/A'
                       td= request.unitPrice ? `UGX ${request.unitPrice.toLocaleString()}` : 'N/A'
                       td= request.totalPrice ? `UGX ${request.totalPrice.toLocaleString()}` : 'N/A'
-                      td= request.date ? moment(request.date).format('DD/MM/YYYY') : 'N/A'
+                      td= request.dateRequested ? moment(request.dateRequested).format('DD/MM/YYYY') : 'N/A'
                       td
                         span.badge(class={
                           'badge-warning': request.status === 'pending',

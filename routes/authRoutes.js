@@ -15,6 +15,7 @@ router.post('/signup', async (req, res) => {
         let existingUser = await User.findOne({email: req.body.email});
         if(existingUser){
             return res.status(400).send('Email already exixts on platform');
+            res.redirect('/signup');    
         } else{
             await User.register(user, req.body.password, (err)=>{
                 if (err){
